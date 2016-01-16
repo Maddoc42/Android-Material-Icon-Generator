@@ -149,7 +149,7 @@ $(document).ready(function() {
     base.strokeWidth = 0;
 
 
-    paper.project.importSVG('/example_no_eyes.svg', {
+    paper.project.importSVG('example_no_eyes.svg', {
             onLoad: function (loadedItem) {
 
                 var paths = loadedItem.children[0].children;

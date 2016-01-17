@@ -1,2 +1,5 @@
 .idea
 *.swp
+node_modules
+public
+*.log

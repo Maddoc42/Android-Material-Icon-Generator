@@ -1,0 +1,25 @@
+{
+  "name": "MaterialIconDroid",
+  "description": "Android Material Icon Generator",
+  "author": "Philipp Eichhorn",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Maddoc42/MaterialIconsGenerator"
+  },
+  "license": "Apache-2.0",
+  "scripts": {
+    "start": "brunch watch --server",
+    "clean": "rm -r public/*",
+    "deploy": "brunch build --production; git subtree push --prefix public origin gh-pages"
+  },
+  "dependencies": {
+    "auto-reload-brunch": ">= 1.0 < 1.9",
+    "babel": "^6.3.26",
+    "babel-brunch": "^6.0.0",
+    "clean-css-brunch": ">= 1.0 < 1.9",
+    "css-brunch": ">= 1.0 < 1.9",
+    "javascript-brunch": ">= 1.0 < 1.9",
+    "uglify-js-brunch": ">= 1.0 < 1.9"
+  }
+}

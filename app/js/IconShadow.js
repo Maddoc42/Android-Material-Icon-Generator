@@ -2,9 +2,7 @@
 
 let paper = require('js/paper-core.min');
 
-const
-    SHADOW_OFFSET = 4,
-    SHADOW_ITERATIONS = 50;
+const SHADOW_ITERATIONS = 50;
 
 
 class IconShadow {
@@ -20,36 +18,39 @@ class IconShadow {
 
 
     calculateShadow() {
-        this.iconShadowPath = this.iconPath.clone();
-
+        var iconShadowPath = this.iconPath.clone();
         var iconPathCopy = this.iconPath.clone();
-        var translation = new paper.Point(SHADOW_OFFSET, SHADOW_OFFSET);
+
+        // calculate translation such that icon is at least moved (iconDiagonal, iconDiagonal) to bottom right
+        var iconPathDiagonal = Math.sqrt(Math.pow(Math.max(this.iconPath.bounds.width, this.iconPath.bounds.height), 2) * 2);
+        var shadowOffset = iconPathDiagonal / SHADOW_ITERATIONS;
+        var translation = new paper.Point(shadowOffset, shadowOffset);
 
         // create + translate + unite copies of shadow
         for (var i = 1; i <= SHADOW_ITERATIONS; ++i) {
             iconPathCopy.translate(translation);
-            var newShadowPath = this.iconShadowPath.unite(iconPathCopy);
-            this.iconShadowPath.remove();
-            this.iconShadowPath = newShadowPath;
+            var newShadowPath = iconShadowPath.unite(iconPathCopy);
+            iconShadowPath.remove();
+            iconShadowPath = newShadowPath;
         }
         iconPathCopy.remove();
 
         // convert CompoundPath to regular Path
-        newShadowPath = new paper.Path(this.iconShadowPath.pathData);
-        this.iconShadowPath.remove();
-        this.iconShadowPath = newShadowPath;
+        newShadowPath = new paper.Path(iconShadowPath.pathData);
+        iconShadowPath.remove();
+        iconShadowPath = newShadowPath;
 
         // create 'nicer' shadow path
-        this.simplifyShadowPath();
+        this.simplifyShadowPath(iconShadowPath, shadowOffset);
 
         // cut shadow to base
         var basePath = this.iconBase.getPathWithoutShadows().clone();
-        newShadowPath = this.iconShadowPath.intersect(basePath);
-        this.iconShadowPath.remove();
-        this.iconShadowPath = newShadowPath;
+        newShadowPath = iconShadowPath.intersect(basePath);
+        iconShadowPath.remove();
+        iconShadowPath = newShadowPath;
 
         // shadow color
-        this.iconShadowPath.fillColor = {
+        iconShadowPath.fillColor = {
             gradient: {
                 stops:  [
                     [new paper.Color(0, 0, 0, 0.3), 0.1],
@@ -61,7 +62,8 @@ class IconShadow {
         };
 
         // move shadow below icon
-        this.iconShadowPath.moveBelow(this.iconPath);
+        iconShadowPath.moveBelow(this.iconPath);
+        this.iconShadowPath = iconShadowPath;
     }
 
 
@@ -81,11 +83,9 @@ class IconShadow {
      *
      *     o
      */
-    simplifyShadowPath() {
-        console.log(this.iconShadowPath);
-
-        var offsetDistance = Math.round(100 * Math.sqrt(SHADOW_OFFSET * SHADOW_OFFSET * 2)) / 100;
-        var doubleOffsetDistance = Math.round(100 * Math.sqrt(SHADOW_OFFSET * SHADOW_OFFSET * 2) * 2) / 100;
+    simplifyShadowPath(iconShadowPath, shadowOffset) {
+        var offsetDistance = Math.round(100 * Math.sqrt(shadowOffset * shadowOffset * 2)) / 100;
+        var doubleOffsetDistance = Math.round(100 * Math.sqrt(shadowOffset * shadowOffset * 2) * 2) / 100;
         var secondLastPoint;
         var lastPoint;
 
@@ -94,8 +94,8 @@ class IconShadow {
         var indicesToRemove = [];
 
         // iterate over all path points and find 'close' pairs (distance equal to the offset used for creating the shadow)
-        for (var i = 0; i < this.iconShadowPath.segments.length; ++i) {
-            var point = this.iconShadowPath.segments[i].point;
+        for (var i = 0; i < iconShadowPath.segments.length; ++i) {
+            var point = iconShadowPath.segments[i].point;
             if (secondLastPoint) {
                 var distance = Math.round(100 * point.getDistance(secondLastPoint)) / 100;
                 if (distance === offsetDistance || distance === doubleOffsetDistance) {
@@ -123,9 +123,8 @@ class IconShadow {
         // actually remove indices from iconShadowPath
         indicesToRemove.reverse();
         for (i = 0; i < indicesToRemove.length; ++i) {
-            this.iconShadowPath.removeSegment(indicesToRemove[i]);
+            iconShadowPath.removeSegment(indicesToRemove[i]);
         }
-        // console.log(this.iconShadowPath.pathData);
     }
 
 }

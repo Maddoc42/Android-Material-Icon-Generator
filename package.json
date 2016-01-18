@@ -11,7 +11,7 @@
   "scripts": {
     "start": "brunch watch --server",
     "clean": "rm -r public/*",
-    "deploy": "brunch build --production; git subtree push --prefix public origin gh-pages"
+    "deploy": "./deploy.sh"
   },
   "dependencies": {
     "auto-reload-brunch": ">= 1.0 < 1.9",

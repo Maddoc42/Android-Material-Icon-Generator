@@ -8,7 +8,7 @@ version=`grep -Po '"'"version"'"\s*:\s*"\K([^"]*)' package.json`
 rm -rf $repoDir
 
 # clone repo
-git clone git@github.com:Maddoc42/MaterialIconsGenerator.git $repoDir
+git clone -b gh-pages git@github.com:Maddoc42/MaterialIconsGenerator.git $repoDir
 echo
 
 # build project

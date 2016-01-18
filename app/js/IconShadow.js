@@ -68,6 +68,14 @@ class IconShadow {
 
 
     /**
+     * @param scale factor to scale this shadow by
+     */
+    scale(scale) {
+        this.iconShadowPath.scale(scale, this.iconPath.position);
+    }
+
+
+    /**
      * Simplifies the path of a shadow by searching for unnecessary points which were created
      * while shifting the original icon path.
      *

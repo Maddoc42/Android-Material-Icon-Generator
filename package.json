@@ -20,6 +20,7 @@
     "clean-css-brunch": ">= 1.0 < 1.9",
     "css-brunch": ">= 1.0 < 1.9",
     "javascript-brunch": ">= 1.0 < 1.9",
+    "sass-brunch": "^1.9.2",
     "uglify-js-brunch": ">= 1.0 < 1.9"
   }
 }

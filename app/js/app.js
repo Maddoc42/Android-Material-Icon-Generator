@@ -1,6 +1,7 @@
-"use strict";
+'use strict';
 
-var paper = require('js/paper-core.min');
+let IconBase = require('js/IconBase'),
+    paper = require('js/paper-core.min');
 
 const
     SHADOW_OFFSET = 4,
@@ -68,47 +69,10 @@ var App = {
         paper.setup(canvas[0]);
 
         var center = new paper.Point(250, 250);
-
         var baseRadius = 200;
-        var baseShadowRadius1 = baseRadius + 15;
-        var baseShadowRadius2 = baseRadius + 10;
+        var baseColor = '#512DA8';
 
-        var baseShadow1 = new paper.Path.Circle({
-            center: center.add(new paper.Point(0, 10)),
-            radius: baseShadowRadius1
-        });
-
-        baseShadow1.fillColor = {
-            gradient: {
-                stops: [[ new paper.Color(0, 0, 0, 0.21), baseRadius / baseShadowRadius1], [ new paper.Color(0,0,0,0), 1]],
-                radial: true
-            },
-            origin: baseShadow1.position,
-            destination: baseShadow1.bounds.rightCenter
-        };
-
-
-        var baseShadow2 = new paper.Path.Circle({
-            center: center.add(new paper.Point(0, 5)),
-            radius: baseShadowRadius2
-        });
-        baseShadow2.fillColor = {
-            gradient: {
-                stops: [[ new paper.Color(0, 0, 0, 0.05), baseRadius / baseShadowRadius2], [ new paper.Color(0,0,0,0), 1]],
-                radial: true
-            },
-            origin: baseShadow2.position,
-            destination: baseShadow2.bounds.rightCenter
-        };
-
-
-
-        var base = new paper.Path.Circle({
-            center: center,
-            radius: baseRadius
-        });
-        base.fillColor = '#512DA8';
-        base.strokeWidth = 0;
+        var iconBase = new IconBase(center, baseRadius, baseColor);
 
 
         paper.project.importSVG('example_no_eyes.svg', {
@@ -136,7 +100,7 @@ var App = {
                     iconShadow.remove();
                     iconShadow = newShadow;
                     this.simplifyPath(iconShadow);
-                    var baseClone = base.clone();
+                    var baseClone = iconBase.getShapeWithoutShadows().clone();
                     newShadow = iconShadow.intersect(baseClone);
                     iconShadow.remove();
                     iconShadow = newShadow;
@@ -150,8 +114,8 @@ var App = {
                                 [new paper.Color(0, 0, 0, 0), 0.8]
                             ]
                         },
-                        origin: base.bounds.topLeft,
-                        destination: base.bounds.bottomRight
+                        origin: baseClone.bounds.topLeft,
+                        destination: baseClone.bounds.bottomRight
                     };
                     iconShadow.moveBelow(icon);
                 }.bind(this),

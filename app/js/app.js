@@ -100,7 +100,7 @@ var App = {
                     iconShadow.remove();
                     iconShadow = newShadow;
                     this.simplifyPath(iconShadow);
-                    var baseClone = iconBase.getShapeWithoutShadows().clone();
+                    var baseClone = iconBase.getBasePathWithoutShadows().clone();
                     newShadow = iconShadow.intersect(baseClone);
                     iconShadow.remove();
                     iconShadow = newShadow;

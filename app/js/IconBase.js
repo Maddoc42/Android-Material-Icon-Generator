@@ -1,10 +1,10 @@
 'use strict';
 
 let paper = require('js/paper-core.min'),
-    Shadow = require('js/IconBaseShadow');
+    IconBaseShadow = require('js/IconBaseShadow');
 
 
-class IconBackground {
+class IconBase {
 
     /**
      * @param center of the icon base relative to the underlying canvas
@@ -12,31 +12,31 @@ class IconBackground {
      * @param color of the icon base
      */
     constructor(center, radius, color) {
-        this.lightShadow = new Shadow(center, radius, radius * 1.075, 0.21);
-        this.darkShadow = new Shadow(center, radius, radius * 1.05, 0.05);
+        this.lightShadow = new IconBaseShadow(center, radius, radius * 1.075, 0.21);
+        this.darkShadow = new IconBaseShadow(center, radius, radius * 1.05, 0.05);
 
-        this.base = new paper.Path.Circle({
+        this.basePath = new paper.Path.Circle({
             center: center,
             radius: radius
         });
-        this.base.fillColor = color;
-        this.base.strokeWidth = 0;
+        this.basePath.fillColor = color;
+        this.basePath.strokeWidth = 0;
     }
 
     setColor(color) {
-        this.base.fillColor = color;
+        this.basePath.fillColor = color;
     }
 
     setCenter(center) {
-        this.base.center = center;
+        this.basePath.center = center;
         this.lightShadow.setCenter(center);
         this.darkShadow.setCenter(center);
     }
 
-    getShapeWithoutShadows() {
-        return this.base;
+    getBasePathWithoutShadows() {
+        return this.basePath;
     }
 
 }
 
-module.exports = IconBackground;
+module.exports = IconBase;

@@ -3,7 +3,7 @@
 var paper = require('js/paper-core.min');
 
 
-class IconBackgroundShadow {
+class IconBaseShadow {
 
     /**
      * @param center of this background relative to the underlying canvas
@@ -13,26 +13,26 @@ class IconBackgroundShadow {
      */
     constructor(center, baseRadius, shadowRadius, shadowAlpha) {
         // shadow object
-        this.shadow = new paper.Path.Circle({
+        this.shadowPath = new paper.Path.Circle({
             center: center,
             radius: shadowRadius
         });
 
         // shadow fill color
-        this.shadow.fillColor = {
+        this.shadowPath.fillColor = {
             gradient: {
                 stops: [[new paper.Color(0, 0, 0, shadowAlpha), baseRadius / shadowRadius], [new paper.Color(0, 0, 0, 0), 1]],
                 radial: true
             },
-            origin: this.shadow.position,
-            destination: this.shadow.bounds.rightCenter
+            origin: this.shadowPath.position,
+            destination: this.shadowPath.bounds.rightCenter
         }
     }
 
     setCenter(center) {
-        this.shadow.center = center;
+        this.shadowPath.center = center;
     }
 
 }
 
-module.exports = IconBackgroundShadow;
+module.exports = IconBaseShadow;

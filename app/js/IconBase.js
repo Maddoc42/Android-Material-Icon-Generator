@@ -33,7 +33,7 @@ class IconBase {
         this.darkShadow.setCenter(center);
     }
 
-    getBasePathWithoutShadows() {
+    getPathWithoutShadows() {
         return this.basePath;
     }
 

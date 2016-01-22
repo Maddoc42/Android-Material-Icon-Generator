@@ -14,8 +14,9 @@ class IconManager {
      * @param canvas jquery canvas object
      * @param filePicker jquery input object
      * @param filePickerOverlay jquery input overlay object
+     * @param btnDownload jquery download button
      */
-    constructor(canvas, filePicker, filePickerOverlay) {
+    constructor(canvas, filePicker, filePickerOverlay, btnDownload) {
         // hide canvas and forward overlay clicks
         canvas.hide();
         filePickerOverlay.click(function() {
@@ -60,6 +61,11 @@ class IconManager {
             }.bind(this);
             fileReader.readAsDataURL(svgFile);
         }.bind(this));
+
+        // setup download
+        btnDownload.click(function() {
+            this.exportAsSvgFile();
+        }.bind(this));
     }
 
 
@@ -90,6 +96,22 @@ class IconManager {
 
                 }.bind(this)
             });
+    }
+
+
+    /**
+     * Exports the whole project as one svg file.
+     */
+    exportAsSvgFile() {
+        var svg = paper.project.exportSVG({ asString: true });
+		var data = 'data:image/svg+xml;base64,' + btoa(svg);
+		var fileName = 'icon.svg';
+
+        var anchor = $('<a href="' + data + '" download="' + fileName + '">Download</a>')
+            .css('display', 'none')
+            .appendTo('body');
+        anchor.get(0).click();
+        anchor.remove();
     }
 
 }

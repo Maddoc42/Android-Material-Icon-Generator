@@ -15,8 +15,7 @@ var App = {
 
         var canvas = $('#canvas');
         paper.setup(canvas[0]);
-        var filePicker =
-        new IconManager(canvas, $('#filePicker'), $('#filePickerOverlay'));
+        new IconManager(canvas, $('#filePicker'), $('#filePickerOverlay'), $('#btn-download-svg'));
 
         paper.view.draw();
     }

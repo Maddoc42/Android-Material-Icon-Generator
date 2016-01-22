@@ -87,8 +87,8 @@ class IconShadow {
         this.appliedIconShadowPath.fillColor = {
             gradient: {
                 stops:  [
-                    [new paper.Color(0, 0, 0, 0.3), 0.1],
-                    [new paper.Color(0, 0, 0, 0), 0.8]
+                    [new paper.Color(0, 0, 0, 0.5), 0.1],
+                    [new paper.Color(0, 0, 0, 0.2), 0.8]
                 ]
             },
             origin: basePath.bounds.topLeft,
@@ -162,8 +162,11 @@ class IconShadow {
         var indicesToRemove = [];
 
         // iterate over all path points and find 'close' pairs (distance equal to the offset used for creating the shadow)
-        for (var i = 0; i < iconShadowPath.segments.length; ++i) {
-            var point = iconShadowPath.segments[i].point;
+        var totalPoints = iconShadowPath.segments.length;
+        for (var i = 0; i < totalPoints + 3; ++i) {
+            var pointIdx = i % totalPoints;
+            var point = iconShadowPath.segments[pointIdx].point;
+
             if (secondLastPoint) {
                 var distance = Math.round(100 * point.getDistance(secondLastPoint)) / 100;
                 if (distance === offsetDistance || distance === doubleOffsetDistance) {
@@ -176,9 +179,11 @@ class IconShadow {
 
             if (endOfMatch === true && matchCount > 0) {
                 var msg = '';
-                for (var pointIdx = i - 1 - matchCount; pointIdx < i - 1; ++pointIdx) {
+                var removeCount = 0;
+                for (var removeIdx  = pointIdx - 1 - matchCount; removeIdx < pointIdx - 1; ++removeIdx) {
+                    ++removeCount;
                     msg = msg + pointIdx + ', ';
-                    indicesToRemove.push(pointIdx);
+                    indicesToRemove.push(removeIdx < 0 ? removeIdx + totalPoints : removeIdx);
                 }
                 matchCount = 0;
                 endOfMatch = true;
@@ -189,7 +194,7 @@ class IconShadow {
         }
 
         // actually remove indices from iconShadowPath
-        indicesToRemove.reverse();
+        indicesToRemove.sort(function(a, b) { return a - b; }).reverse();
         for (i = 0; i < indicesToRemove.length; ++i) {
             iconShadowPath.removeSegment(indicesToRemove[i]);
         }

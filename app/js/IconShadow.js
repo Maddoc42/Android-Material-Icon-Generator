@@ -44,7 +44,7 @@ class IconShadow {
         this.simplifyShadowPath(iconShadowPath, shadowOffset);
 
         // cut shadow to base
-        var basePath = this.iconBase.getPathWithoutShadows().clone();
+        var basePath = this.iconBase.getPathWithoutShadows();
         newShadowPath = iconShadowPath.intersect(basePath);
         iconShadowPath.remove();
         iconShadowPath = newShadowPath;

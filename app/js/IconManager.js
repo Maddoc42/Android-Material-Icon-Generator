@@ -92,7 +92,7 @@ class IconManager {
 
                     // create icon and shadow
                     this.icon = new Icon(this.center, 'white', iconPath, this.iconBase);
-                    this.icon.setSize(this.baseRadius * 2 * 0.65);
+                    this.icon.setSize(this.baseRadius * 2 * 0.60);
 
                 }.bind(this)
             });

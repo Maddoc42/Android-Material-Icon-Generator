@@ -2,7 +2,7 @@
 
 let paper = require('js/paper-core.min');
 
-const SHADOW_ITERATIONS = 50;
+const SHADOW_ITERATIONS = 100;
 
 
 class IconShadow {
@@ -42,6 +42,9 @@ class IconShadow {
         newShadowPath = new paper.Path(iconShadowPath.pathData);
         iconShadowPath.remove();
         iconShadowPath = newShadowPath;
+
+        // sometimes duplicate points are creating by converting to regular path --> remove!
+        this.removeDuplicatePoints(iconShadowPath);
 
         // create 'nicer' shadow path
         this.simplifyShadowPath(iconShadowPath, shadowOffset);
@@ -135,6 +138,27 @@ class IconShadow {
         return Math.sqrt(Math.pow(Math.max(this.iconPath.bounds.width, this.iconPath.bounds.height), 2) * 2);
     }
 
+
+    removeDuplicatePoints(iconShadowPath) {
+        var totalPoints = iconShadowPath.segments.length;
+        var previousPoint;
+        var indicesToRemove = [];
+
+        for (var i = 0; i < totalPoints + 1; ++i) {
+            var pointIdx = i % totalPoints;
+            var point = iconShadowPath.segments[pointIdx].point;
+
+            if (previousPoint) {
+                var distance = point.getDistance(previousPoint);
+                if (distance < 0.0001) indicesToRemove.push(pointIdx);
+            }
+
+            previousPoint = point;
+        }
+
+        this.removePointsByIndices(iconShadowPath, indicesToRemove);
+    }
+
     /**
      * Simplifies the path of a shadow by searching for unnecessary points which were created
      * while shifting the original icon path.
@@ -163,7 +187,9 @@ class IconShadow {
 
         // iterate over all path points and find 'close' pairs (distance equal to the offset used for creating the shadow)
         var totalPoints = iconShadowPath.segments.length;
-        for (var i = 0; i < totalPoints + 3; ++i) {
+        var totalIterCount = totalPoints + 3; // + 3 in case start point should also be removed
+
+        for (var i = 0; i < totalIterCount; ++i) {
             var pointIdx = i % totalPoints;
             var point = iconShadowPath.segments[pointIdx].point;
 
@@ -177,7 +203,7 @@ class IconShadow {
                 }
             }
 
-            if (endOfMatch === true && matchCount > 0) {
+            if ((endOfMatch === true || i === totalIterCount - 1) && matchCount > 0) {
                 var msg = '';
                 var removeCount = 0;
                 for (var removeIdx  = pointIdx - 1 - matchCount; removeIdx < pointIdx - 1; ++removeIdx) {
@@ -194,10 +220,16 @@ class IconShadow {
         }
 
         // actually remove indices from iconShadowPath
+        this.removePointsByIndices(iconShadowPath, indicesToRemove);
+    }
+
+
+    removePointsByIndices(path, indicesToRemove) {
         indicesToRemove.sort(function(a, b) { return a - b; }).reverse();
-        for (i = 0; i < indicesToRemove.length; ++i) {
-            iconShadowPath.removeSegment(indicesToRemove[i]);
+        for (var i = 0; i < indicesToRemove.length; ++i) {
+            path.removeSegment(indicesToRemove[i]);
         }
+
     }
 
 }

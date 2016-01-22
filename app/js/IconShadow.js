@@ -17,13 +17,16 @@ class IconShadow {
     }
 
 
+    /**
+     * Calculates the shadow but does not (!) apply it.
+     */
     calculateShadow() {
         var iconShadowPath = this.iconPath.clone();
         var iconPathCopy = this.iconPath.clone();
 
-        // calculate translation such that icon is at least moved (iconDiagonal, iconDiagonal) to bottom right
-        var iconPathDiagonal = Math.sqrt(Math.pow(Math.max(this.iconPath.bounds.width, this.iconPath.bounds.height), 2) * 2);
-        var shadowOffset = iconPathDiagonal / SHADOW_ITERATIONS;
+        // calculate translation such that icon is at least (!) moved (iconDiagonal, iconDiagonal) to bottom right
+        var iconPathDiagonal = this.getIconPathDiagonal();
+        var shadowOffset = iconPathDiagonal * 1.1 / SHADOW_ITERATIONS;
         var translation = new paper.Point(shadowOffset, shadowOffset);
 
         // create + translate + unite copies of shadow
@@ -46,7 +49,7 @@ class IconShadow {
         // store original shadow and apply
         iconShadowPath.visible = false;
         this.iconShadowPath = iconShadowPath;
-        this.applyShadow();
+        this.assertLongShadow();
     }
 
 
@@ -96,6 +99,41 @@ class IconShadow {
         this.appliedIconShadowPath.moveBelow(this.iconPath);
     }
 
+
+    /**
+     * Asserts that the template shadow is very (!) long such that
+     * its bottom right edge will never show when moving / scaling the shadow.
+     */
+    assertLongShadow() {
+        var points = this.getBottomRightShadowVertices();
+        for (var i = 0; i < points.length; ++i) {
+            var point = points[i];
+            point.x = point.x + 1000000; // very long ;)
+            point.y = point.y + 1000000;
+        }
+    }
+
+
+    /**
+     * Returns all vertices which belong to the bottom right edge of the shadow
+     * (vertices which have to be moved to extend the length of the shadow).
+     */
+    getBottomRightShadowVertices() {
+        var iconPathDiagonal = this.getIconPathDiagonal();
+        var topLeft = this.iconShadowPath.bounds.topLeft;
+        var result = [];
+        for (var i = 0; i < this.iconShadowPath.segments.length; ++i) {
+            var point = this.iconShadowPath.segments[i].point;
+            if (topLeft.getDistance(point) <= iconPathDiagonal) continue;
+            result.push(point);
+        }
+        return result;
+    }
+
+
+    getIconPathDiagonal() {
+        return Math.sqrt(Math.pow(Math.max(this.iconPath.bounds.width, this.iconPath.bounds.height), 2) * 2);
+    }
 
     /**
      * Simplifies the path of a shadow by searching for unnecessary points which were created

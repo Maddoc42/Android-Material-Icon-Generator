@@ -47,7 +47,7 @@ class IconShadow {
         this.simplifyShadowPath(iconShadowPath, shadowOffset);
 
         // store original shadow and apply
-        iconShadowPath.visible = false;
+        iconShadowPath.remove();
         this.iconShadowPath = iconShadowPath;
         this.assertLongShadow();
     }

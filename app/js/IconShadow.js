@@ -76,6 +76,14 @@ class IconShadow {
 
 
     /**
+     * Remove this shadow form the canvas.
+     */
+    remove() {
+        this.iconShadowPath.remove();
+    }
+
+
+    /**
      * Simplifies the path of a shadow by searching for unnecessary points which were created
      * while shifting the original icon path.
      *

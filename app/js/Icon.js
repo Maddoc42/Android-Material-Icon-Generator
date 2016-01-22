@@ -33,6 +33,15 @@ class Icon {
         this.size = newSize;
     }
 
+
+    /**
+     * Remove this icon + shadow from the canvas.
+     */
+    remove() {
+        this.iconPath.remove();
+        this.iconShadow.remove();
+    }
+
 }
 
 module.exports = Icon;

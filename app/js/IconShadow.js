@@ -43,14 +43,45 @@ class IconShadow {
         // create 'nicer' shadow path
         this.simplifyShadowPath(iconShadowPath, shadowOffset);
 
+        // store original shadow and apply
+        iconShadowPath.visible = false;
+        this.iconShadowPath = iconShadowPath;
+        this.applyShadow();
+    }
+
+
+    /**
+     * @param scale factor to scale this shadow by
+     */
+    scale(scale) {
+        this.iconShadowPath.scale(scale, this.iconPath.position);
+        this.applyShadow();
+    }
+
+
+    /**
+     * Remove this shadow form the canvas.
+     */
+    remove() {
+        this.iconShadowPath.remove();
+        if (this.appliedIconShadowPath) this.appliedIconShadowPath.remove();
+    }
+
+
+    /**
+     * this.iconShadowPath is not actually visible on the canvas, but
+     * rather serves as a template for the actual shadow path which is
+     * cut to fit the base.
+     */
+    applyShadow() {
+        if (this.appliedIconShadowPath) this.appliedIconShadowPath.remove();
+
         // cut shadow to base
         var basePath = this.iconBase.getPathWithoutShadows();
-        newShadowPath = iconShadowPath.intersect(basePath);
-        iconShadowPath.remove();
-        iconShadowPath = newShadowPath;
+        this.appliedIconShadowPath = this.iconShadowPath.intersect(basePath);
 
         // shadow color
-        iconShadowPath.fillColor = {
+        this.appliedIconShadowPath.fillColor = {
             gradient: {
                 stops:  [
                     [new paper.Color(0, 0, 0, 0.3), 0.1],
@@ -62,24 +93,7 @@ class IconShadow {
         };
 
         // move shadow below icon
-        iconShadowPath.moveBelow(this.iconPath);
-        this.iconShadowPath = iconShadowPath;
-    }
-
-
-    /**
-     * @param scale factor to scale this shadow by
-     */
-    scale(scale) {
-        this.iconShadowPath.scale(scale, this.iconPath.position);
-    }
-
-
-    /**
-     * Remove this shadow form the canvas.
-     */
-    remove() {
-        this.iconShadowPath.remove();
+        this.appliedIconShadowPath.moveBelow(this.iconPath);
     }
 
 

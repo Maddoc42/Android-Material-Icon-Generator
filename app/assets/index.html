@@ -38,10 +38,16 @@
 </header>
 
 <section class="container">
-    <input id="filePicker" type="file"/>
-</section>
+    <div class="row">
+        <input id="filePicker" type="file"/>
+        <div id="filePickerOverlay" class="filePickerOverlay-not-selected">
+            <div id="filePickerOverlayContent">
+                <h2>Drop SVG icon here</h2>
+                <p>SVG must contain a single path which is your icon.</p>
+            </div>
+        </div>
+    </div>
 
-<section class="container">
     <div class="row">
         <canvas id="canvas"></canvas>
     </div>

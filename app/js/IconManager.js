@@ -13,8 +13,32 @@ class IconManager {
     /**
      * @param canvas jquery canvas object
      * @param filePicker jquery input object
+     * @param filePickerOverlay jquery input overlay object
      */
-    constructor(canvas, filePicker) {
+    constructor(canvas, filePicker, filePickerOverlay) {
+        // hide canvas and forward overlay clicks
+        canvas.hide();
+        filePickerOverlay.click(function() {
+            filePicker.click();
+        });
+
+        // setup drag / drop
+        filePickerOverlay
+            .on('drag dragstart dragend dragover dragenter dragleave drop', function (e) {
+                e.preventDefault();
+                e.stopPropagation();
+            })
+            .on('dragover dragenter', function() {
+                filePickerOverlay.removeClass('filePickerOverlay-not-selected');
+                filePickerOverlay.addClass('filePickerOverlay-selected');
+            })
+            .on('dragleave dragend', function() {
+                filePickerOverlay.addClass('filePickerOverlay-not-selected');
+                filePickerOverlay.removeClass('filePickerOverlay-selected');
+            })
+            .on('drop', function (e) {
+                filePicker[0].files = e.originalEvent.dataTransfer.files;
+            });
 
         // place icon in center on canvas
         this.canvasSize = canvas.width(); // assuming width = height
@@ -24,6 +48,10 @@ class IconManager {
         filePicker.change(function() {
             var svgFile = filePicker[0].files[0];
             if (!svgFile) return;
+
+            // hide overlay and show canvas
+            canvas.show();
+            filePickerOverlay.hide();
 
             // read svg file
             var fileReader = new FileReader();

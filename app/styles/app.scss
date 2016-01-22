@@ -2,10 +2,13 @@ $screen-sm-min: 768px;
 $screen-md-min: 992px;
 $screen-lg-min: 1200px;
 
+$canvas-size-small: 300px;
+$canvas-size-normal: 500px;
+
 html, body {
   width: 100%;
   height: 100%;
-  background: #f4f4f4;
+  background: #f5f5f5;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -29,16 +32,54 @@ footer {
   color: #828282;
 }
 
-#canvas {
-  height: 300px;
-  width: 300px;
+#canvas, #filePickerOverlay {
+  height: $canvas-size-small;
+  width: $canvas-size-small;
   @media screen and (min-width: $screen-sm-min) {
-    height: 500px;
-    width: 500px;
+    height: $canvas-size-normal;
+    width: $canvas-size-normal;
   }
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+#filePickerOverlay {
+  background-size: $canvas-size-small $canvas-size-small;
+  @media screen and (min-width: $screen-sm-min) {
+    background-size: $canvas-size-normal $canvas-size-normal;
+  }
+  cursor: pointer;
+}
+
+.filePickerOverlay-not-selected {
+  background-image: url('../filePickerOverlayBackground.svg');
+}
+
+.filePickerOverlay-selected {
+  background-image: url('../filePickerOverlayBackgroundSelected.svg');
+}
+
+#filePickerOverlayContent {
+  width: 220px;
+  text-align: center;
+  margin: 0 auto;
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #616161;
+  h2 {
+    margin-top: 0;
+    margin-bottom: 10px;
+  };
+  p {
+    font-size: 14px;
+  };
+}
+
+#filePicker {
+  display: none;
+  height: 0;
 }
 
 .card {

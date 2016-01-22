@@ -13,10 +13,10 @@ var App = {
     init: function() {
         paper.install(window);
 
-        var canvas = $("#canvas");
+        var canvas = $('#canvas');
         paper.setup(canvas[0]);
-        var filePicker = $("#filePicker");
-        new IconManager(canvas, filePicker);
+        var filePicker =
+        new IconManager(canvas, $('#filePicker'), $('#filePickerOverlay'));
 
         paper.view.draw();
     }

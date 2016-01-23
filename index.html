@@ -30,16 +30,47 @@
 
 </head>
 <body>
+
 <header class="container">
     <div class="row">
         <h1 class="col-xs-12">Material Icon Generator</h1>
     </div>
 </header>
+
 <section class="container">
+    <div class="row">
+        <input id="filePicker" type="file"/>
+        <div id="filePickerOverlay" class="filePickerOverlay-not-selected">
+            <div id="filePickerOverlayContent">
+                <h2>Drop SVG icon here</h2>
+                <p>SVG must contain a single path which is your icon.</p>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <canvas id="canvas"></canvas>
     </div>
 </section>
+
+<section id="section-edit" class="container">
+    <div class="row">
+        <button id="btn-download-svg" class="btn btn-lg btn-primary center-block" type="submit">Download SVG</button>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-4">
+            <h3>Background color</h3>
+        </div>
+        <div class="col-xs-12 col-sm-8">
+            <div id="color-base" class="input-group">
+                <input type="text" class="form-control"/>
+                <span class="input-group-addon"><i></i></span>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="container">
     <div class="row">
         <div class="col-xs-12 col-md-6">

@@ -20,6 +20,7 @@ class Icon {
         this.iconShadow = new IconShadow(iconPath, iconBase);
         this.iconShadow.calculateShadow();
         this.size = Math.max(iconPath.bounds.width, iconPath.bounds.height);
+        this.iconPath.moveAbove(iconBase.getPathWithoutShadows());
     }
 
 

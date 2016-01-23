@@ -76,22 +76,26 @@ class IconManager {
         // remove any previous icons
         if (this.icon) this.icon.remove();
 
-        // one time base setup
-        if (!this.iconBase) {
-            this.baseRadius = this.canvasSize / 2 * 0.9;
-            this.iconBase = new IconBase(this.center, this.baseRadius, '#512DA8');
-        }
 
         paper.project.importSVG(svgFileContent, {
                 applyMatrix: true,
-                onLoad: function (loadedItem) {
+                onLoad: function (importedItem) {
                     // check svg paths
-                    var paths = loadedItem.children[0].children;
-                    var iconPath = paths[0];
-                    iconPath.strokeWidth = 0; // remove any strokes that were imported
+                    let importedPath = this.getPathFromImport(importedItem);
+                    if (!importedPath) {
+                        window.alert('Sorry, no path found in SVG file :(');
+                        return;
+                    }
+                    importedPath.strokeWidth = 0;
+
+                    // one time base setup
+                    if (!this.iconBase) {
+                        this.baseRadius = this.canvasSize / 2 * 0.9;
+                        this.iconBase = new IconBase(this.center, this.baseRadius, '#512DA8');
+                    }
 
                     // create icon and shadow
-                    this.icon = new Icon(this.center, 'white', iconPath, this.iconBase);
+                    this.icon = new Icon(this.center, 'white', importedPath, this.iconBase);
                     this.icon.setSize(this.baseRadius * 2 * 0.60);
 
                 }.bind(this)
@@ -112,6 +116,36 @@ class IconManager {
             .appendTo('body');
         anchor.get(0).click();
         anchor.remove();
+    }
+
+
+    getPathFromImport(importedItem) {
+        // recursive search for paths in group
+        if (importedItem instanceof paper.Group) {
+            let possiblePaths = [];
+            for (let i = 0; i < importedItem.children.length; ++i) {
+                let path = this.getPathFromImport(importedItem.children[i]);
+                if (path) possiblePaths.push(path);
+            }
+
+            // if only one path, return that one
+            if (possiblePaths.length == 0) return null;
+            if (possiblePaths.length == 1) return possiblePaths[0];
+
+            // if multiple paths, try finding one with fill color
+            // (helps importing Google material icons, which always have a second 'invisible' path)
+            for (let i = 0; i < possiblePaths.length; ++i) {
+                if (possiblePaths[i].fillColor) return possiblePaths[i];
+            }
+            // return first match
+            return possiblePaths[0];
+        }
+
+        if (importedItem instanceof paper.PathItem) {
+            return importedItem;
+        }
+
+        return null;
     }
 
 }

@@ -25,6 +25,7 @@ class IconBase {
 
     setColor(color) {
         this.basePath.fillColor = color;
+        paper.view.draw();
     }
 
     setCenter(center) {

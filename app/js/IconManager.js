@@ -15,8 +15,11 @@ class IconManager {
      * @param filePicker jquery input object
      * @param filePickerOverlay jquery input overlay object
      * @param btnDownload jquery download button
+     * @param baseColorPicker jquery base color picker object
      */
-    constructor(canvas, filePicker, filePickerOverlay, btnDownload) {
+    constructor(canvas, filePicker, filePickerOverlay, btnDownload, baseColorPicker) {
+        this.baseColorPicker = baseColorPicker;
+
         // hide canvas and forward overlay clicks
         canvas.hide();
         filePickerOverlay.click(function() {
@@ -76,7 +79,6 @@ class IconManager {
         // remove any previous icons
         if (this.icon) this.icon.remove();
 
-
         paper.project.importSVG(svgFileContent, {
                 applyMatrix: true,
                 onLoad: function (importedItem) {
@@ -89,10 +91,7 @@ class IconManager {
                     importedPath.strokeWidth = 0;
 
                     // one time base setup
-                    if (!this.iconBase) {
-                        this.baseRadius = this.canvasSize / 2 * 0.9;
-                        this.iconBase = new IconBase(this.center, this.baseRadius, '#512DA8');
-                    }
+                    this.setupBase();
 
                     // create icon and shadow
                     this.icon = new Icon(this.center, 'white', importedPath, this.iconBase);
@@ -100,6 +99,37 @@ class IconManager {
 
                 }.bind(this)
             });
+    }
+
+
+    setupBase() {
+        if (this.iconBase) return;
+
+        let defaultColor = '#512DA8';
+        this.baseRadius = this.canvasSize / 2 * 0.9;
+        this.iconBase = new IconBase(this.center, this.baseRadius, defaultColor);
+
+        this.baseColorPicker
+            .colorpicker({
+                customClass: 'colorpicker-2x',
+                color: defaultColor,
+                sliders: {
+                    saturation: {
+                        maxLeft: 200,
+                        maxTop: 200
+                    },
+                    hue: {
+                        maxTop: 200
+                    },
+                    alpha: {
+                        maxTop: 200
+                    }
+                }
+            })
+            .on('changeColor.colorpicker', function (event) {
+                let color = event.color.toRGB();
+                this.iconBase.setColor(new paper.Color(color.r / 255, color.g / 255, color.b / 255, color.a));
+            }.bind(this));
     }
 
 

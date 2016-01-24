@@ -36,6 +36,16 @@ class Icon {
 
 
     /**
+     * Sets the color of this icon.
+     * @param color paper.js compatible color value
+     */
+    setColor(color) {
+        this.iconPath.fillColor = color;
+        paper.view.draw();
+    }
+
+
+    /**
      * Remove this icon + shadow from the canvas.
      */
     remove() {

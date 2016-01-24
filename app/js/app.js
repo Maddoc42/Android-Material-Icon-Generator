@@ -15,7 +15,13 @@ var App = {
 
         var canvas = $('#canvas');
         paper.setup(canvas[0]);
-        new IconManager(canvas, $('#filePicker'), $('#filePickerOverlay'), $('#btn-download-svg'), $('#color-base'));
+        new IconManager(
+            canvas,
+            $('#filePicker'),
+            $('#filePickerOverlay'),
+            $('#btn-download-svg'),
+            $('#color-icon'),
+            $('#color-base'));
 
         paper.view.draw();
     }

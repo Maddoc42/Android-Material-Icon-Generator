@@ -2,7 +2,8 @@
 
 let paper = require('js/paper-core.min'),
     IconBase = require('js/IconBase'),
-    Icon = require('js/Icon');
+    Icon = require('js/Icon'),
+    ColorPicker = require('js/ColorPicker');
 
 
 /**
@@ -15,9 +16,11 @@ class IconManager {
      * @param filePicker jquery input object
      * @param filePickerOverlay jquery input overlay object
      * @param btnDownload jquery download button
+     * @param iconColorPicker jquery icon color picker object
      * @param baseColorPicker jquery base color picker object
      */
-    constructor(canvas, filePicker, filePickerOverlay, btnDownload, baseColorPicker) {
+    constructor(canvas, filePicker, filePickerOverlay, btnDownload, iconColorPicker, baseColorPicker) {
+        this.iconColorPicker = iconColorPicker;
         this.baseColorPicker = baseColorPicker;
 
         // hide canvas and forward overlay clicks
@@ -94,8 +97,7 @@ class IconManager {
                     this.setupBase();
 
                     // create icon and shadow
-                    this.icon = new Icon(this.center, 'white', importedPath, this.iconBase);
-                    this.icon.setSize(this.baseRadius * 2 * 0.60);
+                    this.setupIcon(importedPath);
 
                 }.bind(this)
             });
@@ -110,28 +112,23 @@ class IconManager {
         this.iconBase = new IconBase(this.center, this.baseRadius);
         this.iconBase.setColor(defaultBaseColor);
 
-        this.baseColorPicker
-            .colorpicker({
-                customClass: 'colorpicker-2x',
-                color: defaultBaseColor,
-                sliders: {
-                    saturation: {
-                        maxLeft: 200,
-                        maxTop: 200
-                    },
-                    hue: {
-                        maxTop: 200
-                    },
-                    alpha: {
-                        maxTop: 200
-                    }
-                }
-            })
-            .on('changeColor.colorpicker', function (event) {
-                let color = event.color.toRGB();
-                this.iconBase.setColor(new paper.Color(color.r / 255, color.g / 255, color.b / 255, color.a));
-            }.bind(this));
+        new ColorPicker(this.baseColorPicker, defaultBaseColor, function(newColor) {
+            this.iconBase.setColor(newColor);
+        }.bind(this));
     }
+
+
+    setupIcon(importedPath) {
+        let defaultIconColor = '#ffffff';
+        this.icon = new Icon(this.center, 'white', importedPath, this.iconBase);
+        this.icon.setSize(this.baseRadius * 2 * 0.60);
+        this.icon.setColor(defaultIconColor);
+
+        new ColorPicker(this.iconColorPicker, defaultIconColor, function(newColor) {
+            this.icon.setColor(newColor);
+        }.bind(this));
+    }
+
 
 
     /**

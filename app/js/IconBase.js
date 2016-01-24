@@ -9,9 +9,8 @@ class IconBase {
     /**
      * @param center of the icon base relative to the underlying canvas
      * @param radius of the icon base
-     * @param color of the icon base
      */
-    constructor(center, radius, color) {
+    constructor(center, radius) {
         this.lightShadow = new IconBaseShadow(center, radius, radius * 1.075, 0.21);
         this.darkShadow = new IconBaseShadow(center, radius, radius * 1.05, 0.05);
 
@@ -19,7 +18,6 @@ class IconBase {
             center: center,
             radius: radius
         });
-        this.basePath.fillColor = color;
         this.basePath.strokeWidth = 0;
     }
 

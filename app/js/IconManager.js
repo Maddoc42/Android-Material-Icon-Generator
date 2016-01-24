@@ -105,14 +105,15 @@ class IconManager {
     setupBase() {
         if (this.iconBase) return;
 
-        let defaultColor = '#512DA8';
+        let defaultBaseColor = '#512DA8';
         this.baseRadius = this.canvasSize / 2 * 0.9;
-        this.iconBase = new IconBase(this.center, this.baseRadius, defaultColor);
+        this.iconBase = new IconBase(this.center, this.baseRadius);
+        this.iconBase.setColor(defaultBaseColor);
 
         this.baseColorPicker
             .colorpicker({
                 customClass: 'colorpicker-2x',
-                color: defaultColor,
+                color: defaultBaseColor,
                 sliders: {
                     saturation: {
                         maxLeft: 200,

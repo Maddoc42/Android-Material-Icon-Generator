@@ -15,13 +15,15 @@ class IconManager {
      * @param canvas jquery canvas object
      * @param filePicker jquery input object
      * @param filePickerOverlay jquery input overlay object
+     * @param sectionEdit jquery edit section object
      * @param btnDownload jquery download button
      * @param iconColorPicker jquery icon color picker object
      * @param baseColorPicker jquery base color picker object
      * @param sliderShadow jquery slider object for changing shadow intensity
      *
      */
-    constructor(canvas, filePicker, filePickerOverlay, btnDownload, iconColorPicker, baseColorPicker, sliderShadow) {
+    constructor(canvas, filePicker, filePickerOverlay, sectionEdit, btnDownload, iconColorPicker, baseColorPicker, sliderShadow) {
+        this.sectionEdit = sectionEdit;
         this.iconColorPicker = iconColorPicker;
         this.baseColorPicker = baseColorPicker;
         this.sliderShadow = sliderShadow;
@@ -69,6 +71,10 @@ class IconManager {
                 this.onSvgFileLoaded(event.target.result);
             }.bind(this);
             fileReader.readAsDataURL(svgFile);
+
+            // show edit section
+            this.sectionEdit.show();
+
         }.bind(this));
 
         // setup download

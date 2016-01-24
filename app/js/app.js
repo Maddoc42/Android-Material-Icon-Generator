@@ -19,6 +19,7 @@ var App = {
             canvas,
             $('#filePicker'),
             $('#filePickerOverlay'),
+            $('#section-edit'),
             $('#btn-download-svg'),
             $('#color-icon'),
             $('#color-base'),

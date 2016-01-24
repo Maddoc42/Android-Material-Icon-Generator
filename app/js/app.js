@@ -21,7 +21,9 @@ var App = {
             $('#filePickerOverlay'),
             $('#btn-download-svg'),
             $('#color-icon'),
-            $('#color-base'));
+            $('#color-base'),
+            $('#slider-shadow')
+        );
 
         paper.view.draw();
     }

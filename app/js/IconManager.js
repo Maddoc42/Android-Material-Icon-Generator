@@ -18,10 +18,13 @@ class IconManager {
      * @param btnDownload jquery download button
      * @param iconColorPicker jquery icon color picker object
      * @param baseColorPicker jquery base color picker object
+     * @param sliderShadow jquery slider object for changing shadow intensity
+     *
      */
-    constructor(canvas, filePicker, filePickerOverlay, btnDownload, iconColorPicker, baseColorPicker) {
+    constructor(canvas, filePicker, filePickerOverlay, btnDownload, iconColorPicker, baseColorPicker, sliderShadow) {
         this.iconColorPicker = iconColorPicker;
         this.baseColorPicker = baseColorPicker;
+        this.sliderShadow = sliderShadow;
 
         // hide canvas and forward overlay clicks
         canvas.hide();
@@ -119,14 +122,28 @@ class IconManager {
 
 
     setupIcon(importedPath) {
+        // create icon + shadow
         let defaultIconColor = '#ffffff';
         this.icon = new Icon(this.center, 'white', importedPath, this.iconBase);
         this.icon.setSize(this.baseRadius * 2 * 0.60);
         this.icon.setColor(defaultIconColor);
 
+        // setup icon color picker
         new ColorPicker(this.iconColorPicker, defaultIconColor, function(newColor) {
             this.icon.setColor(newColor);
         }.bind(this));
+
+        // setup shadow intensity picker
+        let setIntensityFunction = function() {
+            let intensity = this.sliderShadowData.getValue();
+            this.icon.getIconShadow().setIntensity(intensity[1], intensity[0]);
+        }.bind(this);
+        this.sliderShadowData = this.sliderShadow.slider()
+            .on('slide', function () {
+                setIntensityFunction();
+            }.bind(this))
+            .data('slider');
+        setIntensityFunction();
     }
 
 

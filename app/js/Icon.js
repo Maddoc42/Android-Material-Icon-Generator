@@ -53,6 +53,11 @@ class Icon {
         this.iconShadow.remove();
     }
 
+
+    getIconShadow() {
+        return this.iconShadow;
+    }
+
 }
 
 module.exports = Icon;

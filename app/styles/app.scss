@@ -90,9 +90,13 @@ footer {
 
 #section-edit {
   .row {
-    margin-bottom: 20px;
+    padding-top: 25px;
+    padding-bottom: 25px;
   };
   h3 {
+    margin-top: 0;
+  };
+  .push-down {
     margin-top: 6px;
   };
 }
@@ -112,6 +116,22 @@ footer {
 .colorpicker-2x .colorpicker-color,
 .colorpicker-2x .colorpicker-color div {
   height: 30px;
+}
+
+
+#slider-shadow {
+}
+#slider-shadow-id {
+  width: 100%;
+  .slider-track-low, .slider-track-high {
+    background: #e0e0e0;
+  }
+  .slider-selection {
+    background: #9575CD;
+  }
+  .slider-handle {
+    background: #673AB7;
+  }
 }
 
 

@@ -83,23 +83,32 @@ class IconShadow {
         if (this.appliedIconShadowPath) this.appliedIconShadowPath.remove();
 
         // cut shadow to base
-        var basePath = this.iconBase.getPathWithoutShadows();
+        let basePath = this.iconBase.getPathWithoutShadows();
         this.appliedIconShadowPath = this.iconShadowPath.intersect(basePath);
 
-        // shadow color
+        // move shadow below icon
+        this.appliedIconShadowPath.moveBelow(this.iconPath);
+    }
+
+
+    /**
+     * Sets the shadow intensity (color is always black).
+     * @param startIntensity intensity at icon center. Value between 0 and 1.
+     * @param endIntensity intensity at base edge. Value between 0 and 1.
+     */
+    setIntensity(startIntensity, endIntensity) {
+        let basePath = this.iconBase.getPathWithoutShadows();
         this.appliedIconShadowPath.fillColor = {
             gradient: {
-                stops:  [
-                    [new paper.Color(0, 0, 0, 0.5), 0.1],
-                    [new paper.Color(0, 0, 0, 0.2), 0.8]
+                stops: [
+                    [new paper.Color(0, 0, 0, startIntensity), 0.1],
+                    [new paper.Color(0, 0, 0, endIntensity), 0.8]
                 ]
             },
             origin: basePath.bounds.topLeft,
             destination: basePath.bounds.bottomRight
         };
-
-        // move shadow below icon
-        this.appliedIconShadowPath.moveBelow(this.iconPath);
+        paper.view.draw();
     }
 
 

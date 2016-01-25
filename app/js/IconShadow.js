@@ -3,7 +3,7 @@
 let paper = require('js/paper-core.min'),
     paperScope = require('js/PaperScopeManager');
 
-const SHADOW_ITERATIONS = 100;
+const SHADOW_ITERATIONS = 130;
 
 
 class IconShadow {
@@ -20,40 +20,71 @@ class IconShadow {
 
     /**
      * Calculates the shadow but does not (!) apply it.
+     * @param callback for when shadow computation is finished.
      */
-    calculateShadow() {
-        var iconShadowPath = this.iconPath.clone();
-        var iconPathCopy = this.iconPath.clone();
+    calculateShadow(callback) {
+        let iconShadowPath = this.iconPath.clone();
+        let iconPathCopy = this.iconPath.clone();
 
         // calculate translation such that icon is at least (!) moved (iconDiagonal, iconDiagonal) to bottom right
-        var iconPathDiagonal = this.getIconPathDiagonal();
-        var shadowOffset = iconPathDiagonal * 1.1 / SHADOW_ITERATIONS;
-        var translation = new paper.Point(shadowOffset, shadowOffset);
+        let iconPathDiagonal = this.getIconPathDiagonal();
+        let shadowOffset = iconPathDiagonal * 1.1 / SHADOW_ITERATIONS;
+        let translation = new paper.Point(shadowOffset, shadowOffset);
 
-        // create + translate + unite copies of shadow
-        for (var i = 1; i <= SHADOW_ITERATIONS; ++i) {
-            iconPathCopy.translate(translation);
-            var newShadowPath = iconShadowPath.unite(iconPathCopy);
-            iconShadowPath.remove();
-            iconShadowPath = newShadowPath;
+        this.calculateShadowIteration(
+            callback,
+            {
+                iconShadowPath: iconShadowPath,
+                iconPathCopy: iconPathCopy,
+                shadowOffset: shadowOffset,
+                translation: translation
+            },
+            1);
+    }
+
+
+    /**
+     * What's up with this complicated recursive computation thing?
+     * JS is hard core single threaded (gnaaa ...) and blocks the UI if used too heavily.
+     * Calculating the shadow requires lots of CPU, so here the computation is paused
+     * every now and then to let the UI do at least some minor updates.
+     */
+    calculateShadowIteration(callback, data, currentIteration) {
+        if (currentIteration <= SHADOW_ITERATIONS) {
+            ++currentIteration;
+            data.iconPathCopy.translate(data.translation);
+            let newShadowPath = data.iconShadowPath.unite(data.iconPathCopy);
+            data.iconShadowPath.remove();
+            data.iconShadowPath = newShadowPath;
+            if (currentIteration % 20 == 0) {
+                setTimeout(function() {
+                    this.calculateShadowIteration(callback, data, currentIteration);
+                }.bind(this), 20);
+            } else {
+                this.calculateShadowIteration(callback, data, currentIteration);
+            }
+            return;
         }
-        iconPathCopy.remove();
+
+        data.iconPathCopy.remove();
 
         // convert CompoundPath to regular Path
-        newShadowPath = new paper.Path(iconShadowPath.pathData);
-        iconShadowPath.remove();
-        iconShadowPath = newShadowPath;
+        let newShadowPath = new paper.Path(data.iconShadowPath.pathData);
+        data.iconShadowPath.remove();
+        data.iconShadowPath = newShadowPath;
 
         // sometimes duplicate points are creating by converting to regular path --> remove!
-        this.removeDuplicatePoints(iconShadowPath);
+        this.removeDuplicatePoints(data.iconShadowPath);
 
         // create 'nicer' shadow path
-        this.simplifyShadowPath(iconShadowPath, shadowOffset);
+        this.simplifyShadowPath(data.iconShadowPath, data.shadowOffset);
 
         // store original shadow and apply
-        iconShadowPath.remove();
-        this.iconShadowPath = iconShadowPath;
+        data.iconShadowPath.remove();
+        this.iconShadowPath = data.iconShadowPath;
         this.assertLongShadow();
+
+        callback();
     }
 
 

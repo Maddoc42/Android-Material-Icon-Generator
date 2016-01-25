@@ -13,13 +13,14 @@ class Icon {
      * @param color of this icon
      * @param iconPath of this icon
      * @param iconBase for this icon
+     * @param shadowCallback callback for when shadow computation is finished.
      */
-    constructor(position, color, iconPath, iconBase) {
+    constructor(position, color, iconPath, iconBase, shadowCallback) {
         this.iconPath = iconPath;
         this.iconPath.position = position;
         this.iconPath.fillColor = color;
         this.iconShadow = new IconShadow(iconPath, iconBase);
-        this.iconShadow.calculateShadow();
+        this.iconShadow.calculateShadow(shadowCallback);
         this.size = Math.max(iconPath.bounds.width, iconPath.bounds.height);
         this.scale = 1;
         this.iconPath.moveAbove(iconBase.getPathWithoutShadows());

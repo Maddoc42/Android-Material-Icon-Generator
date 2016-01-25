@@ -31,6 +31,8 @@ class IconManager {
                 btnDownload, iconColorPicker, baseColorPicker, sliderShadow,
                 sliderIconSize) {
 
+        this.canvas = canvas;
+        this.filePicker = filePicker;
         this.containerEdit = containerEdit;
         this.iconColorPicker = iconColorPicker;
         this.baseColorPicker = baseColorPicker;
@@ -47,9 +49,6 @@ class IconManager {
         this.center = new paper.Point(this.canvasSize / 2, this.canvasSize / 2);
 
         filePicker.setSvgLoadedCallback(function(svgData) {
-            filePicker.hide();
-            canvas.show();
-            this.containerEdit.show();
             this.onSvgFileLoaded(svgData);
         }.bind(this));
 
@@ -83,7 +82,6 @@ class IconManager {
 
                     // create icon and shadow
                     this.setupIcon(importedPath);
-
                 }.bind(this)
             });
     }
@@ -106,39 +104,46 @@ class IconManager {
     setupIcon(importedPath) {
         // create icon + shadow
         let defaultIconColor = '#ffffff';
-        this.icon = new Icon(this.center, 'white', importedPath, this.iconBase);
-        this.icon.setSize(this.baseRadius * 2 * 0.60);
-        this.icon.setColor(defaultIconColor);
+        this.icon = new Icon(this.center, 'white', importedPath, this.iconBase, function() {
+            this.icon.setSize(this.baseRadius * 2 * 0.60);
+            this.icon.setColor(defaultIconColor);
 
-        // setup icon color picker
-        new ColorPicker(this.iconColorPicker, defaultIconColor, function(newColor) {
-            this.icon.setColor(newColor);
+            // setup icon color picker
+            new ColorPicker(this.iconColorPicker, defaultIconColor, function(newColor) {
+                this.icon.setColor(newColor);
+            }.bind(this));
+
+            // setup shadow intensity picker
+            let setIntensityFunction = function() {
+                let intensity = this.sliderShadowData.getValue();
+                this.icon.getIconShadow().setIntensity(intensity[1], intensity[0]);
+            }.bind(this);
+            this.sliderShadowData = this.sliderShadow.slider()
+                .on('slide', function () {
+                    setIntensityFunction();
+                }.bind(this))
+                .data('slider');
+            setIntensityFunction();
+
+            // setup icon size picker
+            let setSizeFunction = function () {
+                let size = this.sliderIconSizeData.getValue();
+                let scale = 0.0954548 * Math.exp(0.465169 * size);
+                this.icon.setScale(scale);
+            }.bind(this);
+            this.sliderIconSizeData = this.sliderIconSize.slider()
+                .on('slide', function () {
+                    setSizeFunction();
+                }.bind(this))
+                .data('slider');
+            this.icon.getIconShadow().applyShadow();
+
+            // show canvas + remove loading msg
+            this.canvas.show();
+            this.filePicker.hide();
+            this.containerEdit.show();
+
         }.bind(this));
-
-        // setup shadow intensity picker
-        let setIntensityFunction = function() {
-            let intensity = this.sliderShadowData.getValue();
-            this.icon.getIconShadow().setIntensity(intensity[1], intensity[0]);
-        }.bind(this);
-        this.sliderShadowData = this.sliderShadow.slider()
-            .on('slide', function () {
-                setIntensityFunction();
-            }.bind(this))
-            .data('slider');
-        setIntensityFunction();
-
-        // setup icon size picker
-        let setSizeFunction = function () {
-            let size = this.sliderIconSizeData.getValue();
-            let scale = 0.0954548 * Math.exp(0.465169 * size);
-            this.icon.setScale(scale);
-        }.bind(this);
-        this.sliderIconSizeData = this.sliderIconSize.slider()
-            .on('slide', function () {
-                setSizeFunction();
-            }.bind(this))
-            .data('slider');
-        this.icon.getIconShadow().applyShadow();
     }
 
 

@@ -1,7 +1,8 @@
 'use strict';
 
 let IconManager = require('js/IconManager'),
-    paper = require('js/paper-core.min');
+    paper = require('js/paper-core.min'),
+    paperScope = require('js/PaperScopeManager');
 
 const
     SHADOW_OFFSET = 4,
@@ -13,10 +14,14 @@ var App = {
     init: function() {
         paper.install(window);
 
-        var canvas = $('#canvas');
-        paper.setup(canvas[0]);
+        let drawCanvas = $('#canvas-draw');
+        let exportCanvas = $('#canvas-export');
+
+        paperScope.setCanvases(drawCanvas, exportCanvas);
+        paperScope.activateDraw();
+
         new IconManager(
-            canvas,
+            drawCanvas,
             $('#filePicker'),
             $('#filePickerOverlay'),
             $('#section-edit'),
@@ -27,7 +32,7 @@ var App = {
             $('#slider-icon-size')
         );
 
-        paper.view.draw();
+        paperScope.draw().view.draw();
     }
 
 };

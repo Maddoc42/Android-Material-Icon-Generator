@@ -1,6 +1,7 @@
 'use strict';
 
-let paper = require('js/paper-core.min');
+let paper = require('js/paper-core.min'),
+    paperScope = require('js/PaperScopeManager');
 
 const SHADOW_ITERATIONS = 100;
 
@@ -118,7 +119,7 @@ class IconShadow {
             origin: basePath.bounds.topLeft,
             destination: basePath.bounds.bottomRight
         };
-        paper.view.draw();
+        paperScope.draw().view.draw();
     }
 
 

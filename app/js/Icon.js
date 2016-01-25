@@ -2,7 +2,8 @@
 
 let paper = require('js/paper-core.min'),
     IconShadow = require('js/IconShadow'),
-    drawUtils = require('js/drawUtils');
+    drawUtils = require('js/drawUtils'),
+    paperScope = require('js/PaperScopeManager');
 
 
 class Icon {
@@ -45,7 +46,7 @@ class Icon {
         this.iconPath.scale(newScale / this.scale, this.iconPath.position);
         this.iconShadow.scale(newScale / this.scale);
         this.scale = newScale;
-        paper.view.draw();
+        paperScope.draw().view.draw();
     }
 
 
@@ -55,7 +56,7 @@ class Icon {
      */
     setColor(color) {
         this.iconPath.fillColor = color;
-        paper.view.draw();
+        paperScope.draw().view.draw();
     }
 
 

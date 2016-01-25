@@ -3,7 +3,12 @@
 let paper = require('js/paper-core.min'),
     IconBase = require('js/IconBase'),
     Icon = require('js/Icon'),
-    ColorPicker = require('js/ColorPicker');
+    ColorPicker = require('js/ColorPicker'),
+    paperScope = require('js/PaperScopeManager');
+
+
+// Default android icon size (48 DIP)
+const CANVAS_SIZE = 48;
 
 
 /**
@@ -57,7 +62,9 @@ class IconManager {
             });
 
         // place icon in center on canvas
-        this.canvasSize = canvas.width(); // assuming width = height
+        this.canvasSize = CANVAS_SIZE;
+        paperScope.draw().view.center = new paper.Point(CANVAS_SIZE / 2, CANVAS_SIZE / 2);
+        paperScope.draw().view.zoom = canvas.width() / CANVAS_SIZE;
         this.center = new paper.Point(this.canvasSize / 2, this.canvasSize / 2);
 
         // setup file picker to import
@@ -95,7 +102,7 @@ class IconManager {
         // remove any previous icons
         if (this.icon) this.icon.remove();
 
-        paper.project.importSVG(svgFileContent, {
+        paperScope.draw().project.importSVG(svgFileContent, {
                 applyMatrix: true,
                 onLoad: function (importedItem) {
                     // check svg paths
@@ -175,15 +182,31 @@ class IconManager {
      * Exports the whole project as one svg file.
      */
     exportAsSvgFile() {
-        var svg = paper.project.exportSVG({ asString: true });
+        paperScope.activateExpo();
+        let drawProject = paperScope.draw().project;
+        let exportProject = paperScope.expo().project;
+
+        // copy draw layer over to export canvas
+        exportProject.clear();
+        let layer = new paper.Layer();
+        for (let i = 0; i < drawProject.layers[0].children.length; ++i) {
+            layer.addChild(drawProject.layers[0].children[i].clone(false));
+        }
+
+        // generate final svg
+        var svg = exportProject.exportSVG({ asString: true });
 		var data = 'data:image/svg+xml;base64,' + btoa(svg);
 		var fileName = 'icon.svg';
 
+        // create download link
         var anchor = $('<a href="' + data + '" download="' + fileName + '">Download</a>')
             .css('display', 'none')
             .appendTo('body');
         anchor.get(0).click();
         anchor.remove();
+
+        // reactivate draw scope
+        paperScope.activateDraw();
     }
 
 

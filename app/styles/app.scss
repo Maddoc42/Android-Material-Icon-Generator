@@ -5,6 +5,8 @@ $screen-lg-min: 1200px;
 $canvas-size-small: 300px;
 $canvas-size-normal: 500px;
 
+$canvas-size-export: 48px;
+
 html, body {
   width: 100%;
   height: 100%;
@@ -37,7 +39,7 @@ footer {
   color: #828282;
 }
 
-#canvas, #filePickerOverlay {
+#canvas-draw, #filePickerOverlay {
   height: $canvas-size-small;
   width: $canvas-size-small;
   @media screen and (min-width: $screen-sm-min) {
@@ -47,6 +49,12 @@ footer {
   display: block;
   margin-left: auto;
   margin-right: auto;
+}
+
+#canvas-export {
+  display: none;
+  width: $canvas-size-export;
+  height: $canvas-size-export;
 }
 
 #filePickerOverlay {

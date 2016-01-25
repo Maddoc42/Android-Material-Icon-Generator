@@ -1,7 +1,8 @@
 'use strict';
 
 let paper = require('js/paper-core.min'),
-    IconBaseShadow = require('js/IconBaseShadow');
+    IconBaseShadow = require('js/IconBaseShadow'),
+    paperScope = require('js/PaperScopeManager');
 
 
 class IconBase {
@@ -23,7 +24,7 @@ class IconBase {
 
     setColor(color) {
         this.basePath.fillColor = color;
-        paper.view.draw();
+        paperScope.draw().view.draw();
     }
 
     setCenter(center) {

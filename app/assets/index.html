@@ -45,15 +45,46 @@
     <div class="row">
         <input id="filePicker" type="file"/>
         <div id="filePickerOverlay" class="filePickerOverlay-not-selected">
-            <div id="filePickerOverlayContent">
+            <div id="picker-content-description" class="filePickerOverlayContent">
                 <h2>Drop SVG icon here</h2>
                 <p>SVG must contain a single path which is your icon.</p>
+            </div>
+            <div id="picker-content-loading" class="filePickerOverlayContent">
+                <h2><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Generating icon ...</h2>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <canvas id="canvas-draw"></canvas>
+        <div class="col-xs-12 col-sm-6">
+            <canvas id="canvas-draw"></canvas>
+        </div>
+
+        <div class="container-edit col-xs-12 col-sm-6">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-5">
+                    <h3>Icon color</h3>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-7">
+                    <div id="color-icon" class="input-group">
+                        <input type="text" class="form-control"/>
+                        <span class="input-group-addon"><i></i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-5">
+                    <h3>Background color</h3>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-7">
+                    <div id="color-base" class="input-group">
+                        <input type="text" class="form-control"/>
+                        <span class="input-group-addon"><i></i></span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -62,13 +93,7 @@
 <canvas id="canvas-export"></canvas>
 
 
-<section id="section-edit" class="container">
-    <div class="row">
-        <button id="btn-download-svg" class="btn btn-lg btn-primary center-block" type="submit">Download SVG</button>
-    </div>
-
-    <hr/>
-
+<section class="container-edit container">
     <div class="row">
         <div class="col-xs-12 col-sm-3">
             <h3>Shadow intensity</h3>
@@ -122,26 +147,9 @@
     <hr/>
 
     <div class="row">
-        <div class="col-xs-12 col-sm-3">
-            <h3 class="push-down">Icon color</h3>
-        </div>
-        <div class="col-xs-12 col-sm-3">
-            <div id="color-icon" class="input-group">
-                <input type="text" class="form-control"/>
-                <span class="input-group-addon"><i></i></span>
-            </div>
-        </div>
-
-        <div class="col-xs-12 col-sm-3">
-            <h3 class="push-down">Background color</h3>
-        </div>
-        <div class="col-xs-12 col-sm-3">
-            <div id="color-base" class="input-group">
-                <input type="text" class="form-control"/>
-                <span class="input-group-addon"><i></i></span>
-            </div>
-        </div>
+        <button id="btn-download-svg" class="btn btn-lg btn-primary center-block" type="submit">Download SVG</button>
     </div>
+
 </section>
 
 

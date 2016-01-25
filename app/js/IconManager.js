@@ -20,18 +20,18 @@ class IconManager {
      * @param canvas jquery canvas object
      * @param filePicker jquery input object
      * @param filePickerOverlay jquery input overlay object
-     * @param sectionEdit jquery edit section object
+     * @param containerEdit jquery edit objects (can be multiple)
      * @param btnDownload jquery download button
      * @param iconColorPicker jquery icon color picker object
      * @param baseColorPicker jquery base color picker object
      * @param sliderShadow jquery slider object for changing shadow intensity
      * @param sliderIconSize jquery slider object for changing icon size
      */
-    constructor(canvas, filePicker, filePickerOverlay, sectionEdit,
+    constructor(canvas, filePicker, containerEdit,
                 btnDownload, iconColorPicker, baseColorPicker, sliderShadow,
                 sliderIconSize) {
 
-        this.sectionEdit = sectionEdit;
+        this.containerEdit = containerEdit;
         this.iconColorPicker = iconColorPicker;
         this.baseColorPicker = baseColorPicker;
         this.sliderShadow = sliderShadow;
@@ -39,27 +39,6 @@ class IconManager {
 
         // hide canvas and forward overlay clicks
         canvas.hide();
-        filePickerOverlay.click(function() {
-            filePicker.click();
-        });
-
-        // setup drag / drop
-        filePickerOverlay
-            .on('drag dragstart dragend dragover dragenter dragleave drop', function (e) {
-                e.preventDefault();
-                e.stopPropagation();
-            })
-            .on('dragover dragenter', function() {
-                filePickerOverlay.removeClass('filePickerOverlay-not-selected');
-                filePickerOverlay.addClass('filePickerOverlay-selected');
-            })
-            .on('dragleave dragend', function() {
-                filePickerOverlay.addClass('filePickerOverlay-not-selected');
-                filePickerOverlay.removeClass('filePickerOverlay-selected');
-            })
-            .on('drop', function (e) {
-                filePicker[0].files = e.originalEvent.dataTransfer.files;
-            });
 
         // place icon in center on canvas
         this.canvasSize = CANVAS_SIZE;
@@ -67,25 +46,11 @@ class IconManager {
         paperScope.draw().view.zoom = canvas.width() / CANVAS_SIZE;
         this.center = new paper.Point(this.canvasSize / 2, this.canvasSize / 2);
 
-        // setup file picker to import
-        filePicker.change(function() {
-            var svgFile = filePicker[0].files[0];
-            if (!svgFile) return;
-
-            // hide overlay and show canvas
+        filePicker.setSvgLoadedCallback(function(svgData) {
+            filePicker.hide();
             canvas.show();
-            filePickerOverlay.hide();
-
-            // read svg file
-            var fileReader = new FileReader();
-            fileReader.onload = function (event) {
-                this.onSvgFileLoaded(event.target.result);
-            }.bind(this);
-            fileReader.readAsDataURL(svgFile);
-
-            // show edit section
-            this.sectionEdit.show();
-
+            this.containerEdit.show();
+            this.onSvgFileLoaded(svgData);
         }.bind(this));
 
         // setup download

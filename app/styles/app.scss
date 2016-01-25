@@ -3,7 +3,8 @@ $screen-md-min: 992px;
 $screen-lg-min: 1200px;
 
 $canvas-size-small: 300px;
-$canvas-size-normal: 500px;
+$canvas-size-medium: 400px;
+$canvas-size-large: 500px;
 
 $canvas-size-export: 48px;
 
@@ -42,10 +43,17 @@ footer {
 #canvas-draw, #filePickerOverlay {
   height: $canvas-size-small;
   width: $canvas-size-small;
-  @media screen and (min-width: $screen-sm-min) {
-    height: $canvas-size-normal;
-    width: $canvas-size-normal;
+  @media screen and (min-width: $screen-md-min) {
+    height: $canvas-size-medium;
+    width: $canvas-size-medium;
   }
+  @media screen and (min-width: $screen-lg-min) {
+    height: $canvas-size-large;
+    width: $canvas-size-large;
+  }
+}
+
+#filePickerOverlay {
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -59,8 +67,11 @@ footer {
 
 #filePickerOverlay {
   background-size: $canvas-size-small $canvas-size-small;
-  @media screen and (min-width: $screen-sm-min) {
-    background-size: $canvas-size-normal $canvas-size-normal;
+  @media screen and (min-width: $screen-md-min) {
+    background-size: $canvas-size-medium $canvas-size-medium;
+  }
+  @media screen and (min-width: $screen-lg-min) {
+    background-size: $canvas-size-large $canvas-size-large;
   }
   cursor: pointer;
 }
@@ -73,7 +84,7 @@ footer {
   background-image: url('../filePickerOverlayBackgroundSelected.svg');
 }
 
-#filePickerOverlayContent {
+.filePickerOverlayContent {
   width: 220px;
   text-align: center;
   margin: 0 auto;
@@ -90,14 +101,32 @@ footer {
   };
 }
 
+#picker-content-loading {
+  opacity: 0;
+}
+
+.glyphicon-refresh-animate {
+    -animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+}
+
 #filePicker {
   display: none;
   height: 0;
 }
 
 
-#section-edit {
-  display: none;
+.container-edit {
   .row {
     padding-top: 25px;
     padding-bottom: 25px;
@@ -108,6 +137,7 @@ footer {
   .push-down {
     margin-top: 6px;
   };
+  display: none;
 }
 
 

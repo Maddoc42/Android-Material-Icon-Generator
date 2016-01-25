@@ -1,6 +1,7 @@
 'use strict';
 
 let IconManager = require('js/IconManager'),
+    FilePicker = require('js/FilePicker'),
     paper = require('js/paper-core.min'),
     paperScope = require('js/PaperScopeManager');
 
@@ -20,11 +21,18 @@ var App = {
         paperScope.setCanvases(drawCanvas, exportCanvas);
         paperScope.activateDraw();
 
-        new IconManager(
-            drawCanvas,
+
+        let filePicker = new FilePicker(
             $('#filePicker'),
             $('#filePickerOverlay'),
-            $('#section-edit'),
+            $('#picker-content-description'),
+            $('#picker-content-loading')
+        );
+
+        new IconManager(
+            drawCanvas,
+            filePicker,
+            $('.container-edit'),
             $('#btn-download-svg'),
             $('#color-icon'),
             $('#color-base'),

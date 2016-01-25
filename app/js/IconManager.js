@@ -139,9 +139,9 @@ class IconManager {
             this.icon.getIconShadow().applyShadow();
 
             // show canvas + remove loading msg
-            this.canvas.show();
-            this.filePicker.hide();
-            this.containerEdit.show();
+            this.filePicker.hide(300);
+            this.canvas.delay(300).fadeIn(300);
+            this.containerEdit.delay(300).fadeIn(300);
 
         }.bind(this));
     }

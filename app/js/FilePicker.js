@@ -67,9 +67,10 @@ class FilePicker {
 
     /**
      * Hides the complete file picker.
+     * @param duration fade duration
      */
-    hide() {
-        this.overlay.hide();
+    hide(duration) {
+        this.overlay.fadeOut(duration);
     }
 
 }

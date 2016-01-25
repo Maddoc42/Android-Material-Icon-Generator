@@ -23,7 +23,8 @@ var App = {
             $('#btn-download-svg'),
             $('#color-icon'),
             $('#color-base'),
-            $('#slider-shadow')
+            $('#slider-shadow'),
+            $('#slider-icon-size')
         );
 
         paper.view.draw();

@@ -57,7 +57,7 @@ class IconShadow {
 
 
     /**
-     * @param scale factor to scale this shadow by
+     * @param scale factor to scale this shadow by.
      */
     scale(scale) {
         this.iconShadowPath.scale(scale, this.iconPath.position);
@@ -80,14 +80,21 @@ class IconShadow {
      * cut to fit the base.
      */
     applyShadow() {
-        if (this.appliedIconShadowPath) this.appliedIconShadowPath.remove();
-
         // cut shadow to base
         let basePath = this.iconBase.getPathWithoutShadows();
-        this.appliedIconShadowPath = this.iconShadowPath.intersect(basePath);
+        let newAppliedIconShadowPath = this.iconShadowPath.intersect(basePath);
+        if (this.appliedIconShadowPath) {
+            this.appliedIconShadowPath.replaceWith(newAppliedIconShadowPath);
+        }
+        this.appliedIconShadowPath = newAppliedIconShadowPath;
 
         // move shadow below icon
         this.appliedIconShadowPath.moveBelow(this.iconPath);
+
+        // reapply color (if any)
+        if (this.startIntensity && this.endIntensity) {
+            this.setIntensity(this.startIntensity, this.endIntensity);
+        }
     }
 
 
@@ -97,6 +104,9 @@ class IconShadow {
      * @param endIntensity intensity at base edge. Value between 0 and 1.
      */
     setIntensity(startIntensity, endIntensity) {
+        this.startIntensity = startIntensity;
+        this.endIntensity = endIntensity;
+
         let basePath = this.iconBase.getPathWithoutShadows();
         this.appliedIconShadowPath.fillColor = {
             gradient: {

@@ -20,13 +20,17 @@ class IconManager {
      * @param iconColorPicker jquery icon color picker object
      * @param baseColorPicker jquery base color picker object
      * @param sliderShadow jquery slider object for changing shadow intensity
-     *
+     * @param sliderIconSize jquery slider object for changing icon size
      */
-    constructor(canvas, filePicker, filePickerOverlay, sectionEdit, btnDownload, iconColorPicker, baseColorPicker, sliderShadow) {
+    constructor(canvas, filePicker, filePickerOverlay, sectionEdit,
+                btnDownload, iconColorPicker, baseColorPicker, sliderShadow,
+                sliderIconSize) {
+
         this.sectionEdit = sectionEdit;
         this.iconColorPicker = iconColorPicker;
         this.baseColorPicker = baseColorPicker;
         this.sliderShadow = sliderShadow;
+        this.sliderIconSize = sliderIconSize;
 
         // hide canvas and forward overlay clicks
         canvas.hide();
@@ -150,6 +154,19 @@ class IconManager {
             }.bind(this))
             .data('slider');
         setIntensityFunction();
+
+        // setup icon size picker
+        let setSizeFunction = function () {
+            let size = this.sliderIconSizeData.getValue();
+            let scale = 0.0954548 * Math.exp(0.465169 * size);
+            this.icon.setScale(scale);
+        }.bind(this);
+        this.sliderIconSizeData = this.sliderIconSize.slider()
+            .on('slide', function () {
+                setSizeFunction();
+            }.bind(this))
+            .data('slider');
+        this.icon.getIconShadow().applyShadow();
     }
 
 

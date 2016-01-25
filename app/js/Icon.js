@@ -20,6 +20,7 @@ class Icon {
         this.iconShadow = new IconShadow(iconPath, iconBase);
         this.iconShadow.calculateShadow();
         this.size = Math.max(iconPath.bounds.width, iconPath.bounds.height);
+        this.scale = 1;
         this.iconPath.moveAbove(iconBase.getPathWithoutShadows());
     }
 
@@ -32,6 +33,19 @@ class Icon {
         this.iconPath.scale(scale, this.iconPath.position);
         this.iconShadow.scale(scale);
         this.size = newSize;
+    }
+
+
+    /**
+     * Scales this icon + shadow without changing setting this.size. setScale(1) will rescale
+     * this object to its original size.
+     * @param newScale factor.
+     */
+    setScale(newScale) {
+        this.iconPath.scale(newScale / this.scale, this.iconPath.position);
+        this.iconShadow.scale(newScale / this.scale);
+        this.scale = newScale;
+        paper.view.draw();
     }
 
 

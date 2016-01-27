@@ -11,9 +11,13 @@ class FilePicker {
      * @param overlay jquery overlay which should be hidden when finished loading
      * @param contentDescription jquery initial description
      * @param contentLoading jquery loading msg
+     * @param iconName optional param which points to one of the Google material icons.
      */
-    constructor(input, overlay, contentDescription, contentLoading) {
+    constructor(input, overlay, contentDescription, contentLoading, iconName) {
+        this.contentDescription = contentDescription;
+        this.contentLoading = contentLoading;
         this.overlay = overlay;
+        this.iconName = iconName;
 
         overlay.click(function() {
             input.click();
@@ -62,6 +66,11 @@ class FilePicker {
      */
     setSvgLoadedCallback(callback) {
         this.onSvgLoaded = callback;
+        if (this.iconName) {
+            this.contentDescription.hide();
+            this.contentLoading.css('opacity', 1);
+            callback(this.iconName);
+        }
     }
 
 

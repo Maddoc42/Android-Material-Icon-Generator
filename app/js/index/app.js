@@ -21,7 +21,8 @@ var App = {
             $('#filePicker'),
             $('#filePickerOverlay'),
             $('#picker-content-description'),
-            $('#picker-content-loading')
+            $('#picker-content-loading'),
+            this.getParameterByName('icon')
         );
 
         new IconManager(
@@ -36,6 +37,13 @@ var App = {
         );
 
         paperScope.draw().view.draw();
+    },
+
+    getParameterByName: function(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+            results = regex.exec(location.search);
+        return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
     }
 
 };

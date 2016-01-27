@@ -61,12 +61,13 @@ class IconManager {
 
     /**
      * Handles the svg file loaded callback.
+     * @param svgData either raw svg data or a URL pointing to a svg file.
      */
-    onSvgFileLoaded(svgFileContent) {
+    onSvgFileLoaded(svgData) {
         // remove any previous icons
         if (this.icon) this.icon.remove();
 
-        paperScope.draw().project.importSVG(svgFileContent, {
+        paperScope.draw().project.importSVG(svgData, {
                 applyMatrix: true,
                 onLoad: function (importedItem) {
                     // check svg paths

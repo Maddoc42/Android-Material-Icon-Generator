@@ -49,7 +49,7 @@ var App = {
                 iconDiv.find('.icon-title').html(iconName);
 
                 // set link
-                iconDiv.find('.icon-container-anchor').attr('href', '../?iconName=' + iconName);
+                iconDiv.find('.container-icon-anchor').attr('href', '../?icon=' + 'material-icons/' + categoryName + '/' + fileName);
             }
         }
 

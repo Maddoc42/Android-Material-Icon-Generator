@@ -3,7 +3,7 @@
 let paper = require('js/index/paper-core.min'),
     paperScope = require('js/index/PaperScopeManager');
 
-const SHADOW_ITERATIONS = 130;
+const SHADOW_ITERATIONS = 30;
 
 
 class IconShadow {
@@ -23,8 +23,8 @@ class IconShadow {
      * @param callback for when shadow computation is finished.
      */
     calculateShadow(callback) {
-        let iconShadowPath = this.iconPath.clone();
-        let iconPathCopy = this.iconPath.clone();
+        let iconShadowPath = this.getOutlinePaths(this.iconPath)[0];
+        let iconPathCopy = iconShadowPath.clone();
 
         // calculate translation such that icon is at least (!) moved (iconDiagonal, iconDiagonal) to bottom right
         let iconPathDiagonal = this.getIconPathDiagonal();
@@ -57,7 +57,7 @@ class IconShadow {
             data.iconShadowPath.remove();
             data.iconShadowPath = newShadowPath;
             if (currentIteration % 20 == 0) {
-                setTimeout(function() {
+                setTimeout(function () {
                     this.calculateShadowIteration(callback, data, currentIteration);
                 }.bind(this), 20);
             } else {
@@ -65,13 +65,13 @@ class IconShadow {
             }
             return;
         }
-
         data.iconPathCopy.remove();
 
-        // convert CompoundPath to regular Path
-        let newShadowPath = new paper.Path(data.iconShadowPath.pathData);
+        // TODO
+        // remove possible holes from shadow
+        let newIconShadowPath = this.getOutlinePaths(data.iconShadowPath)[0];
         data.iconShadowPath.remove();
-        data.iconShadowPath = newShadowPath;
+        data.iconShadowPath = newIconShadowPath;
 
         // sometimes duplicate points are creating by converting to regular path --> remove!
         this.removeDuplicatePoints(data.iconShadowPath);
@@ -155,13 +155,47 @@ class IconShadow {
 
 
     /**
+     * Removes 'holes' from paths and returns all paths  which together from the outline of
+     * the given path. The return paths will have been inserted into the project and are a
+     * clone from the original.
+     * @param {paper.PathItem} pathItem - input path
+     * @returns {paper.PathItem[]} - an array containing the paths.
+     */
+    getOutlinePaths(pathItem) {
+        if (pathItem instanceof paper.Path) {
+            return [ pathItem.clone() ];
+        }
+        if (!(pathItem instanceof paper.CompoundPath)) {
+            console.warn('unknown path class');
+            console.warn(pathItem);
+            return [];
+        }
+
+        let children = [];
+        for (let i = 0; i < pathItem.children.length; ++i) {
+            let path = pathItem.children[i];
+            if (!(path instanceof paper.Path)) {
+                console.warn('child is not a paper.Path!');
+                console.warn(path);
+                continue;
+            }
+            children.push(path);
+        }
+        children.sort(function(a, b) {
+            return Math.abs(a.area) - Math.abs(b.area);
+        });
+        return [ new paper.Path(children[children.length - 1].pathData) ];
+    }
+
+
+    /**
      * Asserts that the template shadow is very (!) long such that
      * its bottom right edge will never show when moving / scaling the shadow.
      */
     assertLongShadow() {
-        var points = this.getBottomRightShadowVertices();
-        for (var i = 0; i < points.length; ++i) {
-            var point = points[i];
+        let points = this.getBottomRightShadowVertices();
+        for (let i = 0; i < points.length; ++i) {
+            let point = points[i];
             point.x = point.x + 1000000; // very long ;)
             point.y = point.y + 1000000;
         }
@@ -173,11 +207,11 @@ class IconShadow {
      * (vertices which have to be moved to extend the length of the shadow).
      */
     getBottomRightShadowVertices() {
-        var iconPathDiagonal = this.getIconPathDiagonal();
-        var topLeft = this.iconShadowPath.bounds.topLeft;
-        var result = [];
-        for (var i = 0; i < this.iconShadowPath.segments.length; ++i) {
-            var point = this.iconShadowPath.segments[i].point;
+        let iconPathDiagonal = this.getIconPathDiagonal();
+        let topLeft = this.iconShadowPath.bounds.topLeft;
+        let result = [];
+        for (let i = 0; i < this.iconShadowPath.segments.length; ++i) {
+            let point = this.iconShadowPath.segments[i].point;
             if (topLeft.getDistance(point) <= iconPathDiagonal) continue;
             result.push(point);
         }
@@ -191,11 +225,18 @@ class IconShadow {
 
 
     removeDuplicatePoints(iconShadowPath) {
+        if (iconShadowPath instanceof paper.CompoundPath) {
+            for (let i = 0; i < iconShadowPath.children.length; ++i) {
+                this.removeDuplicatePoints(iconShadowPath.children[i]);
+            }
+            return;
+        }
+
         var totalPoints = iconShadowPath.segments.length;
         var previousPoint;
         var indicesToRemove = [];
 
-        for (var i = 0; i < totalPoints + 1; ++i) {
+        for (let i = 0; i < totalPoints + 1; ++i) {
             var pointIdx = i % totalPoints;
             var point = iconShadowPath.segments[pointIdx].point;
 
@@ -240,7 +281,7 @@ class IconShadow {
         var totalPoints = iconShadowPath.segments.length;
         var totalIterCount = totalPoints + 3; // + 3 in case start point should also be removed
 
-        for (var i = 0; i < totalIterCount; ++i) {
+        for (let i = 0; i < totalIterCount; ++i) {
             var pointIdx = i % totalPoints;
             var point = iconShadowPath.segments[pointIdx].point;
 
@@ -257,7 +298,7 @@ class IconShadow {
             if ((endOfMatch === true || i === totalIterCount - 1) && matchCount > 0) {
                 var msg = '';
                 var removeCount = 0;
-                for (var removeIdx  = pointIdx - 1 - matchCount; removeIdx < pointIdx - 1; ++removeIdx) {
+                for (var removeIdx = pointIdx - 1 - matchCount; removeIdx < pointIdx - 1; ++removeIdx) {
                     ++removeCount;
                     msg = msg + pointIdx + ', ';
                     indicesToRemove.push(removeIdx < 0 ? removeIdx + totalPoints : removeIdx);
@@ -276,7 +317,9 @@ class IconShadow {
 
 
     removePointsByIndices(path, indicesToRemove) {
-        indicesToRemove.sort(function(a, b) { return a - b; }).reverse();
+        indicesToRemove.sort(function (a, b) {
+            return a - b;
+        }).reverse();
         for (var i = 0; i < indicesToRemove.length; ++i) {
             path.removeSegment(indicesToRemove[i]);
         }

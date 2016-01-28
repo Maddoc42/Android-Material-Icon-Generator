@@ -68,23 +68,24 @@ class IconManager {
         if (this.icon) this.icon.remove();
 
         paperScope.draw().project.importSVG(svgData, {
-                applyMatrix: true,
-                onLoad: function (importedItem) {
-                    // check svg paths
-                    let importedPath = this.getPathFromImport(importedItem);
-                    if (!importedPath) {
-                        window.alert('Sorry, no path found in SVG file :(');
-                        return;
-                    }
-                    importedPath.strokeWidth = 0;
+            applyMatrix: true,
+            expandShapes: true,
+            onLoad: function (importedItem) {
+                // check svg paths
+                let importedPath = this.getPathFromImport(importedItem);
+                if (!importedPath) {
+                    window.alert('Sorry, no path found in SVG file :(');
+                    return;
+                }
+                importedPath.strokeWidth = 0;
 
-                    // one time base setup
-                    this.setupBase();
+                // one time base setup
+                this.setupBase();
 
-                    // create icon and shadow
-                    this.setupIcon(importedPath);
-                }.bind(this)
-            });
+                // create icon and shadow
+                this.setupIcon(importedPath);
+            }.bind(this)
+        });
     }
 
 

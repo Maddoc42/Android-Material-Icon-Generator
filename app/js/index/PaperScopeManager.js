@@ -26,6 +26,7 @@ class PaperScopeManager {
 
         this.exportScope = new paper.PaperScope();
         this.exportScope.setup(exportCanvas[0]);
+        exportCanvas.hide();
     }
 
     /**

@@ -19,7 +19,6 @@ class IconManager {
     /**
      * @param canvas jquery canvas object
      * @param filePicker jquery input object
-     * @param filePickerOverlay jquery input overlay object
      * @param containerEdit jquery edit objects (can be multiple)
      * @param btnDownload jquery download button
      * @param iconColorPicker jquery icon color picker object

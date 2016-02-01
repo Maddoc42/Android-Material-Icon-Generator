@@ -190,13 +190,34 @@ class IconManager {
             if (possiblePaths.length == 0) return null;
             if (possiblePaths.length == 1) return possiblePaths[0];
 
-            // if multiple paths, try finding one with fill color
+            // if multiple paths, select all with fill color
             // (helps importing Google material icons, which always have a second 'invisible' path)
+            let filledPaths = [];
             for (let i = 0; i < possiblePaths.length; ++i) {
-                if (possiblePaths[i].fillColor) return possiblePaths[i];
+                let path = possiblePaths[i];
+                if (path.fillColor) filledPaths.push(possiblePaths[i]);
+                path.remove();
             }
-            // return first match
-            return possiblePaths[0];
+
+            // create new CompoundPath from single paths
+            let simplePaths = [];
+            for (let i = 0; i < filledPaths.length; ++i) {
+                let path = filledPaths[i];
+                if (path instanceof paper.Path) {
+                    simplePaths.push(path);
+                } else if (path instanceof paper.CompoundPath) {
+                    for (let j = 0; j < path.children.length; ++j) {
+                        simplePaths.push(path.children[j]);
+                    }
+                }
+                simplePaths[simplePaths.length - 1].fillColor = new paper.Color(0, 0, 0, 0);
+            }
+            // sorting paths by area seems to be necessary to properly determine inside / outside of paths
+            // (yes, it shouldn't, but ic_child_care_* seems to do just this)
+            simplePaths.sort(function(a , b) {
+                return a.area - b.area;
+            });
+            return new paper.CompoundPath({ children: simplePaths });
         }
 
         if (importedItem instanceof paper.PathItem) {

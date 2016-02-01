@@ -90,8 +90,6 @@ class IconManager {
 
 
     setupBase() {
-        if (this.iconBase) return;
-
         let defaultBaseColor = '#512DA8';
         this.baseRadius = this.canvasSize / 2 * 0.9;
         this.iconBase = new IconBase(this.center, this.baseRadius);
@@ -106,46 +104,43 @@ class IconManager {
     setupIcon(importedPath) {
         // create icon + shadow
         let defaultIconColor = '#ffffff';
-        this.icon = new Icon(this.center, 'white', importedPath, this.iconBase, function() {
-            this.icon.setSize(this.baseRadius * 2 * 0.60);
-            this.icon.setColor(defaultIconColor);
+        this.icon = new Icon(this.center, 'white', importedPath, this.iconBase);
+        this.icon.setSize(this.baseRadius * 2 * 0.60);
 
-            // setup icon color picker
-            new ColorPicker(this.iconColorPicker, defaultIconColor, function(newColor) {
-                this.icon.setColor(newColor);
-            }.bind(this));
-
-            // setup shadow intensity picker
-            let setIntensityFunction = function() {
-                let intensity = this.sliderShadowData.getValue();
-                this.icon.getIconShadow().setIntensity(intensity[1], intensity[0]);
-            }.bind(this);
-            this.sliderShadowData = this.sliderShadow.slider()
-                .on('slide', function () {
-                    setIntensityFunction();
-                }.bind(this))
-                .data('slider');
-            setIntensityFunction();
-
-            // setup icon size picker
-            let setSizeFunction = function () {
-                let size = this.sliderIconSizeData.getValue();
-                let scale = 0.0954548 * Math.exp(0.465169 * size);
-                this.icon.setScale(scale);
-            }.bind(this);
-            this.sliderIconSizeData = this.sliderIconSize.slider()
-                .on('slide', function () {
-                    setSizeFunction();
-                }.bind(this))
-                .data('slider');
-            this.icon.getIconShadow().applyShadow();
-
-            // show canvas + remove loading msg
-            this.filePicker.hide(300);
-            this.canvas.delay(300).fadeIn(300);
-            this.containerEdit.delay(300).fadeIn(300);
-
+        // setup icon color picker
+        new ColorPicker(this.iconColorPicker, defaultIconColor, function(newColor) {
+            this.icon.setColor(newColor);
         }.bind(this));
+
+        // setup shadow intensity picker
+        let setIntensityFunction = function() {
+            let intensity = this.sliderShadowData.getValue();
+            this.icon.getIconShadow().setIntensity(intensity[1], intensity[0]);
+        }.bind(this);
+        this.sliderShadowData = this.sliderShadow.slider()
+            .on('slide', function () {
+                setIntensityFunction();
+            }.bind(this))
+            .data('slider');
+        setIntensityFunction();
+
+        // setup icon size picker
+        let setSizeFunction = function () {
+            let size = this.sliderIconSizeData.getValue();
+            let scale = 0.0954548 * Math.exp(0.465169 * size);
+            this.icon.setScale(scale);
+        }.bind(this);
+        this.sliderIconSizeData = this.sliderIconSize.slider()
+            .on('slide', function () {
+                setSizeFunction();
+            }.bind(this))
+            .data('slider');
+        this.icon.getIconShadow().applyShadow();
+
+        // show canvas + remove loading msg
+        this.filePicker.hide(300);
+        this.canvas.delay(300).fadeIn(300);
+        this.containerEdit.delay(300).fadeIn(300);
     }
 
 

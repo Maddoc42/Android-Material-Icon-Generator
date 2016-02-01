@@ -3,7 +3,7 @@
 let paper = require('js/index/paper-core.min'),
     paperScope = require('js/index/PaperScopeManager');
 
-const SHADOW_ITERATIONS = 30;
+const TARGET_ANGLE = Math.PI / 4;
 
 
 class IconShadow {
@@ -13,79 +13,238 @@ class IconShadow {
      * @param iconBase of the icon used to cut the shadow
      */
     constructor(iconPath, iconBase) {
-        this.iconPath = iconPath;
         this.iconBase = iconBase;
-    }
+        this.iconPath = iconPath;
 
+        let path = new paper.Path(iconPath.pathData);
+        let subPaths = [];
+        let tangent = this.findNextTangent(path);
 
-    /**
-     * Calculates the shadow but does not (!) apply it.
-     * @param callback for when shadow computation is finished.
-     */
-    calculateShadow(callback) {
-        let iconShadowPath = this.getOutlinePaths(this.iconPath)[0];
-        let iconPathCopy = iconShadowPath.clone();
-
-        // calculate translation such that icon is at least (!) moved (iconDiagonal, iconDiagonal) to bottom right
-        let iconPathDiagonal = this.getIconPathDiagonal();
-        let shadowOffset = iconPathDiagonal * 1.1 / SHADOW_ITERATIONS;
-        let translation = new paper.Point(shadowOffset, shadowOffset);
-
-        this.calculateShadowIteration(
-            callback,
-            {
-                iconShadowPath: iconShadowPath,
-                iconPathCopy: iconPathCopy,
-                shadowOffset: shadowOffset,
-                translation: translation
-            },
-            1);
-    }
-
-
-    /**
-     * What's up with this complicated recursive computation thing?
-     * JS is hard core single threaded (gnaaa ...) and blocks the UI if used too heavily.
-     * Calculating the shadow requires lots of CPU, so here the computation is paused
-     * every now and then to let the UI do at least some minor updates.
-     */
-    calculateShadowIteration(callback, data, currentIteration) {
-        if (currentIteration <= SHADOW_ITERATIONS) {
-            ++currentIteration;
-            data.iconPathCopy.translate(data.translation);
-            let newShadowPath = data.iconShadowPath.unite(data.iconPathCopy);
-            data.iconShadowPath.remove();
-            data.iconShadowPath = newShadowPath;
-            if (currentIteration % 20 == 0) {
-                setTimeout(function () {
-                    this.calculateShadowIteration(callback, data, currentIteration);
-                }.bind(this), 20);
-            } else {
-                this.calculateShadowIteration(callback, data, currentIteration);
-            }
-            return;
+        // cut path along tangents into sub paths
+        path.split(tangent.curveIdx, tangent.timeParams[0]);
+        while (path && (tangent = this.findNextTangent(path))) {
+            let newPath = path.split(tangent.curveIdx, tangent.timeParams[0]);
+            subPaths.push(path);
+            path = newPath;
         }
-        data.iconPathCopy.remove();
+        if (path) subPaths.push(path);
 
-        // TODO
-        // remove possible holes from shadow
-        let newIconShadowPath = this.getOutlinePaths(data.iconShadowPath)[0];
-        data.iconShadowPath.remove();
-        data.iconShadowPath = newIconShadowPath;
+        // create shadow sub shapes
+        let translation = new paper.Point(5000, 5000);
+        for (let i = 0; i < subPaths.length; ++i) {
+            let subPath = subPaths[i];
 
-        // sometimes duplicate points are creating by converting to regular path --> remove!
-        this.removeDuplicatePoints(data.iconShadowPath);
+            let firstSegment = subPath.firstSegment;
+            firstSegment.handleIn.x = 0;
+            firstSegment.handleIn.y = 0;
+            firstSegment = new paper.Segment(firstSegment.point.add(translation));
 
-        // create 'nicer' shadow path
-        this.simplifyShadowPath(data.iconShadowPath, data.shadowOffset);
+            let lastSegment = subPath.lastSegment;
+            lastSegment.handleOut.x = 0;
+            lastSegment.handleOut.y = 0;
+            lastSegment = new paper.Segment(lastSegment.point.add(translation));
 
-        // store original shadow and apply
-        data.iconShadowPath.remove();
-        this.iconShadowPath = data.iconShadowPath;
-        this.assertLongShadow();
+            subPath.insert(0, firstSegment);
+            subPath.add(lastSegment);
+            subPath.closed = true;
+        }
 
-        callback();
+        // join all sub paths into final shadow
+        let shadowPath = new paper.Path(subPaths[0].pathData);
+        subPaths[0].remove();
+        for (let i = 1; i < subPaths.length; ++i) {
+            let subPathCopy = new paper.Path(subPaths[i].pathData);
+            let newShadowPath = shadowPath.unite(subPathCopy);
+            subPathCopy.remove();
+            subPaths[i].remove();
+            shadowPath.remove();
+            shadowPath = newShadowPath;
+        }
+
+        // store shadow template and cut with base
+        this.iconShadowPath = shadowPath;
+        this.applyShadow();
     }
+
+
+    findNextTangent(path) {
+        // go over each curve and try finding tangent with target angle
+        for (let i = 0; i < path.curves.length; ++i) {
+            let curve = path.curves[i];
+
+            // search for tangent within curve
+            let timeParams = this.findNextTangentFromCurve(curve);
+            if (timeParams.length > 0) {
+                // don't split curve right at the beginning (otherwise it might never stop splitting there ...)
+                if (i === 0 && timeParams[0] < 1E-10) {
+                    timeParams.splice(0, 1);
+                    if (timeParams.length === 0) continue;
+                }
+
+                return {
+                    curveIdx: i,
+                    timeParams: timeParams
+                };
+            }
+
+            // check for hard edges between this and the next curve
+            let nextCurve = path.curves[(i + 1) % path.curves.length];
+            let hardEdge = (curve.handle2.x === 0 && curve.handle2.y === 0) || (nextCurve.handle1.x === 0 || nextCurve.handle1.y === 0);
+            hardEdge = hardEdge || (Math.abs(curve.getTangentAt(1, true).angle - nextCurve.getTangentAt(0, true).angle) > 1E-10);
+            if (!hardEdge) continue;
+            // (possible) TODO
+            // Currently path will be split along every hard edge. This might not be super efficient for very large paths.
+            return {
+                curveIdx: i,
+                timeParams: [1]
+            };
+        }
+        return undefined;
+    }
+
+
+    /*
+    findNextTangentFromPolygon(curve1, curve2) {
+        let startPoint = this.roundVector(curve1.getTangentAt(1, true));
+        let endPoint  = this.roundVector(curve2.getTangentAt(0, true));
+        console.log('start tangent ' + startPoint);
+        console.log('end tangent ' + endPoint);
+
+
+        startPoint.x = startPoint.x * -1;
+        startPoint.y = startPoint.y * -1;
+
+        let startAngle = startPoint.angle;
+
+        let tmp = (startPoint.x * endPoint.x + startPoint.y * endPoint.y)
+            /
+            (
+                Math.sqrt(startPoint.x * startPoint.x + startPoint.y * startPoint.y)
+                *
+                Math.sqrt(endPoint.x * endPoint.x + endPoint.y * endPoint.y)
+            );
+
+        tmp = Math.min(1, Math.max(-1, tmp));
+
+        let angle = Math.acos(tmp);
+        angle = 360 - (angle * 180 / Math.PI);
+
+
+        let startQuadrant = this.getVectorQuadrant(startPoint);
+        let endQuadrant = this.getVectorQuadrant(endPoint);
+        let quadrantDiff = endQuadrant - startQuadrant;
+        if (quadrantDiff < 0) quadrantDiff += 3;
+        console.log(startQuadrant + ', ' + endQuadrant + ' --> quadrant diff ' + quadrantDiff);
+        if (quadrantDiff > 1) angle = 360 - angle;
+
+
+        if (angle < 0) {
+            console.log('original angle ' + angle);
+            angle += 360;
+        }
+        return [1];
+    }
+
+
+    getVectorQuadrant(vector) {
+        if (vector.x > 0 && vector.y >= 0) return 0;
+        if (vector.x >= 0 && vector.y < 0) return 1;
+        if (vector.x < 0 && vector.y <= 0) return 2;
+        return 3;
+    }
+
+
+    roundVector(vector) {
+        let verySmall = 1E-10;
+        if (Math.abs(vector.x) < verySmall) vector.x = 0;
+        if (Math.abs(vector.y) < verySmall) vector.y = 0;
+        return vector;
+    }
+     */
+
+
+    findNextTangentFromCurve(curve) {
+        // in case of missing handles return
+        if (curve.handle1.x === 0 && curve.handle1.y === 0 && curve.handle2.x === 0 && curve.handle2.y === 0) {
+            return [];
+        }
+
+        // find tangent with target angle (45 degrees)
+        let points = [
+            curve.point1,
+            curve.point1.add(curve.handle1),
+            curve.point2.add(curve.handle2),
+            curve.point2
+        ];
+
+        let a = {};
+        let b = {};
+        let c = {};
+
+        a.x = 3 * points[3].x - 9 * points[2].x + 9 * points[1].x - 3 * points[0].x;
+        a.y = 3 * points[3].y - 9 * points[2].y + 9 * points[1].y - 3 * points[0].y;
+
+        b.x = 6 * points[2].x - 12 * points[1].x + 6 * points[0].x;
+        b.y = 6 * points[2].y - 12 * points[1].y + 6 * points[0].y;
+
+        c.x = 3 * points[1].x - 3 * points[0].x;
+        c.y = 3 * points[1].y - 3 * points[0].y;
+
+
+        let t = {
+            x: Math.cos(TARGET_ANGLE),
+            y: Math.sin(TARGET_ANGLE)
+        };
+
+        let timeParams = [];
+        let den = 2 * a.x * t.y - 2 * a.y * t.x;
+        if (Math.abs(den) < 1E-10) {
+            let num = a.x * c.y - a.y * c.x;
+            den = a.x * b.y - a.y * b.x;
+            if (den != 0) {
+                let time = -num / den;
+                if (time >= 0 && time <= 1) timeParams.push(time);
+            }
+        } else {
+            let delta = (b.x * b.x - 4 * a.x * c.x) * t.y * t.y + (-2 * b.x * b.y + 4 * a.y * c.x + 4 * a.x * c.y) * t.x * t.y + (b.y * b.y - 4 * a.y * c.y) * t.x * t.x;
+            let k = b.x * t.y - b.y * t.x;
+            timeParams = [];
+            if (delta >= 0 && den != 0) {
+                let d = Math.sqrt(delta);
+                let t0 = -(k + d) / den;
+                let t1 = (-k + d) / den;
+
+                if (Math.abs(t0 - 1) < 1E-5) t0 = 1;
+                if (Math.abs(t1 - 1) < 1E-5) t1 = 1;
+
+                if (t0 >= 0 && t0 < 1) timeParams.push(t0);
+                if (t1 >= 0 && t1 < 1) timeParams.push(t1);
+            }
+        }
+        if (timeParams.length === 0) return timeParams;
+
+        // clean values
+        for (let i = 0; i < timeParams.length; ++i) {
+            let time = timeParams[i];
+
+            // if very close to 0, set value to 0
+            if (time < 1E-10) {
+                timeParams[i] = 0;
+                continue;
+            }
+
+            // if very close to 1, set value to 1
+            time = Math.abs(1 - time);
+            if (time < 1E-10) {
+                timeParams[i] = 1;
+                continue;
+            }
+        }
+
+        timeParams.sort(function(a, b) { return a - b; });
+        return timeParams;
+    }
+
 
 
     /**
@@ -94,6 +253,7 @@ class IconShadow {
     scale(scale) {
         this.iconShadowPath.scale(scale, this.iconPath.position);
         this.applyShadow();
+        paperScope.draw().view.draw();
     }
 
 
@@ -115,6 +275,7 @@ class IconShadow {
         // cut shadow to base
         let basePath = this.iconBase.getPathWithoutShadows();
         let newAppliedIconShadowPath = this.iconShadowPath.intersect(basePath);
+
         if (this.appliedIconShadowPath) {
             this.appliedIconShadowPath.replaceWith(newAppliedIconShadowPath);
         }
@@ -161,9 +322,10 @@ class IconShadow {
      * @param {paper.PathItem} pathItem - input path
      * @returns {paper.PathItem[]} - an array containing the paths.
      */
+/*
     getOutlinePaths(pathItem) {
         if (pathItem instanceof paper.Path) {
-            return [ pathItem.clone() ];
+            return [ new paper.Path(pathItem.pathData) ];
         }
         if (!(pathItem instanceof paper.CompoundPath)) {
             console.warn('unknown path class');
@@ -171,6 +333,7 @@ class IconShadow {
             return [];
         }
 
+        // copy children and skip non paper.Path objects
         let children = [];
         for (let i = 0; i < pathItem.children.length; ++i) {
             let path = pathItem.children[i];
@@ -181,150 +344,27 @@ class IconShadow {
             }
             children.push(path);
         }
+
+        // sort ascending by area
         children.sort(function(a, b) {
             return Math.abs(a.area) - Math.abs(b.area);
         });
-        return [ new paper.Path(children[children.length - 1].pathData) ];
-    }
 
-
-    /**
-     * Asserts that the template shadow is very (!) long such that
-     * its bottom right edge will never show when moving / scaling the shadow.
-     */
-    assertLongShadow() {
-        let points = this.getBottomRightShadowVertices();
-        for (let i = 0; i < points.length; ++i) {
-            let point = points[i];
-            point.x = point.x + 1000000; // very long ;)
-            point.y = point.y + 1000000;
-        }
-    }
-
-
-    /**
-     * Returns all vertices which belong to the bottom right edge of the shadow
-     * (vertices which have to be moved to extend the length of the shadow).
-     */
-    getBottomRightShadowVertices() {
-        let iconPathDiagonal = this.getIconPathDiagonal();
-        let topLeft = this.iconShadowPath.bounds.topLeft;
-        let result = [];
-        for (let i = 0; i < this.iconShadowPath.segments.length; ++i) {
-            let point = this.iconShadowPath.segments[i].point;
-            if (topLeft.getDistance(point) <= iconPathDiagonal) continue;
-            result.push(point);
-        }
-        return result;
-    }
-
-
-    getIconPathDiagonal() {
-        return Math.sqrt(Math.pow(Math.max(this.iconPath.bounds.width, this.iconPath.bounds.height), 2) * 2);
-    }
-
-
-    removeDuplicatePoints(iconShadowPath) {
-        if (iconShadowPath instanceof paper.CompoundPath) {
-            for (let i = 0; i < iconShadowPath.children.length; ++i) {
-                this.removeDuplicatePoints(iconShadowPath.children[i]);
-            }
-            return;
-        }
-
-        var totalPoints = iconShadowPath.segments.length;
-        var previousPoint;
-        var indicesToRemove = [];
-
-        for (let i = 0; i < totalPoints + 1; ++i) {
-            var pointIdx = i % totalPoints;
-            var point = iconShadowPath.segments[pointIdx].point;
-
-            if (previousPoint) {
-                var distance = point.getDistance(previousPoint);
-                if (distance < 0.0001) indicesToRemove.push(pointIdx);
-            }
-
-            previousPoint = point;
-        }
-
-        this.removePointsByIndices(iconShadowPath, indicesToRemove);
-    }
-
-    /**
-     * Simplifies the path of a shadow by searching for unnecessary points which were created
-     * while shifting the original icon path.
-     *
-     * Example:
-     *
-     * o
-     *   o
-     *     o
-     *
-     * Would be simplified to:
-     *
-     * o
-     *
-     *     o
-     */
-    simplifyShadowPath(iconShadowPath, shadowOffset) {
-        var offsetDistance = Math.round(100 * Math.sqrt(shadowOffset * shadowOffset * 2)) / 100;
-        var doubleOffsetDistance = Math.round(100 * Math.sqrt(shadowOffset * shadowOffset * 2) * 2) / 100;
-        var secondLastPoint;
-        var lastPoint;
-
-        var matchCount = 0;
-        var endOfMatch = false;
-        var indicesToRemove = [];
-
-        // iterate over all path points and find 'close' pairs (distance equal to the offset used for creating the shadow)
-        var totalPoints = iconShadowPath.segments.length;
-        var totalIterCount = totalPoints + 3; // + 3 in case start point should also be removed
-
-        for (let i = 0; i < totalIterCount; ++i) {
-            var pointIdx = i % totalPoints;
-            var point = iconShadowPath.segments[pointIdx].point;
-
-            if (secondLastPoint) {
-                var distance = Math.round(100 * point.getDistance(secondLastPoint)) / 100;
-                if (distance === offsetDistance || distance === doubleOffsetDistance) {
-                    ++matchCount;
-                    endOfMatch = false;
-                } else {
-                    endOfMatch = true;
+        // find largest areas which do not overlap with others
+        let resultPaths = [];
+        outerLoop:
+            for (let i = 0; i < children.length; ++i) {
+                let path = children[i];
+                let insidePoint = path.interiorPoint;
+                for (let j = i + 1; j < children.length; ++j) {
+                    if (children[j].contains(insidePoint)) continue outerLoop;
                 }
+                resultPaths.push(new paper.Path(path.pathData));
             }
 
-            if ((endOfMatch === true || i === totalIterCount - 1) && matchCount > 0) {
-                var msg = '';
-                var removeCount = 0;
-                for (var removeIdx = pointIdx - 1 - matchCount; removeIdx < pointIdx - 1; ++removeIdx) {
-                    ++removeCount;
-                    msg = msg + pointIdx + ', ';
-                    indicesToRemove.push(removeIdx < 0 ? removeIdx + totalPoints : removeIdx);
-                }
-                matchCount = 0;
-                endOfMatch = true;
-            }
-
-            secondLastPoint = lastPoint;
-            lastPoint = point;
-        }
-
-        // actually remove indices from iconShadowPath
-        this.removePointsByIndices(iconShadowPath, indicesToRemove);
+        return resultPaths;
     }
-
-
-    removePointsByIndices(path, indicesToRemove) {
-        indicesToRemove.sort(function (a, b) {
-            return a - b;
-        }).reverse();
-        for (var i = 0; i < indicesToRemove.length; ++i) {
-            path.removeSegment(indicesToRemove[i]);
-        }
-
-    }
+    */
 
 }
 

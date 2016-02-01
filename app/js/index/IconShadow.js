@@ -16,53 +16,65 @@ class IconShadow {
         this.iconBase = iconBase;
         this.iconPath = iconPath;
 
-        let path = new paper.Path(iconPath.pathData);
-        let subPaths = [];
-        let tangent = this.findNextTangent(path);
+        let outlineIconPaths = this.getOutlinePaths(iconPath);
+        for (let outlineIdx = 0; outlineIdx < outlineIconPaths.length; ++outlineIdx) {
+            let path = outlineIconPaths[outlineIdx];
+            let subPaths = [];
+            let tangent = this.findNextTangent(path);
 
-        // cut path along tangents into sub paths
-        path.split(tangent.curveIdx, tangent.timeParams[0]);
-        while (path && (tangent = this.findNextTangent(path))) {
-            let newPath = path.split(tangent.curveIdx, tangent.timeParams[0]);
-            subPaths.push(path);
-            path = newPath;
-        }
-        if (path) subPaths.push(path);
+            // cut path along tangents into sub paths
+            path.split(tangent.curveIdx, tangent.timeParams[0]);
+            while (path && (tangent = this.findNextTangent(path))) {
+                let newPath = path.split(tangent.curveIdx, tangent.timeParams[0]);
+                subPaths.push(path);
+                path = newPath;
+            }
+            if (path) subPaths.push(path);
 
-        // create shadow sub shapes
-        let translation = new paper.Point(5000, 5000);
-        for (let i = 0; i < subPaths.length; ++i) {
-            let subPath = subPaths[i];
+            // create shadow sub shapes
+            let translation = new paper.Point(5000, 5000);
+            for (let i = 0; i < subPaths.length; ++i) {
+                let subPath = subPaths[i];
 
-            let firstSegment = subPath.firstSegment;
-            firstSegment.handleIn.x = 0;
-            firstSegment.handleIn.y = 0;
-            firstSegment = new paper.Segment(firstSegment.point.add(translation));
+                let firstSegment = subPath.firstSegment;
+                firstSegment.handleIn.x = 0;
+                firstSegment.handleIn.y = 0;
+                firstSegment = new paper.Segment(firstSegment.point.add(translation));
 
-            let lastSegment = subPath.lastSegment;
-            lastSegment.handleOut.x = 0;
-            lastSegment.handleOut.y = 0;
-            lastSegment = new paper.Segment(lastSegment.point.add(translation));
+                let lastSegment = subPath.lastSegment;
+                lastSegment.handleOut.x = 0;
+                lastSegment.handleOut.y = 0;
+                lastSegment = new paper.Segment(lastSegment.point.add(translation));
 
-            subPath.insert(0, firstSegment);
-            subPath.add(lastSegment);
-            subPath.closed = true;
-        }
+                subPath.insert(0, firstSegment);
+                subPath.add(lastSegment);
+                subPath.closed = true;
+            }
 
-        // join all sub paths into final shadow
-        let shadowPath = new paper.Path(subPaths[0].pathData);
-        subPaths[0].remove();
-        for (let i = 1; i < subPaths.length; ++i) {
-            let subPathCopy = new paper.Path(subPaths[i].pathData);
-            let newShadowPath = shadowPath.unite(subPathCopy);
-            subPathCopy.remove();
-            subPaths[i].remove();
-            shadowPath.remove();
-            shadowPath = newShadowPath;
+            // join all sub paths into final shadow
+            let shadowPath = new paper.Path(subPaths[0].pathData);
+            subPaths[0].remove();
+            for (let i = 1; i < subPaths.length; ++i) {
+                let subPathCopy = new paper.Path(subPaths[i].pathData);
+                let newShadowPath = shadowPath.unite(subPathCopy);
+                subPathCopy.remove();
+                subPaths[i].remove();
+                shadowPath.remove();
+                shadowPath = newShadowPath;
+            }
+
+            // join with previous shadows
+            if (!this.iconShadowPath) {
+                this.iconShadowPath = shadowPath;
+            } else {
+                let newIconShadowPath = this.iconShadowPath.unite(shadowPath);
+                this.iconShadowPath.remove();
+                shadowPath.remove();
+                this.iconShadowPath = newIconShadowPath;
+            }
         }
 
         // store shadow template and cut with base
-        this.iconShadowPath = shadowPath;
         this.applyShadow();
     }
 
@@ -316,13 +328,12 @@ class IconShadow {
 
 
     /**
-     * Removes 'holes' from paths and returns all paths  which together from the outline of
+     * Removes 'holes' from paths and returns all paths which together from the outline of
      * the given path. The return paths will have been inserted into the project and are a
      * clone from the original.
      * @param {paper.PathItem} pathItem - input path
      * @returns {paper.PathItem[]} - an array containing the paths.
      */
-/*
     getOutlinePaths(pathItem) {
         if (pathItem instanceof paper.Path) {
             return [ new paper.Path(pathItem.pathData) ];
@@ -364,7 +375,6 @@ class IconShadow {
 
         return resultPaths;
     }
-    */
 
 }
 

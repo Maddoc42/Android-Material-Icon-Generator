@@ -22,6 +22,9 @@ class Icon {
         this.size = Math.max(iconPath.bounds.width, iconPath.bounds.height);
         this.scale = 1;
         this.iconPath.moveAbove(iconBase.getPathWithoutShadows());
+        this.iconPath.onMouseDrag = function(event) {
+            this.move(event.delta);
+        }.bind(this);
     }
 
 
@@ -55,6 +58,16 @@ class Icon {
      */
     setColor(color) {
         this.iconPath.fillColor = color;
+        paperScope.draw().view.draw();
+    }
+
+
+    /**
+     * @param {paper.Point} delta - how much this icon + shadow should be moved.
+     */
+    move(delta) {
+        this.iconPath.position = this.iconPath.position.add(delta);
+        this.iconShadow.move(delta);
         paperScope.draw().view.draw();
     }
 

@@ -270,6 +270,15 @@ class IconShadow {
 
 
     /**
+     * @param {paper.Point} delta - how much this icon + shadow should be moved.
+     */
+    move(delta) {
+        this.iconShadowPath.position = this.iconShadowPath.position.add(delta);
+        this.applyShadow();
+    }
+
+
+    /**
      * Remove this shadow form the canvas.
      */
     remove() {

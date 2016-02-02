@@ -17,18 +17,19 @@ const CANVAS_SIZE = 48;
 class IconManager {
 
     /**
-     * @param canvas jquery canvas object
-     * @param filePicker jquery input object
-     * @param containerEdit jquery edit objects (can be multiple)
-     * @param btnDownload jquery download button
-     * @param iconColorPicker jquery icon color picker object
-     * @param baseColorPicker jquery base color picker object
-     * @param sliderShadow jquery slider object for changing shadow intensity
-     * @param sliderIconSize jquery slider object for changing icon size
+     * @param canvas - jquery canvas object
+     * @param filePicker - jquery input object
+     * @param containerEdit - jquery edit objects (can be multiple)
+     * @param btnDownload - jquery download button
+     * @param iconColorPicker - jquery icon color picker object
+     * @param baseColorPicker - jquery base color picker object
+     * @param sliderShadow - jquery slider object for changing shadow intensity
+     * @param sliderIconSize - jquery slider object for changing icon size
+     * @param checkBoxCenterIcon - jquery check box object for centering the icon
      */
     constructor(canvas, filePicker, containerEdit,
                 btnDownload, iconColorPicker, baseColorPicker, sliderShadow,
-                sliderIconSize) {
+                sliderIconSize, checkBoxCenterIcon) {
 
         this.canvas = canvas;
         this.filePicker = filePicker;
@@ -54,6 +55,13 @@ class IconManager {
         // setup download
         btnDownload.click(function() {
             this.exportAsSvgFile();
+        }.bind(this));
+
+        // setup center icon
+        this.checkBoxCenterIcon = checkBoxCenterIcon;
+        this.checkBoxCenterIcon.change(function() {
+            let checked = this.checkBoxCenterIcon.prop('checked');
+            if (checked) this.icon.center();
         }.bind(this));
     }
 
@@ -103,7 +111,11 @@ class IconManager {
     setupIcon(importedPath) {
         // create icon + shadow
         let defaultIconColor = '#ffffff';
-        this.icon = new Icon(this.center, 'white', importedPath, this.iconBase);
+        this.icon = new Icon(this.center, 'white', importedPath, this.iconBase, function() {
+            let checked = this.checkBoxCenterIcon.prop('checked');
+            if (checked) this.checkBoxCenterIcon.prop('checked', false).change();
+
+        }.bind(this));
         this.icon.setSize(this.baseRadius * 2 * 0.60);
 
         // setup icon color picker

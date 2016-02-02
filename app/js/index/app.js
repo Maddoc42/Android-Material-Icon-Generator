@@ -25,6 +25,9 @@ var App = {
             this.getParameterByName('icon')
         );
 
+        let checkboxCenterIcon = $('#checkbox-center-icon');
+        checkboxCenterIcon.bootstrapToggle();
+
         new IconManager(
             drawCanvas,
             filePicker,
@@ -33,7 +36,8 @@ var App = {
             $('#color-icon'),
             $('#color-base'),
             $('#slider-shadow'),
-            $('#slider-icon-size')
+            $('#slider-icon-size'),
+            checkboxCenterIcon
         );
 
         paperScope.draw().view.draw();

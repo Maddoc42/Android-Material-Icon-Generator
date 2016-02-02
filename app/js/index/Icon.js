@@ -9,12 +9,14 @@ let paper = require('js/index/paper-core.min'),
 class Icon {
 
     /**
-     * @param position of this icon
-     * @param color of this icon
-     * @param iconPath of this icon
-     * @param iconBase for this icon
+     * @param position - of this icon
+     * @param color - of this icon
+     * @param iconPath - of this icon
+     * @param iconBase - for this icon
+     * @param iconDraggedCallback - will be called whenever this icon has been dragged
      */
-    constructor(position, color, iconPath, iconBase) {
+    constructor(position, color, iconPath, iconBase, iconDraggedCallback) {
+        this.originalPosition = new paper.Point(position);
         this.iconPath = iconPath;
         this.iconPath.position = position;
         this.iconPath.fillColor = color;
@@ -24,6 +26,7 @@ class Icon {
         this.iconPath.moveAbove(iconBase.getPathWithoutShadows());
         this.iconPath.onMouseDrag = function(event) {
             this.move(event.delta);
+            iconDraggedCallback();
         }.bind(this);
     }
 
@@ -68,6 +71,13 @@ class Icon {
     move(delta) {
         this.iconPath.position = this.iconPath.position.add(delta);
         this.iconShadow.move(delta);
+        paperScope.draw().view.draw();
+    }
+
+
+    center() {
+        this.iconShadow.move(this.originalPosition.subtract(this.iconPath.position));
+        this.iconPath.position = new paper.Point(this.originalPosition);
         paperScope.draw().view.draw();
     }
 

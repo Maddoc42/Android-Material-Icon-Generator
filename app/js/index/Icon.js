@@ -19,15 +19,15 @@ class Icon {
         this.originalPosition = new paper.Point(position);
         this.iconPath = iconPath;
         this.iconPath.position = position;
-        this.iconPath.fillColor = color;
+        this.iconPath.visible = false;
+        this.iconBase = iconBase;
         this.iconShadow = new IconShadow(iconPath, iconBase);
         this.size = Math.max(iconPath.bounds.width, iconPath.bounds.height);
         this.scale = 1;
         this.iconPath.moveAbove(iconBase.getPathWithoutShadows());
-        this.iconPath.onMouseDrag = function(event) {
-            this.move(event.delta);
-            iconDraggedCallback();
-        }.bind(this);
+        this.iconDraggedCallback = iconDraggedCallback;
+        this.applyIcon();
+        this.setColor(color);
     }
 
 
@@ -37,6 +37,7 @@ class Icon {
     setSize(newSize) {
         let scale = newSize / this.size;
         this.iconPath.scale(scale, this.iconPath.position);
+        this.applyIcon();
         this.iconShadow.scale(scale);
         this.size = newSize;
     }
@@ -49,6 +50,7 @@ class Icon {
      */
     setScale(newScale) {
         this.iconPath.scale(newScale / this.scale, this.iconPath.position);
+        this.applyIcon();
         this.iconShadow.scale(newScale / this.scale);
         this.scale = newScale;
         paperScope.draw().view.draw();
@@ -60,7 +62,7 @@ class Icon {
      * @param color paper.js compatible color value
      */
     setColor(color) {
-        this.iconPath.fillColor = color;
+        this.appliedIconPath.fillColor = color;
         paperScope.draw().view.draw();
     }
 
@@ -70,6 +72,7 @@ class Icon {
      */
     move(delta) {
         this.iconPath.position = this.iconPath.position.add(delta);
+        this.applyIcon();
         this.iconShadow.move(delta);
         paperScope.draw().view.draw();
     }
@@ -78,6 +81,7 @@ class Icon {
     center() {
         this.iconShadow.move(this.originalPosition.subtract(this.iconPath.position));
         this.iconPath.position = new paper.Point(this.originalPosition);
+        this.applyIcon();
         paperScope.draw().view.draw();
     }
 
@@ -88,11 +92,42 @@ class Icon {
     remove() {
         this.iconPath.remove();
         this.iconShadow.remove();
+        if (this.appliedIconPath) this.appliedIconPath.remove();
     }
 
 
     getIconShadow() {
         return this.iconShadow;
+    }
+
+
+    /**
+     * this.iconPath is not actually visible on the canvas, but
+     * rather serves as a template for the actual icon path which is
+     * cut to fit the base.
+     */
+    applyIcon() {
+        // cut icon to base
+        let basePath = this.iconBase.getPathWithoutShadows();
+        let newAppliedIconPath = this.iconPath.intersect(basePath);
+
+        let color;
+        if (this.appliedIconPath) {
+            color = this.appliedIconPath.fillColor;
+            this.appliedIconPath.replaceWith(newAppliedIconPath);
+        }
+        this.appliedIconPath = newAppliedIconPath;
+
+        // setup drag to move
+        this.appliedIconPath.onMouseDrag = function(event) {
+            this.move(event.delta);
+            this.iconDraggedCallback();
+        }.bind(this);
+
+        // reapply color (if any)
+        if (color) {
+            this.setColor(color);
+        }
     }
 
 }

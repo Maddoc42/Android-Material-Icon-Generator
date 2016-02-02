@@ -115,66 +115,6 @@ class IconShadow {
     }
 
 
-    /*
-    findNextTangentFromPolygon(curve1, curve2) {
-        let startPoint = this.roundVector(curve1.getTangentAt(1, true));
-        let endPoint  = this.roundVector(curve2.getTangentAt(0, true));
-        console.log('start tangent ' + startPoint);
-        console.log('end tangent ' + endPoint);
-
-
-        startPoint.x = startPoint.x * -1;
-        startPoint.y = startPoint.y * -1;
-
-        let startAngle = startPoint.angle;
-
-        let tmp = (startPoint.x * endPoint.x + startPoint.y * endPoint.y)
-            /
-            (
-                Math.sqrt(startPoint.x * startPoint.x + startPoint.y * startPoint.y)
-                *
-                Math.sqrt(endPoint.x * endPoint.x + endPoint.y * endPoint.y)
-            );
-
-        tmp = Math.min(1, Math.max(-1, tmp));
-
-        let angle = Math.acos(tmp);
-        angle = 360 - (angle * 180 / Math.PI);
-
-
-        let startQuadrant = this.getVectorQuadrant(startPoint);
-        let endQuadrant = this.getVectorQuadrant(endPoint);
-        let quadrantDiff = endQuadrant - startQuadrant;
-        if (quadrantDiff < 0) quadrantDiff += 3;
-        console.log(startQuadrant + ', ' + endQuadrant + ' --> quadrant diff ' + quadrantDiff);
-        if (quadrantDiff > 1) angle = 360 - angle;
-
-
-        if (angle < 0) {
-            console.log('original angle ' + angle);
-            angle += 360;
-        }
-        return [1];
-    }
-
-
-    getVectorQuadrant(vector) {
-        if (vector.x > 0 && vector.y >= 0) return 0;
-        if (vector.x >= 0 && vector.y < 0) return 1;
-        if (vector.x < 0 && vector.y <= 0) return 2;
-        return 3;
-    }
-
-
-    roundVector(vector) {
-        let verySmall = 1E-10;
-        if (Math.abs(vector.x) < verySmall) vector.x = 0;
-        if (Math.abs(vector.y) < verySmall) vector.y = 0;
-        return vector;
-    }
-     */
-
-
     findNextTangentFromCurve(curve) {
         // in case of missing handles return
         if (curve.handle1.x === 0 && curve.handle1.y === 0 && curve.handle2.x === 0 && curve.handle2.y === 0) {

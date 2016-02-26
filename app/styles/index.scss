@@ -146,6 +146,9 @@ $controls-padding: 20px;
     align-items: center;
     background-color: $color-primary-light;
     border-radius: 4px;
+    #canvas-draw {
+      cursor: pointer;
+    }
   }
   #container-controls-parent {
     #container-btn-download {

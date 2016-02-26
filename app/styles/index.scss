@@ -8,6 +8,14 @@ $canvas-size-large: 500px;
 
 $canvas-size-export: 48px;
 
+$color-primary: #039BE5;
+$color-primary-light: #81D4FA;
+$color-primary-dark: #0277BD;
+$color-accent: white;
+
+
+
+
 html, body {
   width: 100%;
   height: 100%;
@@ -30,15 +38,14 @@ h3 {
   font-size: 18px;
 }
 
-
-header, section, footer {
-  margin-bottom: 30px;
+.full-height {
+  height: 100%;
 }
 
-footer {
-  text-align: center;
-  color: #828282;
+.full-width {
+  width: 100%;
 }
+
 
 #canvas-draw, #filePickerOverlay {
   height: $canvas-size-small;
@@ -125,17 +132,61 @@ footer {
 }
 
 
-.container-edit {
-  .row {
-    padding-top: 25px;
-    padding-bottom: 25px;
-  };
-  h3 {
-    margin-top: 0;
-  };
-  .push-down {
-    margin-top: 6px;
-  };
+$controls-padding: 15px;
+
+#container-edit {
+  #container-canvas-draw {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  #container-controls-parent {
+    background-color: $color-primary;
+    #footer {
+      color: $color-primary-light;
+      text-align: center;
+      font-size: 12px;
+      a {
+        color: $color-primary-light;
+      }
+      position: absolute;
+      bottom: 0;
+      left: $controls-padding;
+      width: 100%;
+      padding: $controls-padding;
+    }
+  }
+  #container-controls {
+    padding: $controls-padding;
+    .controls-entry {
+      padding-bottom: 30px;
+      h3 {
+        color: $color-accent;
+        font-weight: bold;
+        margin: 0 0 10px;
+        font-size: 14px;
+      };
+      .color-input-group {
+        input, span {
+          background: $color-primary-light;
+          border: none;
+          color: $color-accent;
+          box-shadow: none;
+        }
+      }
+    }
+    #btn-download-svg {
+      border-radius: 4px;
+      background: $color-accent;
+      color: $color-primary;
+      border: none;
+      font-weight: bold;
+      &:hover {
+        background: $color-primary-dark;
+        color: $color-accent;
+      }
+    }
+  }
   display: none;
 }
 
@@ -157,19 +208,44 @@ footer {
 }
 
 
-$slider-handle-color: #673AB7;
-$slider-selection-color: #9575CD;
-$slider-track-color: #e0e0e0;
+.toggle {
+  border: none;
+  border-radius: 4px;
+  padding-left:  5px;
+  padding-right:  5px;
+  .toggle-handle {
+    border-radius: 0;
+    background: $color-accent;
+    border: none;
+  }
+  .toggle-on {
+    background: $color-primary-dark;
+  }
+  .toggle-off {
+    background-color: $color-primary-light;
+    color: $color-accent;
+    stroke-width: 0;
+    &:hover {
+      background-color: $color-primary-light;
+      color: $color-accent;
+      stroke-width: 0;
+    }
+  }
+}
+
 
 #slider-shadow-start-id, #slider-shadow-end-id, #slider-icon-size-id {
   width: 100%;
   .slider-handle {
-    background: $slider-handle-color;
+    background: $color-primary-dark;
   }
   .slider-selection {
     background-image: none;
     -webkit-box-shadow: none;
     -moz-box-shadow: none;
     box-shadow: none;
+  }
+  .slider-selection, .slider-track-high, .slider-track-low {
+    background: $color-primary-light;
   }
 }

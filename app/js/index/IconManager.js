@@ -41,13 +41,10 @@ class IconManager {
         this.sliderShadowEnd = sliderShadowEnd;
         this.sliderIconSize = sliderIconSize;
 
-        // hide canvas and forward overlay clicks
-        canvas.hide();
-
         // place icon in center on canvas
         this.canvasSize = CANVAS_SIZE;
         paperScope.draw().view.center = new paper.Point(CANVAS_SIZE / 2, CANVAS_SIZE / 2);
-        paperScope.draw().view.zoom = canvas.width() / CANVAS_SIZE;
+        paperScope.draw().view.zoom = canvas.height() / CANVAS_SIZE;
         this.center = new paper.Point(this.canvasSize / 2, this.canvasSize / 2);
 
         filePicker.setSvgLoadedCallback(function(svgData) {
@@ -156,9 +153,10 @@ class IconManager {
             .data('slider');
         this.icon.getIconShadow().applyShadow();
 
+
         // show canvas + remove loading msg
         this.filePicker.hide(300);
-        this.canvas.delay(300).fadeIn(300);
+
         this.containerEdit.delay(300).fadeIn(300);
     }
 

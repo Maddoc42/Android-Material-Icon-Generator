@@ -13,6 +13,8 @@ var App = {
         let drawCanvas = $('#canvas-draw');
         let exportCanvas = $('#canvas-export');
 
+        drawCanvas.attr('height', drawCanvas.height());
+        drawCanvas.attr('width', drawCanvas.height());
         paperScope.setCanvases(drawCanvas, exportCanvas);
         paperScope.activateDraw();
 
@@ -31,7 +33,7 @@ var App = {
         new IconManager(
             drawCanvas,
             filePicker,
-            $('.container-edit'),
+            $('#container-edit'),
             $('#btn-download-svg'),
             $('#color-icon'),
             $('#color-base'),

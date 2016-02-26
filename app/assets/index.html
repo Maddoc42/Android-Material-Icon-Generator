@@ -35,14 +35,10 @@
 </head>
 <body>
 
-<header class="container">
-    <div class="row">
-        <h1 class="col-xs-12">Material Icon Generator</h1>
-    </div>
-</header>
 
-
+<!-- file picker -->
 <section class="container">
+
     <div class="row">
         <input id="filePicker" type="file"/>
         <div id="filePickerOverlay" class="filePickerOverlay-not-selected">
@@ -56,147 +52,159 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-6">
+</section>
+<!-- end file picker -->
+
+
+<!-- edit -->
+<section id="container-edit" class="container-fluid full-height">
+
+    <div class="row full-height">
+
+        <!-- controls -->
+        <div id="container-controls-parent" class="col-xs-12 col-sm-4 col-md-3 full-height">
+
+            <div id="container-controls" class="full-height">
+
+                <div class="controls-entry">
+
+                    <div class="row">
+                        <h3>Icon color</h3>
+                    </div>
+                    <div class="row">
+                        <div id="color-icon" class="input-group color-input-group">
+                            <input type="text" class="form-control"/>
+                            <span class="input-group-addon"><i></i></span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="controls-entry">
+
+                    <div class="row">
+                        <h3>Background color</h3>
+                    </div>
+                    <div class="row">
+                        <div id="color-base" class="input-group color-input-group">
+                            <input type="text" class="form-control"/>
+                            <span class="input-group-addon"><i></i></span>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="controls-entry">
+
+                    <div class="row">
+                        <h3>Center icon</h3>
+                    </div>
+                    <div class="row">
+                        <input id="checkbox-center-icon" checked type="checkbox" data-toggle="toggle" data-width="100">
+                    </div>
+
+                </div>
+
+
+                <div class="controls-entry">
+
+                    <div class="row">
+                        <h3>Shadow start intensity</h3>
+                    </div>
+                    <div class="row">
+                        <input id="slider-shadow-start"
+                               type="text"
+                               data-slider-id="slider-shadow-start-id"
+                               data-slider-min="0"
+                               data-slider-max="1"
+                               data-slider-step="0.01"
+                               data-slider-value="0.5"
+                               data-slider-tooltip="hide"
+                                />
+                    </div>
+
+                </div>
+
+
+                <div class="controls-entry">
+
+                    <div class="row">
+                        <h3>Shadow end intensity</h3>
+                    </div>
+                    <div class="row">
+                        <input id="slider-shadow-end"
+                               type="text"
+                               data-slider-id="slider-shadow-end-id"
+                               data-slider-min="0"
+                               data-slider-max="1"
+                               data-slider-step="0.01"
+                               data-slider-value="0.2"
+                               data-slider-tooltip="hide"
+                                    />
+                    </div>
+
+                </div>
+
+
+                <div class="controls-entry">
+
+                    <div class="row">
+                        <h3>Icon size</h3>
+                    </div>
+                    <div class="row">
+                        <input id="slider-icon-size"
+                               type="text"
+                               data-slider-id="slider-icon-size-id"
+                               data-slider-min="0.1"
+                               data-slider-max="7"
+                               data-slider-value="5"
+                               data-slider-step="0.1"
+                               data-slider-tooltip="hide"
+                                />
+                    </div>
+
+                </div>
+
+
+                <div class="controls-entry">
+
+                    <div class="row">
+                        <button id="btn-download-svg" class="btn btn-lg center-block" type="submit">Download SVG</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div id="footer" class="row full-width">
+                <div class="full-width">
+                    Made with <i class="fa fa-heart"></i> by <a href="http://bitdroid.de">Philipp
+                    Eichhorn</a>
+                </div>
+                <div class="full-width">
+                    <a href="https://github.com/Maddoc42/MaterialIconsGenerator">View on
+                        GitHub</a>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- canvas -->
+        <div id="container-canvas-draw" class="col-xs-12 col-sm-8 col-md-9 full-height">
             <canvas id="canvas-draw"></canvas>
         </div>
 
-        <div class="container-edit col-xs-12 col-sm-6">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-5">
-                    <h3 class="push-down">Icon color</h3>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-7">
-                    <div id="color-icon" class="input-group">
-                        <input type="text" class="form-control"/>
-                        <span class="input-group-addon"><i></i></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-5">
-                    <h3 class="push-down">Background color</h3>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-7">
-                    <div id="color-base" class="input-group">
-                        <input type="text" class="form-control"/>
-                        <span class="input-group-addon"><i></i></span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-5">
-                    <h3 class="push-down">Center icon</h3>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-7">
-                    <input id="checkbox-center-icon" checked type="checkbox" data-toggle="toggle">
-                </div>
-            </div>
-        </div>
     </div>
+
 </section>
+<!-- end edit -->
 
 
 <!-- hidden canvas for exporting -->
 <canvas id="canvas-export"></canvas>
-
-
-<section class="container-edit container">
-    <div class="row">
-        <div class="col-xs-12 col-sm-3">
-            <h3>Shadow start intensity</h3>
-        </div>
-        <div class="col-xs-12 col-sm-9">
-            <div class="col-xs-2">
-                None
-            </div>
-            <div class="col-xs-8">
-                <input id="slider-shadow-start"
-                       type="text"
-                       data-slider-id="slider-shadow-start-id"
-                       data-slider-min="0"
-                       data-slider-max="1"
-                       data-slider-step="0.01"
-                       data-slider-value="0.5"
-                       data-slider-tooltip="hide"
-                        />
-            </div>
-            <div class="col-xs-2">
-                Strong
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-3">
-            <h3>Shadow end intensity</h3>
-        </div>
-        <div class="col-xs-12 col-sm-9">
-            <div class="col-xs-2">
-                None
-            </div>
-            <div class="col-xs-8">
-                <input id="slider-shadow-end"
-                       type="text"
-                       data-slider-id="slider-shadow-end-id"
-                       data-slider-min="0"
-                       data-slider-max="1"
-                       data-slider-step="0.01"
-                       data-slider-value="0.2"
-                       data-slider-tooltip="hide"
-                        />
-            </div>
-            <div class="col-xs-2">
-                Strong
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-3">
-            <h3>Icon size</h3>
-        </div>
-        <div class="col-xs-12 col-sm-9">
-            <div class="col-xs-2">
-                Small
-            </div>
-            <div class="col-xs-8">
-                <input id="slider-icon-size"
-                       type="text"
-                       data-slider-id="slider-icon-size-id"
-                       data-slider-min="0.1"
-                       data-slider-max="7"
-                       data-slider-value="5"
-                       data-slider-step="0.1"
-                       data-slider-tooltip="hide"
-                        />
-            </div>
-            <div class="col-xs-2">
-                Large
-            </div>
-        </div>
-    </div>
-
-    <hr/>
-
-    <div class="row">
-        <button id="btn-download-svg" class="btn btn-lg btn-primary center-block" type="submit">Download SVG</button>
-    </div>
-</section>
-
-
-<footer class="container">
-    <div class="row">
-        <div class="col-xs-12">
-            <a href="https://github.com/Maddoc42/MaterialIconsGenerator">View on GitHub</a>
-        </div>
-        <div class="col-xs-12">
-            Made with <i class="fa fa-heart"></i> by <a href="http://bitdroid.de">Philipp Eichhorn</a>
-        </div>
-    </div>
-</footer>
 
 
 <script>require('js/index/app').init();</script>

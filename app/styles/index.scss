@@ -139,6 +139,32 @@ $controls-padding: 20px;
   background-color: $color-primary;
   #container-canvas-draw-parent {
     padding: 20px;
+
+    #about {
+      border-radius: 4px;
+      position: absolute;
+      bottom: $controls-padding + 10px;
+      right: $controls-padding + 10px;
+      padding: 6px 10px;
+      background: $color-primary;
+      font-size: 12px;
+      text-align: center;
+      transition: 0.3s;
+      a {
+        color: $color-text-disabled;
+        text-decoration: none;
+      }
+      &:hover {
+        background: $color-accent;
+        a {
+          color: $color-text;
+        }
+      }
+      strong {
+        color: $color-text;
+      }
+    }
+
   }
   #container-canvas-draw {
     display: flex;
@@ -202,20 +228,6 @@ $controls-padding: 20px;
   }
   display: none;
 }
-
-/*
-color: $color-primary-light;
-text-align: center;
-font-size: 12px;
-a {
-  color: $color-primary-light;
-}
-position: absolute;
-bottom: 0;
-left: $controls-padding;
-width: 100%;
-          padding: $controls-padding;
-          */
 
 
 .colorpicker-2x .colorpicker-saturation {

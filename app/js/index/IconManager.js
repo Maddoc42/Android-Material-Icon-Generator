@@ -23,12 +23,13 @@ class IconManager {
      * @param btnDownload - jquery download button
      * @param iconColorPicker - jquery icon color picker object
      * @param baseColorPicker - jquery base color picker object
-     * @param sliderShadow - jquery slider object for changing shadow intensity
+     * @param sliderShadowStart - jquery slider object for changing shadow start intensity
+     * @param sliderShadowEnd - jquery slider object for changing shadow end intensity
      * @param sliderIconSize - jquery slider object for changing icon size
      * @param checkBoxCenterIcon - jquery check box object for centering the icon
      */
     constructor(canvas, filePicker, containerEdit,
-                btnDownload, iconColorPicker, baseColorPicker, sliderShadow,
+                btnDownload, iconColorPicker, baseColorPicker, sliderShadowStart, sliderShadowEnd,
                 sliderIconSize, checkBoxCenterIcon) {
 
         this.canvas = canvas;
@@ -36,7 +37,8 @@ class IconManager {
         this.containerEdit = containerEdit;
         this.iconColorPicker = iconColorPicker;
         this.baseColorPicker = baseColorPicker;
-        this.sliderShadow = sliderShadow;
+        this.sliderShadowStart = sliderShadowStart;
+        this.sliderShadowEnd = sliderShadowEnd;
         this.sliderIconSize = sliderIconSize;
 
         // hide canvas and forward overlay clicks
@@ -125,10 +127,16 @@ class IconManager {
 
         // setup shadow intensity picker
         let setIntensityFunction = function() {
-            let intensity = this.sliderShadowData.getValue();
-            this.icon.getIconShadow().setIntensity(intensity[1], intensity[0]);
+            let startIntensity = this.sliderShadowStartData.getValue();
+            let endIntensity = this.sliderShadowEndData.getValue();
+            this.icon.getIconShadow().setIntensity(startIntensity, endIntensity);
         }.bind(this);
-        this.sliderShadowData = this.sliderShadow.slider()
+        this.sliderShadowStartData = this.sliderShadowStart.slider()
+            .on('slide', function () {
+                setIntensityFunction();
+            }.bind(this))
+            .data('slider');
+        this.sliderShadowEndData = this.sliderShadowEnd.slider()
             .on('slide', function () {
                 setIntensityFunction();
             }.bind(this))

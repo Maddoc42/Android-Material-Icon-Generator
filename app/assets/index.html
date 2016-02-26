@@ -106,20 +106,45 @@
 <section class="container-edit container">
     <div class="row">
         <div class="col-xs-12 col-sm-3">
-            <h3>Shadow intensity</h3>
+            <h3>Shadow start intensity</h3>
         </div>
         <div class="col-xs-12 col-sm-9">
             <div class="col-xs-2">
                 None
             </div>
             <div class="col-xs-8">
-                <input id="slider-shadow"
+                <input id="slider-shadow-start"
                        type="text"
-                       data-slider-id="slider-shadow-id"
+                       data-slider-id="slider-shadow-start-id"
                        data-slider-min="0"
                        data-slider-max="1"
                        data-slider-step="0.01"
-                       data-slider-value="[0.2, 0.5]"
+                       data-slider-value="0.5"
+                       data-slider-tooltip="hide"
+                        />
+            </div>
+            <div class="col-xs-2">
+                Strong
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-3">
+            <h3>Shadow end intensity</h3>
+        </div>
+        <div class="col-xs-12 col-sm-9">
+            <div class="col-xs-2">
+                None
+            </div>
+            <div class="col-xs-8">
+                <input id="slider-shadow-end"
+                       type="text"
+                       data-slider-id="slider-shadow-end-id"
+                       data-slider-min="0"
+                       data-slider-max="1"
+                       data-slider-step="0.01"
+                       data-slider-value="0.2"
                        data-slider-tooltip="hide"
                         />
             </div>

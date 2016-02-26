@@ -161,21 +161,11 @@ $slider-handle-color: #673AB7;
 $slider-selection-color: #9575CD;
 $slider-track-color: #e0e0e0;
 
-#slider-shadow-id, #slider-icon-size-id {
+#slider-shadow-start-id, #slider-shadow-end-id, #slider-icon-size-id {
   width: 100%;
   .slider-handle {
     background: $slider-handle-color;
   }
-  .slider-track-low, .slider-track-high {
-    // background: $slider-track-color;
-  }
-}
-#slider-shadow-id {
-  .slider-selection {
-    background: $slider-selection-color;
-  }
-}
-#slider-icon-size-id {
   .slider-selection {
     background-image: none;
     -webkit-box-shadow: none;

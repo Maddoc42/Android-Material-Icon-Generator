@@ -8,12 +8,13 @@ $canvas-size-large: 500px;
 
 $canvas-size-export: 48px;
 
-$color-primary: #039BE5;
-$color-primary-light: #81D4FA;
-$color-primary-dark: #0277BD;
-$color-accent: white;
-
-
+$color-primary: #37474F;
+$color-primary-light: #455A64;
+$color-primary-very-light: #546E7A;
+$color-primary-dark: #263238;
+$color-text: #ECEFF1;
+$color-text-disabled: #90A4AE;
+$color-accent: #D32F2F;
 
 
 html, body {
@@ -132,63 +133,86 @@ h3 {
 }
 
 
-$controls-padding: 15px;
+$controls-padding: 20px;
 
 #container-edit {
+  background-color: $color-primary;
+  #container-canvas-draw-parent {
+    padding: 20px;
+  }
   #container-canvas-draw {
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: $color-primary-light;
+    border-radius: 4px;
   }
   #container-controls-parent {
-    background-color: $color-primary;
-    #footer {
-      color: $color-primary-light;
-      text-align: center;
-      font-size: 12px;
-      a {
-        color: $color-primary-light;
-      }
+    #container-btn-download {
       position: absolute;
       bottom: 0;
       left: $controls-padding;
       width: 100%;
       padding: $controls-padding;
+      #btn-download-svg {
+        border-radius: 4px;
+        background: $color-accent;
+        color: white;
+        border: none;
+        font-weight: bold;
+        transition: 0.3s;
+        &:hover {
+          background: $color-primary-dark;
+          color: $color-accent;
+        }
+        &:focus {
+          outline: 0;
+        }
+      }
     }
   }
   #container-controls {
     padding: $controls-padding;
     .controls-entry {
-      padding-bottom: 30px;
+      padding-top: 15px;
+      padding-bottom: 15px;
       h3 {
-        color: $color-accent;
+        color: $color-text-disabled;
         font-weight: bold;
         margin: 0 0 10px;
         font-size: 14px;
+        transition: 0.3s;
       };
       .color-input-group {
         input, span {
           background: $color-primary-light;
           border: none;
-          color: $color-accent;
+          color: $color-text-disabled;
           box-shadow: none;
+          transition: 0.3s;
         }
       }
-    }
-    #btn-download-svg {
-      border-radius: 4px;
-      background: $color-accent;
-      color: $color-primary;
-      border: none;
-      font-weight: bold;
-      &:hover {
-        background: $color-primary-dark;
-        color: $color-accent;
+      &:hover h3, &:hover .color-input-group input, &:hover .toggle-off {
+        color: $color-text;
       }
     }
   }
   display: none;
 }
+
+/*
+color: $color-primary-light;
+text-align: center;
+font-size: 12px;
+a {
+  color: $color-primary-light;
+}
+position: absolute;
+bottom: 0;
+left: $controls-padding;
+width: 100%;
+          padding: $controls-padding;
+          */
 
 
 .colorpicker-2x .colorpicker-saturation {
@@ -213,39 +237,56 @@ $controls-padding: 15px;
   border-radius: 4px;
   padding-left:  5px;
   padding-right:  5px;
+  box-shadow: none;
   .toggle-handle {
     border-radius: 0;
-    background: $color-accent;
+    background: $color-primary-very-light;
     border: none;
+    box-shadow: none;
   }
   .toggle-on {
-    background: $color-primary-dark;
+    box-shadow: none;
+    background: $color-accent;
+    color: $color-text;
+    &:active {
+      background-color: $color-accent;
+    }
   }
   .toggle-off {
     background-color: $color-primary-light;
-    color: $color-accent;
-    stroke-width: 0;
+    color: $color-text-disabled;
+    text-shadow: none;
+    transition: 0.3s;
     &:hover {
       background-color: $color-primary-light;
-      color: $color-accent;
       stroke-width: 0;
     }
   }
 }
 
 
+
 #slider-shadow-start-id, #slider-shadow-end-id, #slider-icon-size-id {
   width: 100%;
-  .slider-handle {
-    background: $color-primary-dark;
-  }
-  .slider-selection {
+  .slider-track {
     background-image: none;
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
+  }
+  .slider-handle {
+    background: $color-primary-very-light;
     box-shadow: none;
   }
-  .slider-selection, .slider-track-high, .slider-track-low {
+  .slider-selection {
+    background: $color-accent;
+  }
+  .slider-track-high, .slider-track-low {
     background: $color-primary-light;
+  }
+  .tooltip {
+    .tooltip-arrow {
+      border-top-color: #263238;
+    }
+    .tooltip-inner {
+      background-color: #263238;
+    }
   }
 }

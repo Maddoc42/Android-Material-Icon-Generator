@@ -25,8 +25,8 @@
           integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
           crossorigin="anonymous">
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.7/bootstrap-slider.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.7/css/bootstrap-slider.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/bootstrap-slider.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/css/bootstrap-slider.min.css">
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 
@@ -121,7 +121,6 @@
                                data-slider-max="1"
                                data-slider-step="0.01"
                                data-slider-value="0.5"
-                               data-slider-tooltip="hide"
                                 />
                     </div>
 
@@ -141,7 +140,6 @@
                                data-slider-max="1"
                                data-slider-step="0.01"
                                data-slider-value="0.2"
-                               data-slider-tooltip="hide"
                                     />
                     </div>
 
@@ -161,17 +159,8 @@
                                data-slider-max="7"
                                data-slider-value="5"
                                data-slider-step="0.1"
-                               data-slider-tooltip="hide"
+                               data-slider-tooltip="bottom"
                                 />
-                    </div>
-
-                </div>
-
-
-                <div class="controls-entry">
-
-                    <div class="row">
-                        <button id="btn-download-svg" class="btn btn-lg center-block" type="submit">Download SVG</button>
                     </div>
 
                 </div>
@@ -179,6 +168,14 @@
             </div>
 
 
+            <div id="container-btn-download" class="row controls-entry full-width">
+
+                <button id="btn-download-svg" class="btn btn-lg center-block full-width" type="submit">Download SVG</button>
+
+            </div>
+
+
+            <!--
             <div id="footer" class="row full-width">
                 <div class="full-width">
                     Made with <i class="fa fa-heart"></i> by <a href="http://bitdroid.de">Philipp
@@ -189,12 +186,15 @@
                         GitHub</a>
                 </div>
             </div>
+            -->
 
         </div>
 
         <!-- canvas -->
-        <div id="container-canvas-draw" class="col-xs-12 col-sm-8 col-md-9 full-height">
-            <canvas id="canvas-draw"></canvas>
+        <div id="container-canvas-draw-parent" class="col-xs-12 col-sm-8 col-md-9 full-height">
+            <div id="container-canvas-draw" class="full-height full-width">
+                <canvas id="canvas-draw"></canvas>
+            </div>
         </div>
 
     </div>

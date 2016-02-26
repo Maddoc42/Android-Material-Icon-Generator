@@ -153,6 +153,7 @@ $controls-padding: 20px;
       a {
         color: $color-text-disabled;
         text-decoration: none;
+        transition: 0.3s;
       }
       &:hover {
         background: $color-accent;

@@ -1,0 +1,126 @@
+@import 'constants';
+
+
+#container-input {
+  background-color: $color-primary;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0;
+  z-index: 1000;
+
+  .row {
+    margin: 0;
+  }
+  transition: 0.5s;
+
+  .input-title {
+    color: $color-text;
+    font-size: 20px;
+    @media screen and (min-width: $screen-lg-min) {
+      font-size: 28px;
+    }
+  }
+  .input-subtitle {
+    color: $color-text-disabled;
+    font-size: 16px;
+    @media screen and (min-width: $screen-lg-min) {
+      font-size: 20px;
+    }
+    a {
+      color: $color-text-disabled;
+    }
+  }
+
+
+  #container-file-picker, #input-or, #container-icon-selector {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+  }
+
+
+  #container-file-picker {
+    height: $canvas-size-small;
+    width: $canvas-size-small;
+    @media screen and (min-width: $screen-lg-min) {
+      height: $canvas-size-medium;
+      width: $canvas-size-medium;
+    }
+    padding: 25px;
+    border-radius: 400px;
+    transition: 0.3s;
+    &:hover {
+      background-color: $color-primary-light;
+    }
+  }
+
+
+  #filePickerOverlay {
+    height: $canvas-size-small;
+    width: $canvas-size-small;
+    background-size: $canvas-size-small $canvas-size-small;
+    @media screen and (min-width: $screen-lg-min) {
+      height: $canvas-size-medium - 50px;
+      width: $canvas-size-medium - 50px;
+      background-size: ($canvas-size-medium - 50px) ($canvas-size-medium - 50px);
+    }
+    cursor: pointer;
+  }
+
+  .filePickerOverlayContent {
+    width: 220px;
+    @media screen and (min-width: $screen-lg-min) {
+      width: 280px;
+    }
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  #filePicker {
+    display: none;
+    height: 0;
+  }
+
+  .filePickerOverlay-not-selected {
+    background-image: url('../filePickerOverlayBackground.svg');
+  }
+
+  .filePickerOverlay-selected {
+    background-image: url('../filePickerOverlayBackgroundSelected.svg');
+  }
+
+
+  #container-icon-selector {
+    text-align: center;
+    cursor: pointer;
+    height: 260px;
+    width: 420px;
+    padding: 50px;
+
+    img {
+      margin-top: 5px;
+      padding: 5px;
+    }
+    transition: 0.3s;
+    border-radius: 5px;
+    &:hover {
+      background: $color-primary-light;
+    }
+  }
+
+
+  #input-or {
+    width: 30px;
+    height: 30px;
+    color: $color-text;
+    font-size: 30px;
+    font-style: italic;
+  }
+
+}

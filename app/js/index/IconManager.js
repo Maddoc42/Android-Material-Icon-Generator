@@ -18,7 +18,7 @@ class IconManager {
 
     /**
      * @param canvas - jquery canvas object
-     * @param filePicker - jquery input object
+     * @param inputManager - jquery input object
      * @param containerEdit - jquery edit objects (can be multiple)
      * @param btnDownload - jquery download button
      * @param iconColorPicker - jquery icon color picker object
@@ -28,12 +28,12 @@ class IconManager {
      * @param sliderIconSize - jquery slider object for changing icon size
      * @param checkBoxCenterIcon - jquery check box object for centering the icon
      */
-    constructor(canvas, filePicker, containerEdit,
+    constructor(canvas, inputManager, containerEdit,
                 btnDownload, iconColorPicker, baseColorPicker, sliderShadowStart, sliderShadowEnd,
                 sliderIconSize, checkBoxCenterIcon) {
 
         this.canvas = canvas;
-        this.filePicker = filePicker;
+        this.inputManager = inputManager;
         this.containerEdit = containerEdit;
         this.iconColorPicker = iconColorPicker;
         this.baseColorPicker = baseColorPicker;
@@ -47,7 +47,7 @@ class IconManager {
         paperScope.draw().view.zoom = canvas.height() / CANVAS_SIZE;
         this.center = new paper.Point(this.canvasSize / 2, this.canvasSize / 2);
 
-        filePicker.setSvgLoadedCallback(function(svgData) {
+        inputManager.setSvgLoadedCallback(function(svgData) {
             this.onSvgFileLoaded(svgData);
         }.bind(this));
 
@@ -155,9 +155,8 @@ class IconManager {
 
 
         // show canvas + remove loading msg
-        this.filePicker.hide(300);
-
-        this.containerEdit.delay(300).fadeIn(300);
+        this.inputManager.hide();
+        this.containerEdit.show();
     }
 
 

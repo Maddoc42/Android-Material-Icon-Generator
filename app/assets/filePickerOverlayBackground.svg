@@ -26,8 +26,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.93408906"
-     inkscape:cx="174.5425"
-     inkscape:cy="269.89765"
+     inkscape:cx="100.67374"
+     inkscape:cy="216.36956"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -55,7 +55,7 @@
      id="layer1"
      transform="translate(0,-552.36216)">
     <circle
-       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#e0e0e0;stroke-width:15;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:45, 45;stroke-dashoffset:0;stroke-opacity:1"
+       style="opacity:1;fill:none;fill-opacity:1;fill-rule:evenodd;stroke:#546e7a;stroke-width:15;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:45, 45;stroke-dashoffset:0;stroke-opacity:1"
        id="path4136"
        cx="250"
        cy="802.36218"

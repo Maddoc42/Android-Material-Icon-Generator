@@ -5,6 +5,7 @@ html, body {
   height: 100%;
   background: #f5f5f5;
   font-family: 'Open Sans', sans-serif;
+  overflow: hidden;
 }
 
 h1 {
@@ -31,15 +32,3 @@ h3 {
 }
 
 
-#canvas-draw, #filePickerOverlay {
-  height: $canvas-size-small;
-  width: $canvas-size-small;
-  @media screen and (min-width: $screen-md-min) {
-    height: $canvas-size-medium;
-    width: $canvas-size-medium;
-  }
-  @media screen and (min-width: $screen-lg-min) {
-    height: $canvas-size-large;
-    width: $canvas-size-large;
-  }
-}

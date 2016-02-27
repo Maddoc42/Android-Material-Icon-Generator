@@ -4,23 +4,21 @@
 /**
  * Handles loading svg files.
  */
-class FilePicker {
+class InputManager {
 
     /**
-     * @param input jquery input object
-     * @param overlay jquery overlay which should be hidden when finished loading
-     * @param contentDescription jquery initial description
-     * @param contentLoading jquery loading msg
-     * @param iconName optional param which points to one of the Google material icons.
+     * @param containerInput - jquery object holding all input elements
+     * @param fileInput - jquery input object
+     * @param overlay - jquery overlay which should be hidden when finished loading
+     * @param contentLoading - jquery loading msg
+     * @param iconName - optional param which points to one of the Google material icons.
      */
-    constructor(input, overlay, contentDescription, contentLoading, iconName) {
-        this.contentDescription = contentDescription;
-        this.contentLoading = contentLoading;
-        this.overlay = overlay;
+    constructor(containerInput, fileInput, overlay, iconName) {
+        this.containerInput = containerInput;
         this.iconName = iconName;
 
         overlay.click(function() {
-            input.click();
+            fileInput.click();
         });
 
         // setup drag / drop
@@ -38,16 +36,13 @@ class FilePicker {
                 overlay.removeClass('filePickerOverlay-selected');
             })
             .on('drop', function (e) {
-                input[0].files = e.originalEvent.dataTransfer.files;
+                fileInput[0].files = e.originalEvent.dataTransfer.files;
             });
 
         // setup file picker to import
-        input.change(function() {
-            var svgFile = input[0].files[0];
+        fileInput.change(function() {
+            var svgFile = fileInput[0].files[0];
             if (!svgFile) return;
-
-            contentDescription.hide();
-            contentLoading.css('opacity', 1);
 
             // read svg file
             var fileReader = new FileReader();
@@ -67,21 +62,18 @@ class FilePicker {
     setSvgLoadedCallback(callback) {
         this.onSvgLoaded = callback;
         if (this.iconName) {
-            this.contentDescription.hide();
-            this.contentLoading.css('opacity', 1);
             callback(this.iconName);
         }
     }
 
 
     /**
-     * Hides the complete file picker.
-     * @param duration fade duration
+     * Hides all input UI.
      */
-    hide(duration) {
-        this.overlay.fadeOut(duration);
+    hide() {
+        this.containerInput.css('top', this.containerInput.css('height'));
     }
 
 }
 
-module.exports = FilePicker;
+module.exports = InputManager;

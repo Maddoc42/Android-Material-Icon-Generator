@@ -168,6 +168,12 @@
                 </a>
             </div>
 
+            <!--
+            <div id="picker-content-loading" class="filePickerOverlayContent">
+                <h2><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Generating icon ...</h2>
+            </div>
+            -->
+
         </div>
 
     </div>
@@ -176,24 +182,62 @@
 <!-- end edit -->
 
 
-<!-- file picker -->
-<section id="container-file-picker" class="container">
+<!-- input -->
+<section id="container-input" class="container-fluid full-height">
 
-    <div class="row">
-        <input id="filePicker" type="file"/>
-        <div id="filePickerOverlay" class="filePickerOverlay-not-selected">
-            <div id="picker-content-description" class="filePickerOverlayContent">
-                <h2>Drop SVG icon here</h2>
-                <p>SVG must contain a single path which is your icon.</p>
+    <div class="row full-height">
+
+        <!-- file picker -->
+        <div class="col-sm-5 full-height">
+
+            <div id="container-file-picker">
+                <input id="filePicker" type="file"/>
+                <div id="filePickerOverlay" class="filePickerOverlay-not-selected">
+                    <div id="picker-content-description" class="filePickerOverlayContent">
+                        <p class="input-title">Drop SVG icon here</p>
+                        <p class="input-subtitle">SVG must contain a single path which is your icon.</p>
+                    </div>
+                </div>
             </div>
-            <div id="picker-content-loading" class="filePickerOverlayContent">
-                <h2><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Generating icon ...</h2>
-            </div>
+
         </div>
+        <!-- end file picker -->
+
+        <!-- or -->
+        <div class="col-sm-2 full-height">
+
+            <div id="input-or">
+                or
+            </div>
+
+        </div>
+        <!-- end or -->
+
+        <!-- icon selector -->
+        <div class="col-sm-5 full-height">
+
+            <div id="container-icon-selector">
+                <p class="input-title">Pick an icon from below</p>
+                <p class="input-subtitle">All icons copied from the <a href="https://design.google.com/icons/">Google Material icons collection</a>.</p>
+
+                <div class="row">
+                    <img src="input_icon_android.svg">
+                    <img src="input_icon_bug.svg">
+                    <img src="input_icon_favorite.svg">
+                    <img src="input_icon_thumb_up.svg">
+                    <img src="input_icon_call.svg">
+                    <img src="input_icon_directions_bike.svg">
+                    <img src="input_icon_child_friendly.svg">
+                </div>
+            </div>
+
+        </div>
+        <!-- end icon selector -->
+
     </div>
 
 </section>
-<!-- end file picker -->
+<!-- end input -->
 
 
 <!-- hidden canvas for exporting -->

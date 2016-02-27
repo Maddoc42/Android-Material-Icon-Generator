@@ -2,6 +2,19 @@
 
 $controls-padding: 20px;
 
+#canvas-draw {
+  height: $canvas-size-small;
+  width: $canvas-size-small;
+  @media screen and (min-width: $screen-md-min) {
+    height: $canvas-size-medium;
+    width: $canvas-size-medium;
+  }
+  @media screen and (min-width: $screen-lg-min) {
+    height: $canvas-size-large;
+    width: $canvas-size-large;
+  }
+}
+
 #container-edit {
   background-color: $color-primary;
   #container-canvas-draw-parent {
@@ -94,7 +107,6 @@ $controls-padding: 20px;
       }
     }
   }
-  display: none;
 }
 
 
@@ -173,3 +185,21 @@ $controls-padding: 20px;
     }
   }
 }
+
+
+/*
+.glyphicon-refresh-animate {
+  -animation: spin 1s infinite linear;
+  -webkit-animation: spin2 1s infinite linear;
+}
+
+@-webkit-keyframes spin2 {
+  from { -webkit-transform: rotate(0deg);}
+  to { -webkit-transform: rotate(360deg);}
+}
+
+@keyframes spin {
+  from { transform: scale(1) rotate(0deg);}
+  to { transform: scale(1) rotate(360deg);}
+}
+*/

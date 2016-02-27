@@ -30,30 +30,10 @@
 
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
 
-    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/index.css">
 
 </head>
 <body>
-
-
-<!-- file picker -->
-<section class="container">
-
-    <div class="row">
-        <input id="filePicker" type="file"/>
-        <div id="filePickerOverlay" class="filePickerOverlay-not-selected">
-            <div id="picker-content-description" class="filePickerOverlayContent">
-                <h2>Drop SVG icon here</h2>
-                <p>SVG must contain a single path which is your icon.</p>
-            </div>
-            <div id="picker-content-loading" class="filePickerOverlayContent">
-                <h2><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Generating icon ...</h2>
-            </div>
-        </div>
-    </div>
-
-</section>
-<!-- end file picker -->
 
 
 <!-- edit -->
@@ -194,6 +174,26 @@
 
 </section>
 <!-- end edit -->
+
+
+<!-- file picker -->
+<section id="container-file-picker" class="container">
+
+    <div class="row">
+        <input id="filePicker" type="file"/>
+        <div id="filePickerOverlay" class="filePickerOverlay-not-selected">
+            <div id="picker-content-description" class="filePickerOverlayContent">
+                <h2>Drop SVG icon here</h2>
+                <p>SVG must contain a single path which is your icon.</p>
+            </div>
+            <div id="picker-content-loading" class="filePickerOverlayContent">
+                <h2><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Generating icon ...</h2>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- end file picker -->
 
 
 <!-- hidden canvas for exporting -->

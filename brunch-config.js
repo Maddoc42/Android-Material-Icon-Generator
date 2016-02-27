@@ -8,7 +8,10 @@ exports.config = {
             }
         },
         stylesheets: {
-            joinTo: 'css/app.css'
+            joinTo: {
+				'css/index.css': 'app/styles/index/*',
+				'css/iconPicker.css': 'app/styles/iconPicker/*'
+			}
         }
     }
 };

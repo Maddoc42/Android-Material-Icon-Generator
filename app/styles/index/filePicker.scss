@@ -1,0 +1,67 @@
+@import 'constants';
+
+#container-file-picker {
+  #filePickerOverlay {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    background-size: $canvas-size-small $canvas-size-small;
+    @media screen and (min-width: $screen-md-min) {
+      background-size: $canvas-size-medium $canvas-size-medium;
+    }
+    @media screen and (min-width: $screen-lg-min) {
+      background-size: $canvas-size-large $canvas-size-large;
+    }
+    cursor: pointer;
+  }
+  .filePickerOverlayContent {
+    width: 220px;
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #616161;
+    h2 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    };
+    p {
+      font-size: 14px;
+    };
+  }
+
+  #picker-content-loading {
+    opacity: 0;
+  }
+
+  .glyphicon-refresh-animate {
+    -animation: spin 1s infinite linear;
+    -webkit-animation: spin2 1s infinite linear;
+  }
+
+  @-webkit-keyframes spin2 {
+    from { -webkit-transform: rotate(0deg);}
+    to { -webkit-transform: rotate(360deg);}
+  }
+
+  @keyframes spin {
+    from { transform: scale(1) rotate(0deg);}
+    to { transform: scale(1) rotate(360deg);}
+  }
+
+  #filePicker {
+    display: none;
+    height: 0;
+  }
+
+  .filePickerOverlay-not-selected {
+    background-image: url('../filePickerOverlayBackground.svg');
+  }
+
+  .filePickerOverlay-selected {
+    background-image: url('../filePickerOverlayBackgroundSelected.svg');
+  }
+
+
+}

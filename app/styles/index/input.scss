@@ -94,10 +94,15 @@
   #container-icon-selector {
     text-align: center;
     cursor: pointer;
-    height: 260px;
-    width: 440px;
-    padding: 50px;
     border-radius: 5px;
+    height: 180px;
+    width: 320px;
+    padding: 25px;
+    @media screen and (min-width: $screen-lg-min) {
+      height: 260px;
+      width: 440px;
+      padding: 50px;
+    }
 
     .icon-selector-sample {
       display: inline-block;
@@ -128,8 +133,11 @@
     width: 30px;
     height: 30px;
     color: $color-text;
-    font-size: 30px;
+    font-size: 20px;
     font-style: italic;
+    @media screen and (min-width: $screen-lg-min) {
+      font-size: 30px;
+    }
   }
 
 

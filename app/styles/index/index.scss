@@ -32,3 +32,56 @@ h3 {
 }
 
 
+// creates a layout with 9 columns
+@media (min-width: $screen-sm-min) {
+  $width-9-columns: 11.11%;
+
+  .col-sm-from-9 {
+    float: left;
+  }
+
+  .col-sm-1-from-9 {
+    @extend .col-sm-from-9;
+    width: $width-9-columns;
+  }
+
+  .col-sm-2-from-9 {
+    @extend .col-sm-from-9;
+    width: $width-9-columns * 2;
+  }
+
+  .col-sm-3-from-9 {
+    @extend .col-sm-from-9;
+    width: $width-9-columns * 3;
+  }
+
+  .col-sm-4-from-9 {
+    @extend .col-sm-from-9;
+    width: $width-9-columns * 4;
+  }
+
+  .col-sm-5-from-9 {
+    @extend .col-sm-from-9;
+    width: $width-9-columns * 5;
+  }
+
+  .col-sm-6-from-9 {
+    @extend .col-sm-from-9;
+    width: $width-9-columns * 6;
+  }
+
+  .col-sm-7-from-9 {
+    @extend .col-sm-from-9;
+    width: $width-9-columns * 7;
+  }
+
+  .col-sm-8-from-9 {
+    @extend .col-sm-from-9;
+    width: $width-9-columns * 8;
+  }
+
+  .col-sm-9-from-9 {
+    @extend .col-sm-from-9;
+    width: 100%;
+  }
+}

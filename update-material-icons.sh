@@ -3,7 +3,7 @@
 githubRepo=https://github.com/google/material-design-icons
 repoDir=./tmp/material-android-icons-google
 assetsDir=./app/assets/material-icons
-jsDataFile=./app/js/iconPicker/materialIcons.js
+jsDataFile=./app/js/index/materialIcons.js
 
 # pre-cleanup
 rm -rf $repoDir

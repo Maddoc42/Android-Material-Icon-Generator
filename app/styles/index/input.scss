@@ -2,6 +2,7 @@
 
 
 #container-input {
+  transition: 0.5s; // slide page down time
   background-color: $color-primary;
   position: absolute;
   top: 0;
@@ -13,10 +14,10 @@
   .row {
     margin: 0;
   }
-  transition: 0.5s;
 
   .input-title {
     color: $color-text;
+    font-weight: bold;
     font-size: 20px;
     @media screen and (min-width: $screen-lg-min) {
       font-size: 28px;
@@ -51,16 +52,16 @@
     }
     padding: 25px;
     border-radius: 400px;
-    transition: 0.3s;
-    &:hover {
-      background-color: $color-primary-light;
-    }
+  }
+
+  #container-file-picker:hover #filePickerOverlay, .container-file-picker-hovered #filePickerOverlay {
+    border-color: $color-text;
   }
 
 
   #filePickerOverlay {
-    height: $canvas-size-small;
-    width: $canvas-size-small;
+    height: $canvas-size-small - 50px;
+    width: $canvas-size-small - 50px;
     background-size: $canvas-size-small $canvas-size-small;
     @media screen and (min-width: $screen-lg-min) {
       height: $canvas-size-medium - 50px;
@@ -68,6 +69,8 @@
       background-size: ($canvas-size-medium - 50px) ($canvas-size-medium - 50px);
     }
     cursor: pointer;
+    border: 3px dashed $color-primary-light;
+    border-radius: 400px;
   }
 
   .filePickerOverlayContent {
@@ -87,30 +90,36 @@
     height: 0;
   }
 
-  .filePickerOverlay-not-selected {
-    background-image: url('../filePickerOverlayBackground.svg');
-  }
-
-  .filePickerOverlay-selected {
-    background-image: url('../filePickerOverlayBackgroundSelected.svg');
-  }
-
 
   #container-icon-selector {
     text-align: center;
     cursor: pointer;
     height: 260px;
-    width: 420px;
+    width: 440px;
     padding: 50px;
-
-    img {
-      margin-top: 5px;
-      padding: 5px;
-    }
-    transition: 0.3s;
     border-radius: 5px;
+
+    .icon-selector-sample {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      margin: 5px;
+    }
+
+    .icon-selector-sample:nth-child(1) { background-image: url('../input_icon_android.svg'); }
+    .icon-selector-sample:nth-child(2) { background-image: url('../input_icon_bug.svg'); }
+    .icon-selector-sample:nth-child(3) { background-image: url('../input_icon_favorite.svg'); }
+    .icon-selector-sample:nth-child(4) { background-image: url('../input_icon_thumb_up.svg'); }
+    .icon-selector-sample:nth-child(5) { background-image: url('../input_icon_directions_bike.svg'); }
+    .icon-selector-sample:nth-child(6) { background-image: url('../input_icon_child_friendly.svg'); }
+
     &:hover {
-      background: $color-primary-light;
+      .icon-selector-sample:nth-child(1) { background-image: url('../input_icon_white_android.svg'); }
+      .icon-selector-sample:nth-child(2) { background-image: url('../input_icon_white_bug.svg'); }
+      .icon-selector-sample:nth-child(3) { background-image: url('../input_icon_white_favorite.svg'); }
+      .icon-selector-sample:nth-child(4) { background-image: url('../input_icon_white_thumb_up.svg'); }
+      .icon-selector-sample:nth-child(5) { background-image: url('../input_icon_white_directions_bike.svg'); }
+      .icon-selector-sample:nth-child(6) { background-image: url('../input_icon_white_child_friendly.svg'); }
     }
   }
 
@@ -123,4 +132,20 @@
     font-style: italic;
   }
 
+
+  #container-icon-selector:hover, #container-file-picker:hover, .container-file-picker-hovered {
+    background: $color-accent;
+    .input-title, .input-subtitle {
+      color: $color-text;
+      a {
+        color: $color-text;
+      }
+    }
+  }
+
+
+}
+
+#container-input * {
+  transition: 0.3s;
 }

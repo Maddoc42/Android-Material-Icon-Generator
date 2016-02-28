@@ -10,7 +10,6 @@ class InputManager {
      * @param containerInput - jquery object holding all input elements
      * @param fileInput - jquery input object
      * @param overlay - jquery overlay which should be hidden when finished loading
-     * @param contentLoading - jquery loading msg
      * @param iconName - optional param which points to one of the Google material icons.
      */
     constructor(containerInput, fileInput, overlay, iconName) {
@@ -28,12 +27,10 @@ class InputManager {
                 e.stopPropagation();
             })
             .on('dragover dragenter', function() {
-                overlay.removeClass('filePickerOverlay-not-selected');
-                overlay.addClass('filePickerOverlay-selected');
+                overlay.parent().addClass('container-file-picker-hovered');
             })
             .on('dragleave dragend', function() {
-                overlay.addClass('filePickerOverlay-not-selected');
-                overlay.removeClass('filePickerOverlay-selected');
+                overlay.parent().removeClass('container-file-picker-hovered');
             })
             .on('drop', function (e) {
                 fileInput[0].files = e.originalEvent.dataTransfer.files;

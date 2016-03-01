@@ -59,61 +59,18 @@ class InputManager {
 
 
     setupIconPicker() {
-        return;
-
-        /*
-        let iconsContainer = this.containerInput.find('#container-icon-picker-icons');
-        console.log(iconsContainer);
-        let categoryTemplate = this.containerInput.find('#template-category');
-        console.log(categoryTemplate);
-        let hrTemplate = this.containerInput.find('#template-hr');
-        console.log(hrTemplate);
-        let iconTemplate = this.containerInput.find('#template-icon');
-        console.log(iconTemplate);
-
-        for (let i = 0; i < materialIcons.length; ++i) {
-            console.log('adding icon');
-            // add hr
-            if (i != 0) {
-                let hr = hrTemplate.clone();
-                hr.removeAttr('id');
-                iconsContainer.append(hr);
-            }
-
-            let category = materialIcons[i];
-
-            // create + append category
-            let categoryDiv = categoryTemplate.clone();
-            categoryDiv.removeAttr('id');
-            iconsContainer.append(categoryDiv);
-
-            // set category data
-            let categoryName = category.category;
-            let fileNames = category.fileNames;
-            categoryDiv.find('h2').html(categoryName);
-
-            for (let j = 0; j < fileNames.length; ++j) {
-                let fileName = fileNames[j];
-
-                // create + append icon
-                let iconDiv = iconTemplate.clone();
-                iconDiv.removeAttr('id');
-                categoryDiv.append(iconDiv);
-
-                // set icon
-                let img = iconDiv.find('img');
-                img.attr('src', '../material-icons/' + categoryName + '/' + fileName);
-
-                // set icon name fileName
-                let iconName = fileName.replace('ic_', '').replace('_48px.svg', '').replace(new RegExp('_', 'g'), ' ');
-                iconDiv.find('.icon-title').html(iconName);
-
-                // set link
-                iconDiv.find('.container-icon-anchor').attr('href', '../?icon=' + 'material-icons/' + categoryName + '/' + fileName);
-            }
-        }
-        */
+        let instanceThis = this;
+        this.containerInput.find('#container-icon-picker .container-icon-anchor').each(function() {
+            let icon = $(this);
+            icon.click(function() {
+                let category = icon.attr('data-icon-category');
+                let iconName = icon.attr('data-icon-name');
+                let iconFileName = 'material-icons/' + category + '/ic_' + iconName + '_48px.svg';
+                instanceThis.onSvgLoaded(iconFileName);
+            });
+        });
     }
+
 
     /**
      * @param callback which will be called when the local (!) svg file has finished loading.

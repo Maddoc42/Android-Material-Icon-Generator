@@ -13,7 +13,7 @@ include ./input-material-icons-data-excludes.static.jade
                 - iconName = iconName.replace('_48px.svg', '');
                 - var iconTitle = iconName.replace(new RegExp('_', 'g'), ' ');
                 if (iconExcludes.indexOf(iconName) <= -1)
-                    a.container-icon-anchor
+                    .container-icon-anchor(data-icon-category=category.category, data-icon-name=iconName)
                         .container-icon
                             .container-icon-inner
                                 i.material-icons #{iconName}

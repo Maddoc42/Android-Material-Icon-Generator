@@ -26,6 +26,7 @@ class PaperScopeManager {
 
         this.exportScope = new paper.PaperScope();
         this.exportScope.setup(exportCanvas[0]);
+        this.exportCanvas = exportCanvas;
         exportCanvas.hide();
     }
 
@@ -55,6 +56,10 @@ class PaperScopeManager {
      */
     activateExpo() {
         this.exportScope.activate();
+    }
+
+    expoCanvas() {
+        return this.exportCanvas;
     }
 
 }

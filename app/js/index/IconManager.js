@@ -4,7 +4,8 @@ let paper = require('js/index/paper-core.min'),
     IconBase = require('js/index/IconBase'),
     Icon = require('js/index/Icon'),
     ColorPicker = require('js/index/ColorPicker'),
-    paperScope = require('js/index/PaperScopeManager');
+    paperScope = require('js/index/PaperScopeManager'),
+    JSZip = require('js/index/jszip.min');
 
 
 // Default android icon size (48 DIP)
@@ -183,6 +184,9 @@ class IconManager {
      * Exports the whole project as one svg file.
      */
     exportAsSvgFile() {
+        let zip = new JSZip();
+        let rootFolder = zip.folder('icons');
+
         paperScope.activateExpo();
         let drawProject = paperScope.draw().project;
         let exportProject = paperScope.expo().project;
@@ -193,18 +197,28 @@ class IconManager {
         for (let i = 0; i < drawProject.layers[0].children.length; ++i) {
             layer.addChild(drawProject.layers[0].children[i].clone(false));
         }
+        paperScope.expo().view.draw();
+
+        // copy png
+        let pngData = paperScope.expoCanvas()[0].toDataURL('image/png').split(',')[1];
+        let pngFileName = 'icon.png';
+        console.log(pngData);
+        rootFolder.file(pngFileName, pngData, { base64: true });
 
         // generate final svg
-        var svg = exportProject.exportSVG({ asString: true });
-		var data = 'data:image/svg+xml;base64,' + btoa(svg);
-		var fileName = 'icon.svg';
+        let svg = exportProject.exportSVG({ asString: true });
+		let svgData = btoa(svg);
+        // let svgData = 'data:image/svg+xml;base64,' + btoa(svg);
+		let svgFileName = 'icon.svg';
+        rootFolder.file(svgFileName, svgData, { base64: true });
 
         // create download link
-        var anchor = $('<a href="' + data + '" download="' + fileName + '">Download</a>')
-            .css('display', 'none')
-            .appendTo('body');
-        anchor.get(0).click();
-        anchor.remove();
+        if (JSZip.support.blob) {
+            window.location = "data:application/zip;base64," + zip.generate({type:"base64"});
+        } else {
+            console.log('blob not supported');
+            // TODO
+        }
 
         // reactivate draw scope
         paperScope.activateDraw();

@@ -10,6 +10,7 @@
   width: 100%;
   padding: 0;
   z-index: 1000;
+  overflow-y: scroll;
 
   .row {
     margin: 0;
@@ -54,12 +55,12 @@
     border-radius: 400px;
   }
 
-  #container-file-picker:hover #filePickerOverlay, .container-file-picker-hovered #filePickerOverlay {
+  #container-file-picker:hover #file-picker-overlay, .container-file-picker-hovered #file-picker-overlay {
     border-color: $color-text;
   }
 
 
-  #filePickerOverlay {
+  #file-picker-overlay {
     height: $canvas-size-small - 50px;
     width: $canvas-size-small - 50px;
     background-size: $canvas-size-small $canvas-size-small;
@@ -73,7 +74,7 @@
     border-radius: 400px;
   }
 
-  .filePickerOverlayContent {
+  #file-picker-overlay-content {
     width: 220px;
     @media screen and (min-width: $screen-lg-min) {
       width: 280px;
@@ -85,7 +86,7 @@
     transform: translateY(-50%);
   }
 
-  #filePicker {
+  #file-picker-input {
     display: none;
     height: 0;
   }
@@ -109,22 +110,21 @@
       width: 24px;
       height: 24px;
       margin: 5px;
+      color: $color-text-disabled;
     }
 
-    .icon-selector-sample:nth-child(1) { background-image: url('../input_icon_android.svg'); }
-    .icon-selector-sample:nth-child(2) { background-image: url('../input_icon_bug.svg'); }
-    .icon-selector-sample:nth-child(3) { background-image: url('../input_icon_favorite.svg'); }
-    .icon-selector-sample:nth-child(4) { background-image: url('../input_icon_thumb_up.svg'); }
-    .icon-selector-sample:nth-child(5) { background-image: url('../input_icon_directions_bike.svg'); }
-    .icon-selector-sample:nth-child(6) { background-image: url('../input_icon_child_friendly.svg'); }
+    &:hover .icon-selector-sample {
+      color: $color-text;
+    }
 
-    &:hover {
-      .icon-selector-sample:nth-child(1) { background-image: url('../input_icon_white_android.svg'); }
-      .icon-selector-sample:nth-child(2) { background-image: url('../input_icon_white_bug.svg'); }
-      .icon-selector-sample:nth-child(3) { background-image: url('../input_icon_white_favorite.svg'); }
-      .icon-selector-sample:nth-child(4) { background-image: url('../input_icon_white_thumb_up.svg'); }
-      .icon-selector-sample:nth-child(5) { background-image: url('../input_icon_white_directions_bike.svg'); }
-      .icon-selector-sample:nth-child(6) { background-image: url('../input_icon_white_child_friendly.svg'); }
+    a span {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      z-index: 1;
+      background-color: transparent;
     }
   }
 
@@ -149,6 +149,83 @@
         color: $color-text;
       }
     }
+  }
+
+
+  #container-icon-picker {
+    a:hover, a:active, a:visited {
+      text-decoration: none;
+    }
+
+    @media screen and (min-width: $screen-lg-min) {
+      position: relative;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 150px * 9;
+    }
+
+    .container-icon-anchor {
+      float: left;
+      .container-icon {
+        text-align: center;
+        color: black;
+        cursor: pointer;
+        height: 130px;
+        width: 140px;
+        padding-left: 10px;
+        padding-right: 10px;
+        margin: 10px;
+        border-radius: 2px;
+
+        &:hover {
+          background: $color-accent;
+          .container-icon-inner .icon-title {
+            color: $color-text;
+          }
+        }
+
+        .container-icon-inner {
+          position: relative;
+          top: 50%;
+          -webkit-transform: translateY(-50%);
+          -moz-transform: translateY(-50%);
+          transform: translateY(-50%);
+
+
+          .icon-title {
+            margin-top: 10px;
+            font-size: 10px;
+            color: $color-text-disabled;
+          }
+
+          .material-icons {
+            font-size: 46px;
+            color: $color-text;
+          }
+        }
+      }
+    }
+
+    .hr-icons {
+      display: inline-block;
+      background: $color-primary-light;
+      padding: 0;
+      border: 0;
+      height: 1px;
+      width: 90%;
+      text-align:center;
+      margin-top: 80px;
+    }
+
+    .category-title {
+      text-transform: capitalize;
+      margin-top: 60px;
+      margin-bottom: 30px;
+      color: $color-text;
+      font-size: 30px;
+      font-weight: bold;
+    }
+
   }
 
 

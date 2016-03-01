@@ -21,8 +21,6 @@ var App = {
 
         let inputManager = new InputManager(
             $('#container-input'),
-            $('#filePicker'),
-            $('#filePickerOverlay'),
             this.getParameterByName('icon')
         );
 

@@ -205,7 +205,6 @@ class IconShadow {
     scale(scale) {
         this.iconShadowPath.scale(scale, this.iconPath.position);
         this.applyShadow();
-        paperScope.draw().view.draw();
     }
 
 
@@ -237,41 +236,66 @@ class IconShadow {
         let basePath = this.iconBase.getPathWithoutShadows();
         let newAppliedIconShadowPath = this.iconShadowPath.intersect(basePath);
 
+        // save shadow
         if (this.appliedIconShadowPath) {
             this.appliedIconShadowPath.replaceWith(newAppliedIconShadowPath);
+            newAppliedIconShadowPath.fillColor = this.appliedIconShadowPath.fillColor;
+
+        } else {
+            // create default gradient
+            newAppliedIconShadowPath.fillColor = {
+                gradient: {
+                    stops: [
+                        [new paper.Color(0, 0, 0, 1), 0],
+                        [new paper.Color(0, 0, 0, 0), 1]
+                    ]
+                },
+                origin: basePath.bounds.topLeft,
+                destination: basePath.bounds.bottomRight
+            };
+
         }
         this.appliedIconShadowPath = newAppliedIconShadowPath;
 
         // move shadow below icon
         this.appliedIconShadowPath.moveBelow(this.iconPath);
-
-        // reapply color (if any)
-        if (this.startIntensity && this.endIntensity) {
-            this.setIntensity(this.startIntensity, this.endIntensity);
-        }
     }
 
 
     /**
-     * Sets the shadow intensity (color is always black).
-     * @param startIntensity intensity at icon center. Value between 0 and 1.
-     * @param endIntensity intensity at base edge. Value between 0 and 1.
+     * Sets the length of this shadow (diagonal)
+     * @param {Number} length
      */
-    setIntensity(startIntensity, endIntensity) {
-        this.startIntensity = startIntensity;
-        this.endIntensity = endIntensity;
+    setLength(length) {
+        let xDistance = Math.sqrt(length * length / 2);
+        let destination = this.appliedIconShadowPath.fillColor.origin.add(xDistance);
+        this.appliedIconShadowPath.fillColor.destination = destination;
 
-        let basePath = this.iconBase.getPathWithoutShadows();
-        this.appliedIconShadowPath.fillColor = {
-            gradient: {
-                stops: [
-                    [new paper.Color(0, 0, 0, startIntensity), 0.1],
-                    [new paper.Color(0, 0, 0, endIntensity), 0.8]
-                ]
-            },
-            origin: basePath.bounds.topLeft,
-            destination: basePath.bounds.bottomRight
-        };
+        paperScope.draw().view.draw(); // apply shadow not required when changing length, draw directly
+    }
+
+
+    /**
+     * Sets the start intensity of this shadow.
+     * @param {Number} intensity - between 0 and 1.
+     */
+    setIntensity(intensity) {
+        this.appliedIconShadowPath.fillColor.gradient.stops[0].color.alpha = intensity;
+        // hack: just chaning alpha does not trigger a redraw, 'change' this as well
+        this.appliedIconShadowPath.fillColor.destination = this.appliedIconShadowPath.fillColor.destination;
+
+        paperScope.draw().view.draw();
+    }
+
+
+    /**
+     * Sets where the shadow should begin fading.
+     * @param {Number} fading - between 0 and 1. 0 Start fading right away, 1 never fade.
+     */
+    setFading(fading) {
+        this.appliedIconShadowPath.fillColor.gradient.stops[0].rampPoint = fading;
+        // hack: just chaning alpha does not trigger a redraw, 'change' this as well
+        this.appliedIconShadowPath.fillColor.destination = this.appliedIconShadowPath.fillColor.destination;
         paperScope.draw().view.draw();
     }
 

@@ -34,9 +34,10 @@ var App = {
             $('#btn-download-svg'),
             $('#color-icon'),
             $('#color-base'),
-            $('#slider-shadow-start'),
-            $('#slider-shadow-end'),
             $('#slider-icon-size'),
+            $('#slider-shadow-length'),
+            $('#slider-shadow-intensity'),
+            $('#slider-shadow-fading'),
             checkboxCenterIcon
         );
 

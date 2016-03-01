@@ -23,23 +23,26 @@ class IconManager {
      * @param btnDownload - jquery download button
      * @param iconColorPicker - jquery icon color picker object
      * @param baseColorPicker - jquery base color picker object
-     * @param sliderShadowStart - jquery slider object for changing shadow start intensity
-     * @param sliderShadowEnd - jquery slider object for changing shadow end intensity
      * @param sliderIconSize - jquery slider object for changing icon size
+     * @param sliderShadowLength - jquery slider object for changing shadow length
+     * @param sliderShadowIntensity - jquery slider object for changing shadow intensity
+     * @param sliderShadowFading - jquery slider object for changing shadow fading
      * @param checkBoxCenterIcon - jquery check box object for centering the icon
      */
     constructor(canvas, inputManager, containerEdit,
-                btnDownload, iconColorPicker, baseColorPicker, sliderShadowStart, sliderShadowEnd,
-                sliderIconSize, checkBoxCenterIcon) {
+                btnDownload, iconColorPicker, baseColorPicker,
+                sliderIconSize, sliderShadowLength, sliderShadowIntensity,
+                sliderShadowFading, checkBoxCenterIcon) {
 
         this.canvas = canvas;
         this.inputManager = inputManager;
         this.containerEdit = containerEdit;
         this.iconColorPicker = iconColorPicker;
         this.baseColorPicker = baseColorPicker;
-        this.sliderShadowStart = sliderShadowStart;
-        this.sliderShadowEnd = sliderShadowEnd;
         this.sliderIconSize = sliderIconSize;
+        this.sliderShadowLength = sliderShadowLength;
+        this.sliderShadowIntensity = sliderShadowIntensity;
+        this.sliderShadowFading = sliderShadowFading;
 
         // place icon in center on canvas
         this.canvasSize = CANVAS_SIZE;
@@ -122,23 +125,38 @@ class IconManager {
             this.icon.setColor(newColor);
         }.bind(this));
 
-        // setup shadow intensity picker
-        let setIntensityFunction = function() {
-            let startIntensity = this.sliderShadowStartData.getValue();
-            let endIntensity = this.sliderShadowEndData.getValue();
-            this.icon.getIconShadow().setIntensity(startIntensity, endIntensity);
+        // setup shadow length slider
+        let setShadowLengthFunction = function () {
+            this.icon.getIconShadow().setLength(this.sliderShadowLengthData.getValue());
         }.bind(this);
-        this.sliderShadowStartData = this.sliderShadowStart.slider()
+        this.sliderShadowLengthData = this.sliderShadowLength.slider()
             .on('slide', function () {
-                setIntensityFunction();
+                setShadowLengthFunction()
             }.bind(this))
             .data('slider');
-        this.sliderShadowEndData = this.sliderShadowEnd.slider()
+        setShadowLengthFunction();
+
+        // setup shadow intensity slider
+        let setShadowIntensityFunction = function () {
+            this.icon.getIconShadow().setIntensity(this.sliderShadowIntensityData.getValue());
+        }.bind(this);
+        this.sliderShadowIntensityData  = this.sliderShadowIntensity.slider()
             .on('slide', function () {
-                setIntensityFunction();
+                setShadowIntensityFunction();
             }.bind(this))
             .data('slider');
-        setIntensityFunction();
+        setShadowIntensityFunction();
+
+        // setup shadow fading slider
+        let setShadowFadingFunction = function () {
+            this.icon.getIconShadow().setFading(this.sliderShadowFadingData.getValue());
+        }.bind(this);
+        this.sliderShadowFadingData = this.sliderShadowFading.slider()
+            .on('slide', function () {
+                setShadowFadingFunction();
+            }.bind(this))
+            .data('slider');
+        setShadowFadingFunction();
 
         // setup icon size picker
         let setSizeFunction = function () {

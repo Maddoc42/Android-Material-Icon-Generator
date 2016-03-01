@@ -33,15 +33,21 @@ section#container-edit.container-fluid.full-height
 
                 .controls-entry
                     .row
-                        h3 Shadow start intensity
+                        h3 Shadow length
                     .row
-                        input#slider-shadow-start(type='text', data-slider-id='slider-shadow-start-id', data-slider-min='0', data-slider-max='1', data-slider-step='0.01', data-slider-value='0.5')
+                        input#slider-shadow-length(type='text', data-slider-id='slider-shadow-length-id', data-slider-min='0', data-slider-max='100', data-slider-step='1', data-slider-value='60')
 
                 .controls-entry
                     .row
-                        h3 Shadow end intensity
+                        h3 Shadow intensity
                     .row
-                        input#slider-shadow-end(type='text', data-slider-id='slider-shadow-end-id', data-slider-min='0', data-slider-max='1', data-slider-step='0.01', data-slider-value='0.2')
+                        input#slider-shadow-intensity(type='text', data-slider-id='slider-shadow-intensity-id', data-slider-min='0', data-slider-max='1', data-slider-step='0.01', data-slider-value='0.7')
+
+                .controls-entry
+                    .row
+                        h3 Shadow fading
+                    .row
+                        input#slider-shadow-fading(type='text', data-slider-id='slider-shadow-fading-id', data-slider-min='0', data-slider-max='1', data-slider-step='0.01', data-slider-value='0')
 
                 .controls-entry
                     .row

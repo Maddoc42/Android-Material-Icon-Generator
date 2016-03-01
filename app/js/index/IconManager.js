@@ -187,30 +187,44 @@ class IconManager {
         let zip = new JSZip();
         let rootFolder = zip.folder('icons');
 
-        paperScope.activateExpo();
         let drawProject = paperScope.draw().project;
-        let exportProject = paperScope.expo().project;
 
-        // copy draw layer over to export canvas
-        exportProject.clear();
-        let layer = new paper.Layer();
-        for (let i = 0; i < drawProject.layers[0].children.length; ++i) {
-            layer.addChild(drawProject.layers[0].children[i].clone(false));
+        let resolutions = [
+            { name: 'mdpi', factor: 1 },
+            { name: 'hdpi', factor: 1.5 },
+            { name: 'xhdpi', factor: 2 },
+            { name: 'xxhdpi', factor: 3 },
+            { name: 'xxxhdpi', factor: 4 }
+        ];
+        for (let i = 0; i < 5; ++i) {
+            let resolution = resolutions[i];
+
+            paperScope.activateExpo(i);
+            let exportProject = paperScope.expo(i).project;
+
+            // copy draw layer over to export canvas
+            exportProject.clear();
+            let layer = new paper.Layer();
+            for (let j = 0; j < drawProject.layers[0].children.length; ++j) {
+                layer.addChild(drawProject.layers[0].children[j].clone(false));
+            }
+            paperScope.expo(i).view.center = new paper.Point(24, 24); // center at icon center (which is 48 px big)
+            paperScope.expo(i).view.zoom = resolution.factor;
+            paperScope.expo(i).view.draw();
+
+            // copy png
+            let pngData = paperScope.expoCanvas(i)[0].toDataURL('image/png').split(',')[1];
+            let pngFileName = 'icon.png';
+            rootFolder.folder('mipmap-' + resolution.name).file(pngFileName, pngData, { base64: true });
+
+            if (i !== 0) continue;
+
+            // generate final svg
+            let svg = exportProject.exportSVG({ asString: true });
+            let svgData = btoa(svg);
+            let svgFileName = 'icon.svg';
+            rootFolder.file(svgFileName, svgData, { base64: true });
         }
-        paperScope.expo().view.draw();
-
-        // copy png
-        let pngData = paperScope.expoCanvas()[0].toDataURL('image/png').split(',')[1];
-        let pngFileName = 'icon.png';
-        console.log(pngData);
-        rootFolder.file(pngFileName, pngData, { base64: true });
-
-        // generate final svg
-        let svg = exportProject.exportSVG({ asString: true });
-		let svgData = btoa(svg);
-        // let svgData = 'data:image/svg+xml;base64,' + btoa(svg);
-		let svgFileName = 'icon.svg';
-        rootFolder.file(svgFileName, svgData, { base64: true });
 
         // create download link
         if (JSZip.support.blob) {

@@ -17,17 +17,28 @@ class PaperScopeManager {
 
     /**
      * One time setup.
-     * @param drawCanvas visible canvas for drawing.
-     * @param exportCanvas hidden canvas for export.
+     * @param drawCanvas - visible canvas for drawing.
+     * @param containerExport - export container which holds all export canvases
      */
-    setCanvases(drawCanvas, exportCanvas) {
+    setCanvases(drawCanvas, containerExport) {
         this.drawScope = new paper.PaperScope();
         this.drawScope.setup(drawCanvas[0]);
 
-        this.exportScope = new paper.PaperScope();
-        this.exportScope.setup(exportCanvas[0]);
-        this.exportCanvas = exportCanvas;
-        exportCanvas.hide();
+        this.exportCanvases = [
+            containerExport.find('#canvas-export-mdpi'),
+            containerExport.find('#canvas-export-hdpi'),
+            containerExport.find('#canvas-export-xhdpi'),
+            containerExport.find('#canvas-export-xxhdpi'),
+            containerExport.find('#canvas-export-xxxhdpi')
+        ];
+        this.exportScopes = [];
+        for (let i = 0; i < this.exportCanvases.length; ++i) {
+            let exportCanvas = this.exportCanvases[i];
+            let exportScope = new paper.PaperScope();
+            exportScope.setup(exportCanvas[0]);
+            this.exportScopes.push(exportScope);
+            exportCanvas.hide();
+        }
     }
 
     /**
@@ -45,21 +56,24 @@ class PaperScopeManager {
     }
 
     /**
-     * @returns the expo PaperScope.
+     * @param {Number} idx - which scope to return
      */
-    expo() {
-        return this.exportScope;
+    expo(idx) {
+        return this.exportScopes[idx];
     }
 
     /**
-     * Activates the expo scope.
+     * @param {Number} idx - which scope to activate
      */
-    activateExpo() {
-        this.exportScope.activate();
+    activateExpo(idx) {
+        this.exportScopes[idx].activate();
     }
 
-    expoCanvas() {
-        return this.exportCanvas;
+    /**
+     * @param {Number} idx - which canvas to return
+     */
+    expoCanvas(idx) {
+        return this.exportCanvases[idx];
     }
 
 }

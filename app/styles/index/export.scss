@@ -1,6 +1,28 @@
 @import 'constants';
 
-#canvas-export {
-  width: $canvas-size-export;
-  height: $canvas-size-export;
+$mdpi: 48px;
+
+#canvas-export-mdpi {
+  width: $mdpi;
+  height: $mdpi;
+}
+
+#canvas-export-hdpi {
+  width: $mdpi * 1.5;
+  height: $mdpi * 1.5;
+}
+
+#canvas-export-xhdpi {
+  width: $mdpi * 2;
+  height: $mdpi * 2;
+}
+
+#canvas-export-xxhdpi {
+  width: $mdpi * 3;
+  height: $mdpi * 3;
+}
+
+#canvas-export-xxxhdpi {
+  width: $mdpi * 4;
+  height: $mdpi * 4;
 }

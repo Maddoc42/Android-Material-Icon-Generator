@@ -11,11 +11,11 @@ var App = {
         paper.install(window);
 
         let drawCanvas = $('#canvas-draw');
-        let exportCanvas = $('#canvas-export');
+        let containerEdit = $('#container-edit');
 
         drawCanvas.attr('height', drawCanvas.height());
         drawCanvas.attr('width', drawCanvas.height());
-        paperScope.setCanvases(drawCanvas, exportCanvas);
+        paperScope.setCanvases(drawCanvas, containerEdit);
         paperScope.activateDraw();
 
 
@@ -30,7 +30,7 @@ var App = {
         new IconManager(
             drawCanvas,
             inputManager,
-            $('#container-edit'),
+            containerEdit,
             $('#btn-download-svg'),
             $('#color-icon'),
             $('#color-base'),

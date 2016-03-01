@@ -59,6 +59,7 @@ class InputManager {
 
 
     setupIconPicker() {
+        // setup click to start editing
         let instanceThis = this;
         this.containerInput.find('#container-icon-picker .container-icon-anchor').each(function() {
             let icon = $(this);
@@ -68,6 +69,15 @@ class InputManager {
                 let iconFileName = 'material-icons/' + category + '/ic_' + iconName + '_48px.svg';
                 instanceThis.onSvgLoaded(iconFileName);
             });
+        });
+
+        // setup smooth scrolling
+        let containerInput = this.containerInput;
+        $('a').click(function () {
+            containerInput.animate({
+                scrollTop: $($.attr(this, 'href')).offset().top
+            }, 700, 'swing');
+            return false;
         });
     }
 

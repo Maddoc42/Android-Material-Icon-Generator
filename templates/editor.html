@@ -1,0 +1,92 @@
+
+<section id="container-edit" class="container-fluid full-height">
+	<div class="row full-height">
+		<!-- controls-->
+		<div id="container-controls-parent" class="col-xs-12 col-sm-4 col-md-2 full-height">
+			<div id="container-controls" class="full-height">
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Icon color</h3>
+					</div>
+					<div class="row">
+						<div id="color-icon" class="input-group color-input-group">
+							<input type="text" class="form-control"/><span class="input-group-addon"><i></i></span>
+						</div>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Background color</h3>
+					</div>
+					<div class="row">
+						<div id="color-base" class="input-group color-input-group">
+							<input type="text" class="form-control"/><span class="input-group-addon"><i></i></span>
+						</div>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Center icon</h3>
+					</div>
+					<div class="row">
+						<input id="checkbox-center-icon" checked="checked" type="checkbox" data-toggle="toggle" data-width="100"/>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Shadow length</h3>
+					</div>
+					<div class="row">
+						<input id="slider-shadow-length" type="text" data-slider-id="slider-shadow-length-id" data-slider-min="0" data-slider-max="100" data-slider-step="1" data-slider-value="60"/>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Shadow intensity</h3>
+					</div>
+					<div class="row">
+						<input id="slider-shadow-intensity" type="text" data-slider-id="slider-shadow-intensity-id" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="0.7"/>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Shadow fading</h3>
+					</div>
+					<div class="row">
+						<input id="slider-shadow-fading" type="text" data-slider-id="slider-shadow-fading-id" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="0"/>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Icon size</h3>
+					</div>
+					<div class="row">
+						<input id="slider-icon-size" type="text" data-slider-id="slider-icon-size-id" data-slider-min="0.1" data-slider-max="7" data-slider-value="5" data-slider-step="0.1" data-slider-tooltip="bottom"/>
+					</div>
+				</div>
+			</div>
+			<div id="container-btn-download" class="row controls-entry full-width">
+				<button id="btn-download-svg" type="submit" class="btn btn-lg center-block full-width">Download</button>
+			</div>
+		</div>
+		<!-- canvas-->
+		<div id="container-canvas-draw-parent" class="col-xs-12 col-sm-8 col-md-10 full-height">
+			<div id="container-canvas-draw" class="full-height full-width">
+				<canvas id="canvas-draw"></canvas>
+			</div>
+			<div id="about"><a href="https://github.com/Maddoc42/MaterialIconsGenerator"><strong>Material Icon Generator</strong> by Philipp</a></div>
+			<!--
+			<div id="picker-content-loading" class="filePickerOverlayContent">
+			    <h2><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Generating icon ...</h2>
+			</div>
+			
+			-->
+		</div>
+	</div>
+	<!-- hidden canvas for exporting-->
+	<canvas id="canvas-export-mdpi"></canvas>
+	<canvas id="canvas-export-hdpi"></canvas>
+	<canvas id="canvas-export-xhdpi"></canvas>
+	<canvas id="canvas-export-xxhdpi"></canvas>
+	<canvas id="canvas-export-xxxhdpi"></canvas>
+</section>

@@ -157,39 +157,34 @@
       text-decoration: none;
     }
 
-    @media screen and (min-width: $screen-lg-min) {
-      position: relative;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 150px * 9;
-    }
-
-    #icon-picker-attribution {
-      font-style: italic;
-      color: $color-text-disabled;
-      padding-top:  100px;
-      padding-bottom: 50px;
-      a {
-        color: $color-text;
-        &:hover {
-          text-decoration: underline;
+    .icon-picker-icons-column {
+      $icon-cols-min: 2;
+      $icon-cols-max: 9;
+      $icon-col-width: 150px;
+      $icon-col-height: 140px;
+      $icon-col-margin: 5px;
+      $icon-cols-width: $icon-cols-min * $icon-col-width;
+      @while $icon-cols-width < $icon-col-width * $icon-cols-max {
+        @media screen and (min-width: $icon-cols-width + 20px) { // space for scroll bar
+          width: $icon-cols-width;
         }
+        $icon-cols-width: $icon-cols-width + $icon-col-width;
       }
-    }
-    #icon-picker-attribution a:hover {
-    }
 
-    .container-icon-anchor {
-      float: left;
-      .container-icon {
+      min-width: $icon-cols-min * $icon-col-width;
+      max-width: $icon-cols-max * $icon-col-width;
+      margin: 0 auto;
+      overflow: auto;
+      display: block;
+
+      .container-icon-anchor {
+        float: left;
         text-align: center;
         color: black;
         cursor: pointer;
-        height: 130px;
-        width: 140px;
-        padding-left: 10px;
-        padding-right: 10px;
-        margin: 10px;
+        height: $icon-col-height - 2 * $icon-col-margin;
+        width: $icon-col-width - 2 * $icon-col-margin;
+        margin: $icon-col-margin;
         border-radius: 2px;
 
         &:hover {
@@ -214,9 +209,23 @@
           }
 
           .material-icons {
-            font-size: 46px;
+            font-size: 40px;
             color: $color-text;
           }
+        }
+
+      }
+    }
+
+    #icon-picker-attribution {
+      font-style: italic;
+      color: $color-text-disabled;
+      padding-top:  100px;
+      padding-bottom: 20px;
+      a {
+        color: $color-text;
+        &:hover {
+          text-decoration: underline;
         }
       }
     }

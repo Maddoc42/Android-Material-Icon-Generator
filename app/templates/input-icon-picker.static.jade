@@ -14,17 +14,16 @@ include ./input-material-icons-data-excludes.static.jade
             .category-title
                 p #{category.category}
                 p
-        .col-xs-12
+        .icon-picker-icons-column
             for icon in category.fileNames
                 - var iconName = icon.replace('ic_', '');
                 - iconName = iconName.replace('_48px.svg', '');
                 - var iconTitle = iconName.replace(new RegExp('_', 'g'), ' ');
                 if (iconExcludes.indexOf(iconName) <= -1)
                     .container-icon-anchor(data-icon-category=category.category, data-icon-name=iconName)
-                        .container-icon
-                            .container-icon-inner
-                                i.material-icons #{iconName}
-                                .icon-title #{iconTitle}
+                        .container-icon-inner
+                            i.material-icons #{iconName}
+                            .icon-title #{iconTitle}
 
         if (index != icons.length - 1)
             hr.hr-icons

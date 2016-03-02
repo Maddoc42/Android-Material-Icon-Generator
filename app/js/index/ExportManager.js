@@ -2,7 +2,8 @@
 
 let JSZip = require('js/index/jszip.min'),
     paper = require('js/index/paper-core.min'),
-    paperScope = require('js/index/PaperScopeManager');
+    paperScope = require('js/index/PaperScopeManager'),
+    licenses =  require('js/index/licenses');
 
 const RESOLUTIONS = [
     { name: 'mdpi', factor: 1 },
@@ -25,6 +26,21 @@ class ExportManager {
         let zip = new JSZip();
         let rootFolder = zip.folder('icons');
 
+        // generate content
+        this.createAndZipImages(rootFolder);
+        this.createAndZipLicenses(rootFolder);
+
+        // download
+        if (JSZip.support.blob) {
+            window.location = "data:application/zip;base64," + zip.generate({type:"base64"});
+        } else {
+            console.log('blob not supported');
+            // TODO
+        }
+    }
+
+
+    createAndZipImages(rootFolder) {
         let drawProject = paperScope.draw().project;
         for (let i = 0; i < 5; ++i) {
             let resolution = RESOLUTIONS[i];
@@ -56,18 +72,17 @@ class ExportManager {
             rootFolder.file(svgFileName, svgData, { base64: true });
         }
 
-        // create download link
-        if (JSZip.support.blob) {
-            window.location = "data:application/zip;base64," + zip.generate({type:"base64"});
-        } else {
-            console.log('blob not supported');
-            // TODO
-        }
-
         // reactivate draw scope
         paperScope.activateDraw();
     }
-}
 
+
+    createAndZipLicenses(rootFolder) {
+        let licenseFolder = rootFolder.folder('LICENSE');
+        licenseFolder.file('LICENSE.txt', licenses.LICENSE_GENERAL);
+        licenseFolder.file('LICENSE.CC_BY_4_0.txt',  licenses.LICENSE_CC_BY_4);
+    }
+
+}
 
 module.exports = new ExportManager();

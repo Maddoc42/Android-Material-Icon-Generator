@@ -16,6 +16,7 @@ class ColorPicker {
             .colorpicker({
                 customClass: 'colorpicker-2x',
                 color: defaultColor,
+                align: 'left',
                 sliders: {
                     saturation: {
                         maxLeft: 200,

@@ -231,13 +231,13 @@
     }
 
     .hr-icons {
-      display: inline-block;
       background: $color-primary-light;
       padding: 0;
       border: 0;
       height: 1px;
-      width: 90%;
+      width: 80%;
       text-align:center;
+      margin: 0 auto;
       margin-top: 80px;
     }
 
@@ -245,6 +245,7 @@
       text-transform: capitalize;
       margin-top: 60px;
       margin-bottom: 30px;
+      margin-left: 50px;
       color: $color-text-disabled;
       font-size: 30px;
       font-weight: bold;

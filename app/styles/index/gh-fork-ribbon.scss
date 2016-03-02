@@ -1,0 +1,101 @@
+@import 'constants';
+
+/*!
+ * "Fork me on GitHub" CSS ribbon v0.2.0 | MIT License
+ * https://github.com/simonwhitaker/github-fork-ribbon-css
+*/
+
+.github-fork-ribbon {
+  width: 12.1em;
+  height: 12.1em;
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  z-index: 9999;
+  pointer-events: none;
+  font-size: 16px;
+  text-decoration: none;
+  text-indent: -999999px;
+  &:before, &:after {
+    transition: 0.3s;
+  }
+  &:hover {
+    &:before {
+      background-color: $color-accent;
+    }
+    &:after {
+      border-color: $color-text;
+      transition: 0.3s;
+    }
+  }
+}
+
+.github-fork-ribbon.fixed {
+  position: fixed;
+}
+
+.github-fork-ribbon:before, .github-fork-ribbon:after {
+  /* The right and left classes determine the side we attach our banner to */
+  position: absolute;
+  display: block;
+  width: 15.38em;
+  height: 1.54em;
+  box-sizing: content-box;
+
+  top: 3.23em;
+  right: -3.23em;
+
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.github-fork-ribbon:before {
+  content: "";
+
+  /* Add a bit of padding to give some substance outside the "stitching" */
+  padding: .50em 0;
+
+  /* Set the base colour */
+  background-color: $color-primary-light;
+
+  /* Set a gradient: transparent black at the top to almost-transparent black at the bottom */
+  background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(0, 0, 0, 0)), to(rgba(0, 0, 0, 0.0)));
+  background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.0));
+  background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+  background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+  background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15));
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.0));
+
+  /* Add a drop shadow */
+  -webkit-box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 .15em .23em 0 rgba(0, 0, 0, 0.1);
+
+  pointer-events: auto;
+}
+
+.github-fork-ribbon:after {
+  /* Set the text from the title attribute */
+  content: attr(title);
+
+  /* Set the text properties */
+  color: $color-text;
+  line-height: 1.60em;
+  text-decoration: none;
+  text-align: center;
+  text-indent: 0;
+
+  /* Set the layout properties */
+  padding: .30em 0;
+  margin: .15em 0;
+
+  /* Add "stitching" effect */
+  border-width: 0.1em 0;
+  border-style: dotted;
+  border-color: $color-text-disabled;
+}
+

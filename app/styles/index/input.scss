@@ -164,6 +164,21 @@
       width: 150px * 9;
     }
 
+    #icon-picker-attribution {
+      font-style: italic;
+      color: $color-text-disabled;
+      padding-top:  100px;
+      padding-bottom: 50px;
+      a {
+        color: $color-text;
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+    #icon-picker-attribution a:hover {
+    }
+
     .container-icon-anchor {
       float: left;
       .container-icon {

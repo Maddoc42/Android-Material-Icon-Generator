@@ -1,7 +1,14 @@
 include ./input-material-icons-data.static.jade
 include ./input-material-icons-data-excludes.static.jade
 #container-icon-picker
-    #icon-selector
+    #icon-picker
+        #icon-picker-attribution.text-center
+            | Icons are copied from the&nbsp;
+            a(href='https://design.google.com/icons/') Google Material icons collection
+            | . The icons are available under the&nbsp;
+            a(href='https://creativecommons.org/licenses/by/4.0/') CC-BY license
+            | .
+
     for category, index in icons
         .col-xs-12
             .category-title

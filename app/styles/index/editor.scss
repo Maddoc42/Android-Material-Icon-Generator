@@ -18,7 +18,7 @@ $controls-padding: 20px;
 #container-edit {
   background-color: $color-primary;
   #container-canvas-draw-parent {
-    padding: 20px;
+    padding: 20px 20px 20px 5px;
 
     #about {
       border-radius: 4px;
@@ -58,52 +58,60 @@ $controls-padding: 20px;
     }
   }
   #container-controls-parent {
-    #container-btn-download {
-      position: absolute;
-      bottom: 0;
-      left: $controls-padding;
-      width: 100%;
-      padding: $controls-padding;
-      #btn-download-svg {
-        border-radius: 4px;
-        background: $color-accent;
-        color: white;
-        border: none;
-        font-weight: bold;
-        transition: 0.3s;
-        &:hover {
-          background: $color-primary-dark;
-          color: $color-accent;
-        }
-        &:focus {
-          outline: 0;
-        }
+    height: 100%;
+    overflow: hidden;
+
+    #container-controls {
+      overflow: hidden;
+    }
+
+    #btn-download-svg {
+      border-radius: 4px;
+      background: $color-accent;
+      color: white;
+      border: none;
+      font-weight: bold;
+      transition: 0.3s;
+      &:hover {
+        background: $color-primary-dark;
+        color: $color-accent;
+      }
+      &:focus {
+        outline: 0;
       }
     }
-  }
-  #container-controls {
-    padding: $controls-padding;
-    .controls-entry {
-      padding-top: 15px;
-      padding-bottom: 15px;
-      h3 {
-        color: $color-text-disabled;
-        font-weight: bold;
-        margin: 0 0 10px;
-        font-size: 14px;
-        transition: 0.3s;
-      };
-      .color-input-group {
-        input, span {
-          background: $color-primary-light;
-          border: none;
-          color: $color-text-disabled;
-          box-shadow: none;
-          transition: 0.3s;
+
+    #container-controls {
+      .controls-entry {
+        margin: 0 $controls-padding 15px;
+        padding: 0 $controls-padding 15px;
+        &:nth-child(1) {
+          padding-top: 15px + $controls-padding;
         }
-      }
-      &:hover h3, &:hover .color-input-group input, &:hover .toggle-off {
-        color: $color-text;
+        &:last-child {
+          margin-bottom: $controls-padding;
+          margin-left: 0;
+          margin-right: 0;
+        }
+        h3 {
+          color: $color-text-disabled;
+          font-weight: bold;
+          margin: 0 0 10px;
+          font-size: 14px;
+          transition: 0.3s;
+        };
+        .color-input-group {
+          input, span {
+            background: $color-primary-light;
+            border: none;
+            color: $color-text-disabled;
+            box-shadow: none;
+            transition: 0.3s;
+          }
+        }
+        &:hover h3, &:hover .color-input-group input, &:hover .toggle-off {
+          color: $color-text;
+        }
       }
     }
   }

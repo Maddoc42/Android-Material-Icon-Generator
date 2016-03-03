@@ -32,6 +32,11 @@ h3 {
 }
 
 
+.simplebar-scrollbar {
+  background-color: $color-primary-very-light !important;
+}
+
+
 // creates a layout with 9 columns
 @media (min-width: $screen-sm-min) {
   $width-9-columns: 11.11%;

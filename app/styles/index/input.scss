@@ -10,7 +10,11 @@
   width: 100%;
   padding: 0;
   z-index: 1000;
-  overflow-y: scroll;
+  overflow-y: hidden;
+
+  .simplebar-scroll-content, .simplebar-content {
+    height: 100%;
+  }
 
   .row {
     margin: 0;

@@ -3,9 +3,9 @@ section#container-edit.container-fluid.full-height
     .row.full-height
 
         // controls
-        #container-controls-parent.col-xs-12.col-sm-4.col-md-2.full-height
+        #container-controls-parent.col-xs-12.col-sm-4.col-md-2(data-simplebar-direction='vertical')
 
-            #container-controls.full-height
+            #container-controls
 
                 .controls-entry
                     .row
@@ -55,8 +55,8 @@ section#container-edit.container-fluid.full-height
                     .row
                         input#slider-icon-size(type='text', data-slider-id='slider-icon-size-id', data-slider-min='0.1', data-slider-max='7', data-slider-value='5', data-slider-step='0.1', data-slider-tooltip='bottom')
 
-            #container-btn-download.row.controls-entry.full-width
-                button#btn-download-svg.btn.btn-lg.center-block.full-width(type='submit') Download
+                .controls-entry
+                    button#btn-download-svg.btn.btn-lg.full-width(type='submit') Download
 
 
         // canvas

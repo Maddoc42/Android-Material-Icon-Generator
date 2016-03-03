@@ -74,7 +74,8 @@ class InputManager {
         // setup smooth scrolling
         let containerInput = this.containerInput;
         $('a').click(function () {
-            containerInput.animate({
+            let scrollContent = containerInput.find('.simplebar-scroll-content');
+            scrollContent.animate({
                 scrollTop: $($.attr(this, 'href')).offset().top
             }, 700, 'swing');
             return false;

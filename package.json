@@ -11,7 +11,7 @@
   "scripts": {
     "start": "brunch watch --server",
     "clean": "rm -r public/*",
-    "deploy": "./deploy.sh"
+    "deploy": "./bin/deploy.sh"
   },
   "dependencies": {
     "auto-reload-brunch": ">= 1.0 < 1.9",

@@ -1,9 +1,9 @@
 'use strict';
 
-let JSZip = require('js/index/jszip.min'),
-    paper = require('js/index/paper-core.min'),
-    paperScope = require('js/index/PaperScopeManager'),
-    licenses =  require('js/index/licenses');
+let JSZip = require('js/jszip.min'),
+    paper = require('js/paper-core.min'),
+    paperScope = require('js/PaperScopeManager'),
+    licenses =  require('js/licenses');
 
 const RESOLUTIONS = [
     { name: 'mdpi', factor: 1 },

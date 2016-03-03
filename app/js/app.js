@@ -1,9 +1,9 @@
 'use strict';
 
-let IconManager = require('js/index/IconManager'),
-    InputManager = require('js/index/InputManager'),
-    paper = require('js/index/paper-core.min'),
-    paperScope = require('js/index/PaperScopeManager');
+let IconManager = require('js/IconManager'),
+    InputManager = require('js/InputManager'),
+    paper = require('js/paper-core.min'),
+    paperScope = require('js/PaperScopeManager');
 
 var App = {
 

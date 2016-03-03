@@ -1,8 +1,8 @@
 'use strict';
 
-let paper = require('js/index/paper-core.min'),
-    IconBaseShadow = require('js/index/IconBaseShadow'),
-    paperScope = require('js/index/PaperScopeManager');
+let paper = require('js/paper-core.min'),
+    IconBaseShadow = require('js/IconBaseShadow'),
+    paperScope = require('js/PaperScopeManager');
 
 
 class IconBase {

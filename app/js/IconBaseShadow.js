@@ -1,6 +1,6 @@
 'use strict';
 
-var paper = require('js/index/paper-core.min');
+var paper = require('js/paper-core.min');
 
 
 class IconBaseShadow {

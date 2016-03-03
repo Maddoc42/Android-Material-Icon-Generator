@@ -1,7 +1,7 @@
 'use strict';
 
-let paper = require('js/index/paper-core.min'),
-    paperScope = require('js/index/PaperScopeManager');
+let paper = require('js/paper-core.min'),
+    paperScope = require('js/PaperScopeManager');
 
 const TARGET_ANGLE = Math.PI / 4;
 

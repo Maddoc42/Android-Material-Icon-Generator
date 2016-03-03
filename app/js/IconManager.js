@@ -1,11 +1,11 @@
 'use strict';
 
-let paper = require('js/index/paper-core.min'),
-    IconBase = require('js/index/IconBase'),
-    Icon = require('js/index/Icon'),
-    ColorPicker = require('js/index/ColorPicker'),
-    paperScope = require('js/index/PaperScopeManager'),
-    exportManager = require('js/index/ExportManager');
+let paper = require('js/paper-core.min'),
+    IconBase = require('js/IconBase'),
+    Icon = require('js/Icon'),
+    ColorPicker = require('js/ColorPicker'),
+    paperScope = require('js/PaperScopeManager'),
+    exportManager = require('js/ExportManager');
 
 // Default android icon size (48 DIP)
 const CANVAS_SIZE = 48;

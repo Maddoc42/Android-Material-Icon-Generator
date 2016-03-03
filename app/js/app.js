@@ -2,35 +2,16 @@
 
 let IconManager = require('js/IconManager'),
     InputManager = require('js/InputManager'),
+    Dispatcher = require('js/Dispatcher'),
     paper = require('js/paper-core.min'),
     paperScope = require('js/PaperScopeManager');
 
 var App = {
 
     init: function() {
-        paper.install(window);
-
-        let drawCanvas = $('#canvas-draw');
-        let containerEdit = $('#container-edit');
-
-        drawCanvas.attr('height', drawCanvas.height());
-        drawCanvas.attr('width', drawCanvas.height());
-        paperScope.setCanvases(drawCanvas, containerEdit);
-        paperScope.activateDraw();
-
-
-        let inputManager = new InputManager(
-            $('#container-input'),
-            this.getParameterByName('icon')
-        );
-
-        let checkboxCenterIcon = $('#checkbox-center-icon');
-        checkboxCenterIcon.bootstrapToggle();
-
-        new IconManager(
-            drawCanvas,
-            inputManager,
-            containerEdit,
+        let iconManager = new IconManager(
+            $('#canvas-draw'),
+            $('#container-edit'),
             $('#btn-download-svg'),
             $('#color-icon'),
             $('#color-base'),
@@ -38,10 +19,16 @@ var App = {
             $('#slider-shadow-length'),
             $('#slider-shadow-intensity'),
             $('#slider-shadow-fading'),
-            checkboxCenterIcon
+            $('#checkbox-center-icon')
         );
 
-        paperScope.draw().view.draw();
+        let inputManager = new InputManager($('#container-input'));
+
+        new Dispatcher(
+            inputManager,
+            iconManager,
+            this.getParameterByName('icon')
+        );
     },
 
     getParameterByName: function(name) {

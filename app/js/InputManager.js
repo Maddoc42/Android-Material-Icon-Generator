@@ -8,11 +8,9 @@ class InputManager {
 
     /**
      * @param containerInput - jquery object holding all input elements
-     * @param selectedIconName - optional param which points to one of the Google material icons.
      */
-    constructor(containerInput, selectedIconName) {
+    constructor(containerInput) {
         this.containerInput = containerInput;
-        this.selectedIconName = selectedIconName;
         this.setupFilePicker();
         this.setupIconPicker();
     }
@@ -89,9 +87,6 @@ class InputManager {
      */
     setSvgLoadedCallback(callback) {
         this.onSvgLoaded = callback;
-        if (this.selectedIconName) {
-            callback(this.selectedIconName);
-        }
     }
 
 

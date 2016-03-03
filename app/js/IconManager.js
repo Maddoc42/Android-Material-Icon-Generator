@@ -18,7 +18,6 @@ class IconManager {
 
     /**
      * @param canvas - jquery canvas object
-     * @param inputManager - jquery input object
      * @param containerEdit - jquery edit objects (can be multiple)
      * @param btnDownload - jquery download button
      * @param iconColorPicker - jquery icon color picker object
@@ -29,13 +28,12 @@ class IconManager {
      * @param sliderShadowFading - jquery slider object for changing shadow fading
      * @param checkBoxCenterIcon - jquery check box object for centering the icon
      */
-    constructor(canvas, inputManager, containerEdit,
+    constructor(canvas, containerEdit,
                 btnDownload, iconColorPicker, baseColorPicker,
                 sliderIconSize, sliderShadowLength, sliderShadowIntensity,
                 sliderShadowFading, checkBoxCenterIcon) {
 
         this.canvas = canvas;
-        this.inputManager = inputManager;
         this.containerEdit = containerEdit;
         this.iconColorPicker = iconColorPicker;
         this.baseColorPicker = baseColorPicker;
@@ -44,15 +42,18 @@ class IconManager {
         this.sliderShadowIntensity = sliderShadowIntensity;
         this.sliderShadowFading = sliderShadowFading;
 
+        // setup canvas
+        paper.install(window);
+        this.canvas.attr('height', canvas.height());
+        this.canvas.attr('width', canvas.height());
+        paperScope.setCanvases(this.canvas, containerEdit);
+        paperScope.activateDraw();
+
         // place icon in center on canvas
         this.canvasSize = CANVAS_SIZE;
         paperScope.draw().view.center = new paper.Point(CANVAS_SIZE / 2, CANVAS_SIZE / 2);
         paperScope.draw().view.zoom = canvas.height() / CANVAS_SIZE;
         this.center = new paper.Point(this.canvasSize / 2, this.canvasSize / 2);
-
-        inputManager.setSvgLoadedCallback(function(svgData) {
-            this.onSvgFileLoaded(svgData);
-        }.bind(this));
 
         // setup download
         btnDownload.click(function() {
@@ -61,6 +62,7 @@ class IconManager {
 
         // setup center icon
         this.checkBoxCenterIcon = checkBoxCenterIcon;
+        this.checkBoxCenterIcon.bootstrapToggle();
         this.checkBoxCenterIcon.change(function() {
             let checked = this.checkBoxCenterIcon.prop('checked');
             if (checked) this.icon.center();
@@ -72,7 +74,7 @@ class IconManager {
      * Handles the svg file loaded callback.
      * @param svgData either raw svg data or a URL pointing to a svg file.
      */
-    onSvgFileLoaded(svgData) {
+    onSvgLoaded(svgData) {
         // remove any previous icons
         if (this.icon) this.icon.remove();
 
@@ -170,11 +172,6 @@ class IconManager {
             }.bind(this))
             .data('slider');
         this.icon.getIconShadow().applyShadow();
-
-
-        // show canvas + remove loading msg
-        this.inputManager.hide();
-        this.containerEdit.show();
     }
 
 
@@ -226,6 +223,11 @@ class IconManager {
         }
 
         return null;
+    }
+
+
+    show() {
+        this.containerEdit.show();
     }
 
 }

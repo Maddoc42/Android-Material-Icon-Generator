@@ -148,6 +148,7 @@ $controls-padding: 20px;
     box-shadow: none;
   }
   .toggle-on {
+    border: none;
     box-shadow: none;
     background: $color-accent;
     color: $color-text;
@@ -156,6 +157,7 @@ $controls-padding: 20px;
     }
   }
   .toggle-off {
+    border: none;
     background-color: $color-primary-light;
     color: $color-text-disabled;
     text-shadow: none;

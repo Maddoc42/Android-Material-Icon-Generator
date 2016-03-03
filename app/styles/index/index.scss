@@ -5,8 +5,10 @@ html, body {
   height: 100%;
   background: #f5f5f5;
   font-family: 'Open Sans', sans-serif;
-  overflow: hidden;
+  overflow-y: hidden;
+  min-width: $screen-sm-min !important;;
 }
+
 
 h1 {
   text-align: center;
@@ -37,56 +39,59 @@ h3 {
 }
 
 
+* .container, * .container-fluid {
+  min-width: $screen-sm-min !important;
+}
+
+
 // creates a layout with 9 columns
-@media (min-width: $screen-sm-min) {
-  $width-9-columns: 11.11%;
+$width-9-columns: 11.11%;
 
-  .col-sm-from-9 {
-    float: left;
-  }
+.col-x-from-9 {
+  float: left;
+}
 
-  .col-sm-1-from-9 {
-    @extend .col-sm-from-9;
-    width: $width-9-columns;
-  }
+.col-1-from-9 {
+  @extend .col-x-from-9;
+  width: $width-9-columns;
+}
 
-  .col-sm-2-from-9 {
-    @extend .col-sm-from-9;
-    width: $width-9-columns * 2;
-  }
+.col-2-from-9 {
+  @extend .col-x-from-9;
+  width: $width-9-columns * 2;
+}
 
-  .col-sm-3-from-9 {
-    @extend .col-sm-from-9;
-    width: $width-9-columns * 3;
-  }
+.col-3-from-9 {
+  @extend .col-x-from-9;
+  width: $width-9-columns * 3;
+}
 
-  .col-sm-4-from-9 {
-    @extend .col-sm-from-9;
-    width: $width-9-columns * 4;
-  }
+.col-4-from-9 {
+  @extend .col-x-from-9;
+  width: $width-9-columns * 4;
+}
 
-  .col-sm-5-from-9 {
-    @extend .col-sm-from-9;
-    width: $width-9-columns * 5;
-  }
+.col-sm-5-from-9 {
+  @extend .col-x-from-9;
+  width: $width-9-columns * 5;
+}
 
-  .col-sm-6-from-9 {
-    @extend .col-sm-from-9;
-    width: $width-9-columns * 6;
-  }
+.col-sm-6-from-9 {
+  @extend .col-x-from-9;
+  width: $width-9-columns * 6;
+}
 
-  .col-sm-7-from-9 {
-    @extend .col-sm-from-9;
-    width: $width-9-columns * 7;
-  }
+.col-7-from-9 {
+  @extend .col-x-from-9;
+  width: $width-9-columns * 7;
+}
 
-  .col-sm-8-from-9 {
-    @extend .col-sm-from-9;
-    width: $width-9-columns * 8;
-  }
+.col-8-from-9 {
+  @extend .col-x-from-9;
+  width: $width-9-columns * 8;
+}
 
-  .col-sm-9-from-9 {
-    @extend .col-sm-from-9;
-    width: 100%;
-  }
+.col-9-from-9 {
+  @extend .col-x-from-9;
+  width: 100%;
 }

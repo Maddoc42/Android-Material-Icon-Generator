@@ -2,8 +2,8 @@
 <section id="container-edit" class="container-fluid full-height">
 	<div class="row full-height">
 		<!-- controls-->
-		<div id="container-controls-parent" class="col-xs-12 col-sm-4 col-md-2 full-height">
-			<div id="container-controls" class="full-height">
+		<div id="container-controls-parent" data-simplebar-direction="vertical" class="col-sm-4 col-md-3">
+			<div id="container-controls">
 				<div class="controls-entry">
 					<div class="row">
 						<h3>Icon color</h3>
@@ -64,15 +64,17 @@
 						<input id="slider-icon-size" type="text" data-slider-id="slider-icon-size-id" data-slider-min="0.1" data-slider-max="7" data-slider-value="5" data-slider-step="0.1" data-slider-tooltip="bottom"/>
 					</div>
 				</div>
-			</div>
-			<div id="container-btn-download" class="row controls-entry full-width">
-				<button id="btn-download-svg" type="submit" class="btn btn-lg center-block full-width">Download</button>
+				<div class="controls-entry">
+					<button id="btn-download-svg" type="submit" class="btn btn-lg full-width">Download</button>
+				</div>
 			</div>
 		</div>
 		<!-- canvas-->
-		<div id="container-canvas-draw-parent" class="col-xs-12 col-sm-8 col-md-10 full-height">
+		<div id="container-canvas-draw-parent" class="col-sm-8 col-md-9 full-height">
 			<div id="container-canvas-draw" class="full-height full-width">
-				<canvas id="canvas-draw"></canvas>
+				<div id="container-canvas-draw-wrapper">
+					<canvas id="canvas-draw"></canvas>
+				</div>
 			</div>
 			<div id="about"><a href="https://github.com/Maddoc42/MaterialIconsGenerator"><strong>Material Icon Generator</strong> by Philipp</a></div>
 			<!--

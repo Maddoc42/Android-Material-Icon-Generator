@@ -3,7 +3,7 @@ section#container-edit.container-fluid.full-height
     .row.full-height
 
         // controls
-        #container-controls-parent.col-sm-4.col-md-2(data-simplebar-direction='vertical')
+        #container-controls-parent.col-sm-4.col-md-3(data-simplebar-direction='vertical')
 
             #container-controls
 
@@ -60,9 +60,10 @@ section#container-edit.container-fluid.full-height
 
 
         // canvas
-        #container-canvas-draw-parent.col-sm-8.col-md-10.full-height
+        #container-canvas-draw-parent.col-sm-8.col-md-9.full-height
             #container-canvas-draw.full-height.full-width
-                canvas#canvas-draw
+                #container-canvas-draw-wrapper
+                    canvas#canvas-draw
 
             #about
                 a(href='https://github.com/Maddoc42/MaterialIconsGenerator')

@@ -2,19 +2,6 @@
 
 $controls-padding: 20px;
 
-#canvas-draw {
-  height: $canvas-size-small;
-  width: $canvas-size-small;
-  @media screen and (min-width: $screen-md-min) {
-    height: $canvas-size-medium;
-    width: $canvas-size-medium;
-  }
-  @media screen and (min-width: $screen-lg-min) {
-    height: $canvas-size-large;
-    width: $canvas-size-large;
-  }
-}
-
 #container-edit {
   background-color: $color-primary;
   #container-canvas-draw-parent {
@@ -45,17 +32,38 @@ $controls-padding: 20px;
         color: $color-text;
       }
     }
-
   }
+
+
   #container-canvas-draw {
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: $color-primary-light;
     border-radius: 4px;
-    #canvas-draw {
-      cursor: pointer;
+
+    #container-canvas-draw-wrapper {
+      display: inline-block;
+      position: relative;
+      width: 50%;
+      &:after {
+        padding-top: 100%;
+        display: block;
+        content: '';
+      }
+
+      #canvas-draw {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        cursor: pointer;
+        width: 100%;
+        height: 100%;
+      }
     }
+
   }
   #container-controls-parent {
     height: 100%;

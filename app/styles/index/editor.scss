@@ -3,9 +3,10 @@
 $controls-padding: 20px;
 
 #container-edit {
+  padding: $controls-padding;
   background-color: $color-primary;
   #container-canvas-draw-parent {
-    padding: 20px 20px 20px 5px;
+    padding-left: 5px;
 
     #about {
       border-radius: 4px;
@@ -91,11 +92,10 @@ $controls-padding: 20px;
 
     #container-controls {
       .controls-entry {
-        margin: 0 $controls-padding 15px;
-        padding: 0 $controls-padding 15px;
-        &:nth-child(1) {
-          padding-top: 15px + $controls-padding;
-        }
+        margin: 0 $controls-padding 10px;
+        padding-bottom: 15px;
+        padding-left: 5px;
+        padding-right: 15px;
         &:last-child {
           margin-bottom: $controls-padding;
           margin-left: 0;

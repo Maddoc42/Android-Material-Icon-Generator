@@ -66,7 +66,7 @@ class InputManager {
             icon.click(function() {
                 let category = icon.attr('data-icon-category');
                 let iconName = icon.attr('data-icon-name');
-                let iconFileName = 'material-icons/' + category + '/ic_' + iconName + '_48px.svg';
+                let iconFileName = 'img/material-icons/' + category + '/ic_' + iconName + '_48px.svg';
                 instanceThis.onSvgLoaded(iconFileName);
             });
         });

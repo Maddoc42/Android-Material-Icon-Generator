@@ -44,8 +44,9 @@ class IconManager {
 
         // setup canvas
         paper.install(window);
-        this.canvas.attr('height', canvas.height());
-        this.canvas.attr('width', canvas.height());
+        let canvasHeight = canvas.height();
+        this.canvas.attr('height', canvasHeight);
+        this.canvas.attr('width', canvasHeight);
         paperScope.setCanvases(this.canvas, containerEdit);
         paperScope.activateDraw();
 

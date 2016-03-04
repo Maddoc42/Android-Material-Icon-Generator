@@ -41,32 +41,97 @@ class IconManager {
         this.sliderShadowLength = sliderShadowLength;
         this.sliderShadowIntensity = sliderShadowIntensity;
         this.sliderShadowFading = sliderShadowFading;
+        this.btnDownload = btnDownload;
+        this.checkBoxCenterIcon = checkBoxCenterIcon;
 
+        this.initCanvas();
+        this.initControls();
+
+    }
+
+
+    /**
+     * Initial canvas setup.
+     */
+    initCanvas() {
         // setup canvas
         paper.install(window);
-        let canvasHeight = canvas.height();
+        let canvasHeight = this.canvas.height();
         this.canvas.attr('height', canvasHeight);
         this.canvas.attr('width', canvasHeight);
-        paperScope.setCanvases(this.canvas, containerEdit);
+        paperScope.setCanvases(this.canvas, this.containerEdit);
         paperScope.activateDraw();
 
         // place icon in center on canvas
         this.canvasSize = CANVAS_SIZE;
         paperScope.draw().view.center = new paper.Point(CANVAS_SIZE / 2, CANVAS_SIZE / 2);
-        paperScope.draw().view.zoom = canvas.height() / CANVAS_SIZE;
+        paperScope.draw().view.zoom = canvasHeight / CANVAS_SIZE;
         this.center = new paper.Point(this.canvasSize / 2, this.canvasSize / 2);
+    }
 
-        // setup download
-        btnDownload.click(function() {
-            exportManager.createAndDownloadZip();
-        }.bind(this));
+
+    /**
+     * Initial controls setup.
+     */
+    initControls() {
+        // setup base color picker
+        let defaultBaseColor = '#512DA8';
+        this.setIconBaseColorFunction = function() {
+            this.iconBase.setColor(this.baseColorPicker.getColor());
+        }.bind(this);
+        this.baseColorPicker = new ColorPicker(this.baseColorPicker, defaultBaseColor, this.setIconBaseColorFunction);
+
+        // setup icon color picker
+        let defaultIconColor = '#ffffff';
+        this.setIconColorFunction = function () {
+            this.icon.setColor(this.iconColorPicker.getColor());
+        }.bind(this);
+        this.iconColorPicker = new ColorPicker(this.iconColorPicker, defaultIconColor, this.setIconColorFunction);
+
+        // setup shadow length slider
+        this.setShadowLengthFunction = function () {
+            this.icon.getIconShadow().setLength(this.sliderShadowLengthData.getValue());
+        }.bind(this);
+        this.sliderShadowLengthData = this.sliderShadowLength.slider()
+            .on('slide', this.setShadowLengthFunction)
+            .data('slider');
+
+        // setup shadow intensity slider
+        this.setShadowIntensityFunction = function () {
+            this.icon.getIconShadow().setIntensity(this.sliderShadowIntensityData.getValue());
+        }.bind(this);
+        this.sliderShadowIntensityData  = this.sliderShadowIntensity.slider()
+            .on('slide', this.setShadowIntensityFunction)
+            .data('slider');
+
+        // setup shadow fading slider
+        this.setShadowFadingFunction = function () {
+            this.icon.getIconShadow().setFading(this.sliderShadowFadingData.getValue());
+        }.bind(this);
+        this.sliderShadowFadingData = this.sliderShadowFading.slider()
+            .on('slide', this.setShadowFadingFunction)
+            .data('slider');
+
+        // setup icon size picker
+        this.setSizeFunction = function () {
+            let size = this.sliderIconSizeData.getValue();
+            let scale = 0.0954548 * Math.exp(0.465169 * size);
+            this.icon.setScale(scale);
+        }.bind(this);
+        this.sliderIconSizeData = this.sliderIconSize.slider()
+            .on('slide', this.setSizeFunction)
+            .data('slider');
 
         // setup center icon
-        this.checkBoxCenterIcon = checkBoxCenterIcon;
         this.checkBoxCenterIcon.bootstrapToggle();
         this.checkBoxCenterIcon.change(function() {
             let checked = this.checkBoxCenterIcon.prop('checked');
             if (checked) this.icon.center();
+        }.bind(this));
+
+        // setup download
+        this.btnDownload.click(function() {
+            exportManager.createAndDownloadZip();
         }.bind(this));
     }
 
@@ -103,76 +168,27 @@ class IconManager {
 
 
     setupBase() {
-        let defaultBaseColor = '#512DA8';
         this.baseRadius = this.canvasSize / 2 * 0.9;
         this.iconBase = new IconBase(this.center, this.baseRadius);
-        this.iconBase.setColor(defaultBaseColor);
 
-        new ColorPicker(this.baseColorPicker, defaultBaseColor, function(newColor) {
-            this.iconBase.setColor(newColor);
-        }.bind(this));
+        // set default values
+        this.setIconBaseColorFunction();
     }
 
 
     setupIcon(importedPath) {
         // create icon + shadow
-        let defaultIconColor = '#ffffff';
-        this.icon = new Icon(this.center, 'white', importedPath, this.iconBase, function() {
+        this.icon = new Icon(this.center, importedPath, this.iconBase, function() {
             let checked = this.checkBoxCenterIcon.prop('checked');
             if (checked) this.checkBoxCenterIcon.prop('checked', false).change();
-
         }.bind(this));
+
+        // set default icon values
         this.icon.setSize(this.baseRadius * 2 * 0.60);
-
-        // setup icon color picker
-        new ColorPicker(this.iconColorPicker, defaultIconColor, function(newColor) {
-            this.icon.setColor(newColor);
-        }.bind(this));
-
-        // setup shadow length slider
-        let setShadowLengthFunction = function () {
-            this.icon.getIconShadow().setLength(this.sliderShadowLengthData.getValue());
-        }.bind(this);
-        this.sliderShadowLengthData = this.sliderShadowLength.slider()
-            .on('slide', function () {
-                setShadowLengthFunction()
-            }.bind(this))
-            .data('slider');
-        setShadowLengthFunction();
-
-        // setup shadow intensity slider
-        let setShadowIntensityFunction = function () {
-            this.icon.getIconShadow().setIntensity(this.sliderShadowIntensityData.getValue());
-        }.bind(this);
-        this.sliderShadowIntensityData  = this.sliderShadowIntensity.slider()
-            .on('slide', function () {
-                setShadowIntensityFunction();
-            }.bind(this))
-            .data('slider');
-        setShadowIntensityFunction();
-
-        // setup shadow fading slider
-        let setShadowFadingFunction = function () {
-            this.icon.getIconShadow().setFading(this.sliderShadowFadingData.getValue());
-        }.bind(this);
-        this.sliderShadowFadingData = this.sliderShadowFading.slider()
-            .on('slide', function () {
-                setShadowFadingFunction();
-            }.bind(this))
-            .data('slider');
-        setShadowFadingFunction();
-
-        // setup icon size picker
-        let setSizeFunction = function () {
-            let size = this.sliderIconSizeData.getValue();
-            let scale = 0.0954548 * Math.exp(0.465169 * size);
-            this.icon.setScale(scale);
-        }.bind(this);
-        this.sliderIconSizeData = this.sliderIconSize.slider()
-            .on('slide', function () {
-                setSizeFunction();
-            }.bind(this))
-            .data('slider');
+        this.setIconColorFunction();
+        this.setShadowLengthFunction();
+        this.setShadowIntensityFunction();
+        this.setShadowFadingFunction();
         this.icon.getIconShadow().applyShadow();
     }
 

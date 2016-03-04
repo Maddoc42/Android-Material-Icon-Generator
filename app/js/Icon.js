@@ -10,12 +10,11 @@ class Icon {
 
     /**
      * @param position - of this icon
-     * @param color - of this icon
      * @param iconPath - of this icon
      * @param iconBase - for this icon
      * @param iconDraggedCallback - will be called whenever this icon has been dragged
      */
-    constructor(position, color, iconPath, iconBase, iconDraggedCallback) {
+    constructor(position, iconPath, iconBase, iconDraggedCallback) {
         this.originalPosition = new paper.Point(position);
         this.iconPath = iconPath;
         this.iconPath.position = position;
@@ -27,7 +26,6 @@ class Icon {
         this.iconPath.moveAbove(iconBase.getPathWithoutShadows());
         this.iconDraggedCallback = iconDraggedCallback;
         this.applyIcon();
-        this.setColor(color);
     }
 
 

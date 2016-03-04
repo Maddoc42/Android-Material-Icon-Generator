@@ -32,7 +32,9 @@ class Dispatcher {
     showIcon(svgData) {
         this.inputManager.hide();
         this.iconManager.show();
-        this.iconManager.onSvgLoaded(svgData);
+        setTimeout(function() {
+            this.iconManager.onSvgLoaded(svgData);
+        }.bind(this), 500);
     }
 
 

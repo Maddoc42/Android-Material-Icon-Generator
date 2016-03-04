@@ -270,8 +270,6 @@ class IconShadow {
         let xDistance = Math.sqrt(length * length / 2);
         let destination = this.appliedIconShadowPath.fillColor.origin.add(xDistance);
         this.appliedIconShadowPath.fillColor.destination = destination;
-
-        paperScope.draw().view.draw(); // apply shadow not required when changing length, draw directly
     }
 
 
@@ -283,8 +281,6 @@ class IconShadow {
         this.appliedIconShadowPath.fillColor.gradient.stops[0].color.alpha = intensity;
         // hack: just chaning alpha does not trigger a redraw, 'change' this as well
         this.appliedIconShadowPath.fillColor.destination = this.appliedIconShadowPath.fillColor.destination;
-
-        paperScope.draw().view.draw();
     }
 
 
@@ -296,7 +292,6 @@ class IconShadow {
         this.appliedIconShadowPath.fillColor.gradient.stops[0].rampPoint = fading;
         // hack: just chaning alpha does not trigger a redraw, 'change' this as well
         this.appliedIconShadowPath.fillColor.destination = this.appliedIconShadowPath.fillColor.destination;
-        paperScope.draw().view.draw();
     }
 
 

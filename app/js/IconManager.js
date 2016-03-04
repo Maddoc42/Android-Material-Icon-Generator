@@ -77,47 +77,53 @@ class IconManager {
     initControls() {
         // setup base color picker
         let defaultBaseColor = '#512DA8';
-        this.setIconBaseColorFunction = function() {
+        this.setIconBaseColorFunction = function(event, disableDraw) {
             this.iconBase.setColor(this.baseColorPicker.getColor());
+            if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);
         this.baseColorPicker = new ColorPicker(this.baseColorPicker, defaultBaseColor, this.setIconBaseColorFunction);
 
         // setup icon color picker
         let defaultIconColor = '#ffffff';
-        this.setIconColorFunction = function () {
+        this.setIconColorFunction = function (event, disableDraw) {
             this.icon.setColor(this.iconColorPicker.getColor());
+            if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);
         this.iconColorPicker = new ColorPicker(this.iconColorPicker, defaultIconColor, this.setIconColorFunction);
 
         // setup shadow length slider
-        this.setShadowLengthFunction = function () {
+        this.setShadowLengthFunction = function (event, disableDraw) {
             this.icon.getIconShadow().setLength(this.sliderShadowLengthData.getValue());
+            if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);
         this.sliderShadowLengthData = this.sliderShadowLength.slider()
             .on('slide', this.setShadowLengthFunction)
             .data('slider');
 
         // setup shadow intensity slider
-        this.setShadowIntensityFunction = function () {
+        this.setShadowIntensityFunction = function (event, disableDraw) {
             this.icon.getIconShadow().setIntensity(this.sliderShadowIntensityData.getValue());
+            if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);
         this.sliderShadowIntensityData  = this.sliderShadowIntensity.slider()
             .on('slide', this.setShadowIntensityFunction)
             .data('slider');
 
         // setup shadow fading slider
-        this.setShadowFadingFunction = function () {
+        this.setShadowFadingFunction = function (event, disableDraw) {
             this.icon.getIconShadow().setFading(this.sliderShadowFadingData.getValue());
+            if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);
         this.sliderShadowFadingData = this.sliderShadowFading.slider()
             .on('slide', this.setShadowFadingFunction)
             .data('slider');
 
         // setup icon size picker
-        this.setSizeFunction = function () {
+        this.setSizeFunction = function (event, disableDraw) {
             let size = this.sliderIconSizeData.getValue();
             let scale = 0.0954548 * Math.exp(0.465169 * size);
             this.icon.setScale(scale);
+            if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);
         this.sliderIconSizeData = this.sliderIconSize.slider()
             .on('slide', this.setSizeFunction)
@@ -128,6 +134,7 @@ class IconManager {
         this.checkBoxCenterIcon.change(function() {
             let checked = this.checkBoxCenterIcon.prop('checked');
             if (checked) this.icon.center();
+            paperScope.draw().view.draw();
         }.bind(this));
 
         // setup download
@@ -180,7 +187,7 @@ class IconManager {
         this.iconBase = new IconBase(this.center, this.baseRadius);
 
         // set default values
-        this.setIconBaseColorFunction();
+        this.setIconBaseColorFunction(null, true);
     }
 
 
@@ -193,10 +200,10 @@ class IconManager {
 
         // set default icon values
         this.icon.setSize(this.baseRadius * 2 * 0.60);
-        this.setIconColorFunction();
-        this.setShadowLengthFunction();
-        this.setShadowIntensityFunction();
-        this.setShadowFadingFunction();
+        this.setIconColorFunction(null, true);
+        this.setShadowLengthFunction(null, true);
+        this.setShadowIntensityFunction(null, true);
+        this.setShadowFadingFunction(null, true);
         this.icon.getIconShadow().applyShadow();
     }
 

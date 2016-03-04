@@ -51,7 +51,6 @@ class Icon {
         this.applyIcon();
         this.iconShadow.scale(newScale / this.scale);
         this.scale = newScale;
-        paperScope.draw().view.draw();
     }
 
 
@@ -61,7 +60,6 @@ class Icon {
      */
     setColor(color) {
         this.appliedIconPath.fillColor = color;
-        paperScope.draw().view.draw();
     }
 
 
@@ -72,7 +70,6 @@ class Icon {
         this.iconPath.position = this.iconPath.position.add(delta);
         this.applyIcon();
         this.iconShadow.move(delta);
-        paperScope.draw().view.draw();
     }
 
 
@@ -80,7 +77,6 @@ class Icon {
         this.iconShadow.move(this.originalPosition.subtract(this.iconPath.position));
         this.iconPath.position = new paper.Point(this.originalPosition);
         this.applyIcon();
-        paperScope.draw().view.draw();
     }
 
 

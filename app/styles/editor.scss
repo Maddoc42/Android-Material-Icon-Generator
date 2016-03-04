@@ -1,6 +1,7 @@
 @import 'constants';
 
 $controls-padding: 20px;
+$canvas-transition-time: 0.5s;
 
 #container-edit {
   padding: $controls-padding;
@@ -62,6 +63,8 @@ $controls-padding: 20px;
         cursor: pointer;
         width: 100%;
         height: 100%;
+        opacity: 0;
+        transition: opacity $canvas-transition-time;
       }
     }
 
@@ -205,10 +208,24 @@ $controls-padding: 20px;
 }
 
 
-/*
+
+#canvas-loading {
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  font-size: 80px;
+  color: $color-text;
+  text-align: center;
+  transition: opacity $canvas-transition-time;
+  opacity: 1;
+}
+
+
 .glyphicon-refresh-animate {
-  -animation: spin 1s infinite linear;
-  -webkit-animation: spin2 1s infinite linear;
+  -animation: spin 3s infinite linear;
+  -webkit-animation: spin2 3s infinite linear;
 }
 
 @-webkit-keyframes spin2 {
@@ -220,4 +237,3 @@ $controls-padding: 20px;
   from { transform: scale(1) rotate(0deg);}
   to { transform: scale(1) rotate(360deg);}
 }
-*/

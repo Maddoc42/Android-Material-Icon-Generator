@@ -1,5 +1,7 @@
 'use strict';
 
+const TRANSITION_TIME = 500; // ms, time between input / icon windows
+
 
 /**
  * Handles transitions between various windows.
@@ -31,16 +33,17 @@ class Dispatcher {
 
     showIcon(svgData) {
         this.inputManager.hide();
-        this.iconManager.show();
         setTimeout(function() {
             this.iconManager.onSvgLoaded(svgData);
-        }.bind(this), 500);
+        }.bind(this), TRANSITION_TIME);
     }
 
 
     hideIcon() {
-        this.iconManager.hide();
         this.inputManager.show();
+        setTimeout(function() {
+            this.iconManager.hide();
+        }.bind(this), TRANSITION_TIME);
     }
 
 }

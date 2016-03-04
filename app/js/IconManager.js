@@ -43,6 +43,7 @@ class IconManager {
         this.sliderShadowFading = sliderShadowFading;
         this.btnDownload = btnDownload;
         this.checkBoxCenterIcon = checkBoxCenterIcon;
+        this.loadingOverlay = this.containerEdit.find('#canvas-loading');
 
         this.initCanvas();
         this.initControls();
@@ -162,6 +163,13 @@ class IconManager {
 
                 // create icon and shadow
                 this.setupIcon(importedPath);
+
+                this.loadingOverlay.css('opacity', 0);
+                this.canvas.css('opacity', 1);
+                setTimeout(function() {
+                    this.loadingOverlay.hide();
+                }.bind(this), 500);
+
             }.bind(this)
         });
     }
@@ -244,12 +252,10 @@ class IconManager {
     }
 
 
-    show() {
-        this.containerEdit.show();
-    }
-
     hide() {
-        // nothing to do for now
+        this.canvas.css('opacity', 0);
+        this.loadingOverlay.show();
+        this.loadingOverlay.css('opacity', 1);
     }
 
 }

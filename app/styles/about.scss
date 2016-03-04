@@ -1,0 +1,21 @@
+@import 'constants';
+
+
+#container-about {
+  margin-top: 120px;
+  padding-top: 80px;
+  padding-bottom: 80px;
+  background-color: $color-primary-dark;
+  color: $color-text-disabled;
+
+  i {
+    font-size: 20px;
+    color: $color-accent;
+  }
+
+  a, a:hover {
+    color: $color-text-disabled;
+
+  }
+}
+

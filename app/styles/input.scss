@@ -12,6 +12,38 @@
   z-index: 1000;
   overflow-y: hidden;
 
+  #container-header {
+    padding-bottom: 60px;
+    background-color: $color-primary-dark;
+    padding-top: 20px;
+    margin-bottom: -130px;
+    text-align: center;
+
+    h1 {
+      color: $color-accent;
+      font-weight: 300;
+      font-size: 50px;
+      margin: 0 0 20px;
+    }
+
+    h2 {
+      color: $color-text-disabled;
+      font-size: 18px;
+      font-style: italic;
+      margin: 0;
+      font-weight: 300;
+    }
+
+    i {
+      color: $color-primary;
+      margin-top: 30px;
+      font-size: 40px;
+      &:hover {
+        color: $color-primary-very-light;
+      }
+    }
+  }
+
   .simplebar-scroll-content, .simplebar-content {
     height: 100%;
   }

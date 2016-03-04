@@ -152,6 +152,7 @@ $canvas-transition-time: 0.5s;
   padding-left:  5px;
   padding-right:  5px;
   box-shadow: none;
+  background: transparent !important;
   .toggle-handle {
     border-radius: 0;
     background: $color-primary-very-light;
@@ -168,15 +169,14 @@ $canvas-transition-time: 0.5s;
     }
   }
   .toggle-off {
-    border: none;
-    background-color: $color-primary-light;
-    color: $color-text-disabled;
+    border: none !important;
+    background-color: $color-primary-light !important;
+    color: $color-text-disabled !important;
     text-shadow: none;
     transition: 0.3s;
-    &:hover {
-      background-color: $color-primary-light;
-      stroke-width: 0;
-    }
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    stroke-width: 0  !important;
   }
 }
 

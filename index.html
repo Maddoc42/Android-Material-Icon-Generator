@@ -10,7 +10,7 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/bootstrap-slider.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/css/bootstrap-slider.min.css">
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="css/index.css">
 	</head>
@@ -111,8 +111,11 @@
 		</section>
 		<!-- input-->
 		<section id="container-input" data-simplebar-direction="vertical" class="container-fluid full-height">
+			<div id="container-header">
+				<h1>Material Icon Generator&nbsp;<a href="https://github.com/Maddoc42/MaterialIconsGenerator" title="View on GitHub"><i class="fa fa-github"></i></a></h1>
+				<h2>Create simple icons for android with that loooong material shadow!</h2>
+			</div>
 			<div class="row full-height">
-				<!-- github ribbon--><a href="https://github.com/Maddoc42/MaterialIconsGenerator" title="View on GitHub" class="github-fork-ribbon right-top">View on GitHub</a>
 				<!-- file picker-->
 				<div class="col-4-from-9 full-height">
 					<div id="container-file-picker">
@@ -4828,6 +4831,26 @@
 						</div>
 					</div>
 				</div>
+			</div>
+			<!-- about section-->
+			<!-- input-->
+			<section id="container-about" class="full-width">
+				<p class="text-center full-width">Software made in Erlangen, Germany</p>
+				<p class="text-center full-width">by&nbsp;<a href="http://bitdroid.de">Philipp Eichhorn</a></p>
+				<p class="text-center full-width"><i class="material-icons">favorite</i></p>
+			</section>
+		</section>
+		<!-- input-->
+		<section id="container-error" class="full-height full-width">
+			<div id="container-error-content">
+				<div id="container-error-content-inner">
+					<div id="error-icon"><i class="material-icons">warning</i></div>
+					<div id="error-text">
+						<p id="error-title">No path found</p>
+						<p id="error-msg-1" class="error-msg">Make sure that your SVG file looks something like this:</p>
+						<p id="error-msg-2" class="error-msg">&lt;svg&gt;&lt;path ... /&gt;&lt;/svg&gt;</p>
+					</div>
+				</div><span id="error-close" aria-hidden="true" class="glyphicon glyphicon-remove"></span>
 			</div>
 		</section>
 	</body>

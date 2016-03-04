@@ -15,14 +15,17 @@ class Dispatcher {
     /**
      * @param inputManager
      * @param iconManager
+     * @param errorManager
      * @param {string} preselectedIconUrl - A url pointing to a svg
      * resource located on the server which should be loaded directly.
      * Optional
      */
-    constructor(inputManager, iconManager, preselectedIconUrl) {
+    constructor(inputManager, iconManager, errorManager, preselectedIconUrl) {
         this.inputManager = inputManager;
         this.iconManager = iconManager;
+        this.errorManager = errorManager;
 
+        // setup svg loading
         if (preselectedIconUrl) {
             this.showEditor(preselectedIconUrl);
         } else {
@@ -31,8 +34,16 @@ class Dispatcher {
             }.bind(this));
         }
 
-        window.history.pushState({ currentPage: PAGE_INPUT }, '', '');
+        // setup error handling
+        this.iconManager.setErrorCallback(function(error) {
+            this.errorManager.show(error);
+        }.bind(this));
+        this.errorManager.setDismissCallback(function() {
+            window.history.back();
+        });
 
+        // handle browser back button
+        window.history.pushState({ currentPage: PAGE_INPUT }, '', '');
         window.onpopstate = function(event) {
             if (!event.state) {
                 window.history.back();
@@ -41,6 +52,7 @@ class Dispatcher {
 
             let page = event.state.currentPage;
             if (page === PAGE_INPUT) {
+                if (errorManager.isVisible()) errorManager.hide();
                 this.showInput();
             } else {
                 console.warn('unable to navigate to page ' + event.page);

@@ -5,7 +5,8 @@ let paper = require('js/paper-core.min'),
     Icon = require('js/Icon'),
     ColorPicker = require('js/ColorPicker'),
     paperScope = require('js/PaperScopeManager'),
-    exportManager = require('js/ExportManager');
+    exportManager = require('js/ExportManager'),
+    errors = require('js/errors');
 
 // Default android icon size (48 DIP)
 const CANVAS_SIZE = 48;
@@ -145,6 +146,15 @@ class IconManager {
 
 
     /**
+     * @param {function} errorCallback - will be called if there was an error processing the svg file.
+     * Callback has a single argument, the error code.
+     */
+    setErrorCallback(errorCallback) {
+        this.errorCallback = errorCallback;
+    }
+
+
+    /**
      * Handles the svg file loaded callback.
      * @param svgData either raw svg data or a URL pointing to a svg file.
      */
@@ -153,14 +163,24 @@ class IconManager {
         if (this.icon) this.icon.remove();
         if (this.iconBase) this.iconBase.remove();
 
+        this.loadingSvg = true;
         paperScope.draw().project.importSVG(svgData, {
             applyMatrix: true,
             expandShapes: true,
             onLoad: function (importedItem) {
+                if (!this.loadingSvg) return;
+                this.loadingSvg = false; // on error callback is fired twice. This flag stops that
+
+                // valid svg file?
+                if (!importedItem) {
+                    this.errorCallback(errors.ERROR_INVALID_SVG_FILE);
+                    return;
+                }
+
                 // check svg paths
                 let importedPath = this.getPathFromImport(importedItem);
                 if (!importedPath) {
-                    window.alert('Sorry, no path found in SVG file :(');
+                    this.errorCallback(errors.ERROR_INVALID_SVG_STRUCTURE);
                     return;
                 }
                 importedPath.strokeWidth = 0;

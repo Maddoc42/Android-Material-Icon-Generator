@@ -37,6 +37,15 @@ class IconBase {
         return this.basePath;
     }
 
+    /**
+     * Remove this base + shadow from canvas.
+     */
+    remove() {
+        this.lightShadow.remove();
+        this.darkShadow.remove();
+        this.basePath.remove();
+    }
+
 }
 
 module.exports = IconBase;

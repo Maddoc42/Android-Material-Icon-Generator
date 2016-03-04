@@ -33,6 +33,13 @@ class IconBaseShadow {
         this.shadowPath.center = center;
     }
 
+    /**
+     * Remove shadow from canvas.
+     */
+    remove() {
+        this.shadowPath.remove();
+    }
+
 }
 
 module.exports = IconBaseShadow;

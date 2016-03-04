@@ -78,6 +78,7 @@ class IconManager {
     onSvgLoaded(svgData) {
         // remove any previous icons
         if (this.icon) this.icon.remove();
+        if (this.iconBase) this.iconBase.remove();
 
         paperScope.draw().project.importSVG(svgData, {
             applyMatrix: true,
@@ -229,6 +230,10 @@ class IconManager {
 
     show() {
         this.containerEdit.show();
+    }
+
+    hide() {
+        // nothing to do for now
     }
 
 }

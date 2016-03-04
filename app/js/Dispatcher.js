@@ -35,6 +35,12 @@ class Dispatcher {
         this.iconManager.onSvgLoaded(svgData);
     }
 
+
+    hideIcon() {
+        this.iconManager.hide();
+        this.inputManager.show();
+    }
+
 }
 
 module.exports = Dispatcher;

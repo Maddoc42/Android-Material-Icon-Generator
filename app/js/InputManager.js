@@ -97,6 +97,14 @@ class InputManager {
         this.containerInput.css('top', this.containerInput.css('height'));
     }
 
+
+    /**
+     * Shows all input UI.
+     */
+    show() {
+        this.containerInput.css('top', 0);
+    }
+
 }
 
 module.exports = InputManager;

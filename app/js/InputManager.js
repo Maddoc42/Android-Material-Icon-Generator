@@ -43,6 +43,7 @@ class InputManager {
         // setup file picker to import
         input.change(function() {
             var svgFile = input[0].files[0];
+            input[0].value = '';
             if (!svgFile) return;
 
             // read svg file

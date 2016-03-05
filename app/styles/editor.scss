@@ -36,6 +36,10 @@ $canvas-transition-time: 0.5s;
     }
   }
 
+  .simplebar-scroll-content {
+    overflow-y: hidden;
+  }
+
 
   #container-canvas-draw {
     display: flex;
@@ -261,13 +265,19 @@ input[type='radio']:checked + label span:nth-child(1) {
 
 
 .glyphicon-refresh-animate {
-  -animation: spin 3s infinite linear;
+  animation: spin 3s infinite linear;
   -webkit-animation: spin2 3s infinite linear;
+  -moz-animation: spin3 3s infinite linear;
 }
 
 @-webkit-keyframes spin2 {
-  from { -webkit-transform: rotate(0deg);}
-  to { -webkit-transform: rotate(360deg);}
+  from { -webkit-transform: rotate(0deg); }
+  to { -webkit-transform: rotate(360deg); }
+}
+
+@-moz-keyframes spin3 {
+  from { -moz-transform: rotate(0deg); }
+  to { -moz-transform: rotate(360deg); }
 }
 
 @keyframes spin {

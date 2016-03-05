@@ -27,6 +27,7 @@ class IconBase {
         this.squareBasePath = new paper.Path.Rectangle({
             point: new paper.Point(center.x - radius, center.y - radius),
             size: new paper.Size(radius * 2, radius * 2),
+            radius: 2,
             shadowColor: new paper.Color(0, 0, 0, 0.6),
             shadowBlur: 10,
             shadowOffset: new paper.Point(0, 3)

@@ -2,7 +2,7 @@
 
 *Android icons with that loooong material shadow for everyone!*
 
-![Screenshot](screenshots/01.small.png)
+![Screenshot](screenshots/01.png)
 
 
 ## Build

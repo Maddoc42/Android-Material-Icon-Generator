@@ -9,18 +9,34 @@ section#container-edit.container-fluid.full-height
 
                 .controls-entry
                     .row
-                        h3 Icon color
+                        h3 Background color
                     .row
-                        #color-icon.input-group.color-input-group
+                        #color-base.input-group.color-input-group
                             input.form-control(type='text')
                             span.input-group-addon
                                 i
 
                 .controls-entry
                     .row
-                        h3 Background color
+                        h3 Background shape
                     .row
-                        #color-base.input-group.color-input-group
+                        from(role='form')#base-shape
+                            .radio-inline
+                                input(type='radio', name='radio-base-shape', checked='checked')#base-shape-circle
+                                label(for='base-shape-circle')
+                                    span
+                                    span Circle
+                            .radio-inline
+                                input(type='radio', name='radio-base-shape')#base-shape-square
+                                label(for='base-shape-square')
+                                    span
+                                    span Square
+
+                .controls-entry
+                    .row
+                        h3 Icon color
+                    .row
+                        #color-icon.input-group.color-input-group
                             input.form-control(type='text')
                             span.input-group-addon
                                 i

@@ -252,7 +252,7 @@ class IconShadow {
                 },
                 origin: basePath.bounds.topLeft,
                 destination: basePath.bounds.bottomRight
-            };
+            }
 
         }
         this.appliedIconShadowPath = newAppliedIconShadowPath;

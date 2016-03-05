@@ -1,48 +1,76 @@
 'use strict';
 
 let paper = require('js/paper-core.min'),
-    IconBaseShadow = require('js/IconBaseShadow'),
     paperScope = require('js/PaperScopeManager');
 
+const
+    SHAPE_CIRCLE = 0,
+    SHAPE_SQUARE = 1;
 
 class IconBase {
 
     /**
-     * @param center of the icon base relative to the underlying canvas
-     * @param radius of the icon base
+     * @param center - of the icon base relative to the underlying canvas
+     * @param radius - of the icon base
+     * @param formShape - input for choosing base shape
+     * @param shapeChangedCallback - called when the base shape has changed
      */
-    constructor(center, radius) {
-        this.lightShadow = new IconBaseShadow(center, radius * 0.95, radius * 1.04, 0.60);
-        this.darkShadow = new IconBaseShadow(center, radius * 0.9, radius * 1.02, 0.10);
-
-        this.basePath = new paper.Path.Circle({
+    constructor(center, radius, formShape, shapeChangedCallback) {
+        this.circleBasePath = new paper.Path.Circle({
             center: center,
-            radius: radius
+            radius: radius,
+            shadowColor: new paper.Color(0, 0, 0, 0.6),
+            shadowBlur: 10,
+            shadowOffset: new paper.Point(0, 3)
         });
-        this.basePath.strokeWidth = 0;
+
+        this.squareBasePath = new paper.Path.Rectangle({
+            point: new paper.Point(center.x - radius, center.y - radius),
+            size: new paper.Size(radius * 2, radius * 2),
+            shadowColor: new paper.Color(0, 0, 0, 0.6),
+            shadowBlur: 10,
+            shadowOffset: new paper.Point(0, 3)
+        });
+        this.squareBasePath.remove();
+
+        this.shape = SHAPE_CIRCLE;
+
+        formShape.find('input[name="radio-base-shape"]').change(function(event) {
+            let element = $(event.target);
+            if (element.attr('id') === 'base-shape-square') {
+                this.circleBasePath.replaceWith(this.squareBasePath);
+                this.shape = SHAPE_SQUARE;
+            } else {
+                this.squareBasePath.replaceWith(this.circleBasePath);
+                this.shape = SHAPE_CIRCLE;
+            }
+            shapeChangedCallback();
+        }.bind(this));
+
     }
 
     setColor(color) {
-        this.basePath.fillColor = color;
+        this.circleBasePath.fillColor = color;
+        this.squareBasePath.fillColor = color;
     }
 
     setCenter(center) {
-        this.basePath.center = center;
-        this.lightShadow.setCenter(center);
-        this.darkShadow.setCenter(center);
+        this.circleBasePath.center = center;
+        this.squareBasePath.center = center;
     }
 
     getPathWithoutShadows() {
-        return this.basePath;
+        if (this.shape === SHAPE_CIRCLE) return this.circleBasePath;
+        else if (this.shape == SHAPE_SQUARE) return this.squareBasePath;
+        console.warn('unknown base shape type ' + this.shape);
     }
 
     /**
      * Remove this base + shadow from canvas.
      */
     remove() {
-        this.lightShadow.remove();
-        this.darkShadow.remove();
-        this.basePath.remove();
+        this.circleBasePath.remove();
+        this.squareBasePath.remove();
     }
 
 }

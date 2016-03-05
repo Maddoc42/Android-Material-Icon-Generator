@@ -204,7 +204,15 @@ class IconManager {
 
     setupBase() {
         this.baseRadius = this.canvasSize / 2 * 0.9;
-        this.iconBase = new IconBase(this.center, this.baseRadius);
+        this.iconBase = new IconBase(
+            this.center,
+            this.baseRadius,
+            this.containerEdit.find('#base-shape'),
+            function () {
+                this.icon.applyIcon();
+                this.icon.getIconShadow().applyShadow();
+                paperScope.draw().view.draw();
+            }.bind(this));
 
         // set default values
         this.setIconBaseColorFunction(null, true);

@@ -3,7 +3,7 @@
 	<head lang="en">
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<title>Material Icon Generator</title>
+		<title>Android Material Icon Generator</title>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/vendor.js"></script>
@@ -22,20 +22,37 @@
 					<div id="container-controls">
 						<div class="controls-entry">
 							<div class="row">
-								<h3>Icon color</h3>
+								<h3>Background color</h3>
 							</div>
 							<div class="row">
-								<div id="color-icon" class="input-group color-input-group">
+								<div id="color-base" class="input-group color-input-group">
 									<input type="text" class="form-control"><span class="input-group-addon"><i></i></span>
 								</div>
 							</div>
 						</div>
 						<div class="controls-entry">
 							<div class="row">
-								<h3>Background color</h3>
+								<h3>Background shape</h3>
 							</div>
 							<div class="row">
-								<div id="color-base" class="input-group color-input-group">
+								<from role="form" id="base-shape">
+									<div class="radio-inline">
+										<input type="radio" name="radio-base-shape" checked="checked" id="base-shape-circle">
+										<label for="base-shape-circle"><span></span><span>Circle</span></label>
+									</div>
+									<div class="radio-inline">
+										<input type="radio" name="radio-base-shape" id="base-shape-square">
+										<label for="base-shape-square"><span></span><span>Square</span></label>
+									</div>
+								</from>
+							</div>
+						</div>
+						<div class="controls-entry">
+							<div class="row">
+								<h3>Icon color</h3>
+							</div>
+							<div class="row">
+								<div id="color-icon" class="input-group color-input-group">
 									<input type="text" class="form-control"><span class="input-group-addon"><i></i></span>
 								</div>
 							</div>
@@ -93,13 +110,7 @@
 						</div>
 					</div>
 					<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div>
-					<div id="about"><a href="https://github.com/Maddoc42/MaterialIconsGenerator"><strong>Material Icon Generator</strong> by Philipp</a></div>
-					<!--
-					<div id="picker-content-loading" class="filePickerOverlayContent">
-					    <h2><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Generating icon ...</h2>
-					</div>
-					
-					-->
+					<div id="about"><a href="https://github.com/Maddoc42/Android-Material-Icon-Generator"><strong>Android Material Icon Generator</strong> by Philipp</a></div>
 				</div>
 			</div>
 			<!-- hidden canvas for exporting-->
@@ -112,7 +123,7 @@
 		<!-- input-->
 		<section id="container-input" data-simplebar-direction="vertical" class="container-fluid full-height">
 			<div id="container-header">
-				<h1>Material Icon Generator&nbsp;<a href="https://github.com/Maddoc42/MaterialIconsGenerator" title="View on GitHub"><i class="fa fa-github"></i></a></h1>
+				<h1>Android Material Icon Generator&nbsp;<a href="https://github.com/Maddoc42/Android-Material-Icon-Generator"><i class="fa fa-github"></i></a></h1>
 				<h2>Create simple icons for android with that loooong material shadow!</h2>
 			</div>
 			<div class="row full-height">

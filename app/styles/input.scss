@@ -22,13 +22,25 @@
     h1 {
       color: $color-accent;
       font-weight: 300;
-      font-size: 50px;
+      font-size: 30px;
+      @media screen and (min-width: $screen-md-min) {
+        font-size: 40px;
+      }
+      @media screen and (min-width: $screen-lg-min) {
+        font-size: 50px;
+      }
       margin: 0 0 20px;
     }
 
     h2 {
       color: $color-text-disabled;
-      font-size: 18px;
+      font-size: 14px;
+      @media screen and (min-width: $screen-md-min) {
+        font-size: 16px;
+      }
+      @media screen and (min-width: $screen-md-min) {
+        font-size: 18px;
+      }
       font-style: italic;
       margin: 0;
       font-weight: 300;
@@ -37,7 +49,10 @@
     i {
       color: $color-primary;
       margin-top: 30px;
-      font-size: 40px;
+      font-size: 30px;
+      @media screen and (min-width: $screen-lg-min) {
+        font-size: 40px;
+      }
       &:hover {
         color: $color-primary-very-light;
       }
@@ -282,6 +297,9 @@
       margin-top: 60px;
       margin-bottom: 30px;
       margin-left: 50px;
+      @media screen and (min-width: $screen-md-min) {
+        margin-left: 100px;
+      }
       color: $color-text-disabled;
       font-size: 30px;
       font-weight: bold;

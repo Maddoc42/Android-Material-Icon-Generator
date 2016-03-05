@@ -395,10 +395,10 @@ const LICENSE_CC_BY_4 =
 
 
 const LICENSE_GENERAL =
-    "Material Icons Generator License\n" +
+    "Android Material Icon Generator License\n" +
     "================================\n" +
     "\n" +
-    "Icons generated with the Material Icons Generator come with the Creative Common\n" +
+    "Icons generated with the Android Material Icon Generator come with the Creative Common\n" +
     "Attribution 4.0 International License (CC-BY 4.0). You are free to change,\n" +
     "combine and sell any of the icons as you please. Attribution would be great,\n" +
     "but is not strictly required.\n" +
@@ -406,7 +406,7 @@ const LICENSE_GENERAL =
     "This text only applies to the icons (.zip file) you download from the icon\n" +
     "generator. The software behind the generator has its own license\n" +
     "(https://www.apache.org/licenses/LICENSE-2.0). See the GitHub repository for\n" +
-    "details (https://github.com/Maddoc42/MaterialIconsGenerator).\n" +
+    "details (https://github.com/Maddoc42/Android-Material-Icon-Generator).\n" +
     "\n" +
     "\n" +
     "\n" +

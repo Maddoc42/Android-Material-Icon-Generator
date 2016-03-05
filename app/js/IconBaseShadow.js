@@ -14,7 +14,7 @@ class IconBaseShadow {
     constructor(center, baseRadius, shadowRadius, shadowAlpha) {
         // shadow object
         this.shadowPath = new paper.Path.Circle({
-            center: center,
+            center: center.add(new paper.Point(0, 0.5)),
             radius: shadowRadius
         });
 

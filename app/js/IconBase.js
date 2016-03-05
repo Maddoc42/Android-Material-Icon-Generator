@@ -12,8 +12,8 @@ class IconBase {
      * @param radius of the icon base
      */
     constructor(center, radius) {
-        this.lightShadow = new IconBaseShadow(center, radius, radius * 1.075, 0.21);
-        this.darkShadow = new IconBaseShadow(center, radius, radius * 1.05, 0.05);
+        this.lightShadow = new IconBaseShadow(center, radius * 0.95, radius * 1.04, 0.60);
+        this.darkShadow = new IconBaseShadow(center, radius * 0.9, radius * 1.02, 0.10);
 
         this.basePath = new paper.Path.Circle({
             center: center,

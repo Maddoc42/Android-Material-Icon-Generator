@@ -38,7 +38,7 @@ casper.test.begin('Simple shadow create + download', 12, function (test) {
     casper.on('resource.received', downloadListener);
 
     // wait for js setup
-    casper.wait(1000, function() {
+    casper.wait(2000, function() {
         var iconBtnId = '#container-icon-selector';
         test.assertExists(iconBtnId);
         this.click(iconBtnId);
@@ -53,13 +53,13 @@ casper.test.begin('Simple shadow create + download', 12, function (test) {
     });
 
     // wait for shadow processing
-    casper.wait(1000, function() {
+    casper.wait(2000, function() {
         test.assertVisible('#canvas-draw');
         test.assertExists('#btn-download-svg');
         this.click('#btn-download-svg');
     });
 
-    casper.wait(1000, function() {
+    casper.wait(2000, function() {
         // wait for download
     });
 

@@ -29,6 +29,14 @@ run `./bin/update-material-icons.sh` which will place all icons under `app/asset
 and create a file with all icon names under `app/templates/input-material-icons-data.static.jade`.
 
 
+## Tests
+
+Tests require [PhantomJS](http://phantomjs.org/) (v2.1.1), [CasperJS](http://casperjs.org/) (v1.1.0-beta5) and
+the site running at http://localhost:3333 (e.g. `npm run start`). Run tests via `npm test`.
+
+![Travis Status](https://api.travis-ci.org/Maddoc42/Android-Material-Icon-Generator.svg?branch=master)
+
+
 ## License
 Copyright 2016 Philipp Eichhorn 
 

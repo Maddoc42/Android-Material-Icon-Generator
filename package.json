@@ -11,7 +11,8 @@
   "scripts": {
     "start": "brunch watch --server",
     "clean": "rm -r public/*",
-    "deploy": "./bin/deploy.sh"
+    "deploy": "./bin/deploy.sh",
+    "test": "casperjs test tests/*.js"
   },
   "dependencies": {
     "auto-reload-brunch": ">= 1.0 < 1.9",

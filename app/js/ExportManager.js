@@ -34,7 +34,7 @@ class ExportManager {
         if (JSZip.support.blob) {
             window.location = "data:application/zip;base64," + zip.generate({type:"base64"});
         } else {
-            console.log('blob not supported');
+            console.error('blob not supported');
             // TODO
         }
     }
@@ -62,7 +62,7 @@ class ExportManager {
 
             // copy png
             let pngData = paperScope.expoCanvas(i)[0].toDataURL('image/png').split(',')[1];
-            let pngFileName = 'icon.png';
+            let pngFileName = 'ic_launcher.png';
             rootFolder.folder('mipmap-' + resolution.name).file(pngFileName, pngData, { base64: true });
 
             if (i !== 0) continue;

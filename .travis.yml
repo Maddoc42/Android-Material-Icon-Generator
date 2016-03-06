@@ -12,3 +12,5 @@ before_script:
   - brunch --version
   - phantomjs --version
   - casperjs --version
+  - npm run start &
+  - sleep 20

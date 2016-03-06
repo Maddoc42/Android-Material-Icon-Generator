@@ -1,0 +1,18 @@
+language: node_js
+node_js:
+  - "4.0"
+before_install:
+  - git clone git://github.com/brunch/brunch.git ~/brunch
+  - cd ~/brunch
+  - git checkout tags/2.2.3
+  - export PATH=$PATH:`pwd`/bin
+  - cd -
+  - git clone git://github.com/n1k0/casperjs.git ~/casperjs
+  - cd ~/casperjs
+  - git checkout tags/1.1-beta5
+  - export PATH=$PATH:`pwd`/bin
+  - cd -
+before_script:
+  - brunch --version
+  - phantomjs --version
+  - casperjs --version

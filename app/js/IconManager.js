@@ -9,7 +9,10 @@ let paper = require('js/paper-core.min'),
     errors = require('js/errors');
 
 // Default android icon size (48 DIP)
-const CANVAS_SIZE = 48;
+const
+    CANVAS_SIZE = 48,
+    BASE_RADIUS = 20;
+
 
 
 /**
@@ -203,10 +206,9 @@ class IconManager {
 
 
     setupBase() {
-        this.baseRadius = this.canvasSize / 2 * 0.9;
         this.iconBase = new IconBase(
             this.center,
-            this.baseRadius,
+            BASE_RADIUS,
             this.containerEdit.find('#base-shape'),
             function () {
                 this.icon.applyIcon();
@@ -227,7 +229,7 @@ class IconManager {
         }.bind(this));
 
         // set default icon values
-        this.icon.setSize(this.baseRadius * 2 * 0.60);
+        this.icon.setSize(BASE_RADIUS * 2 * 0.60);
         this.setIconColorFunction(null, true);
         this.setShadowLengthFunction(null, true);
         this.setShadowIntensityFunction(null, true);

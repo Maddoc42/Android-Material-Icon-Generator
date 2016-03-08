@@ -219,6 +219,7 @@ class IconShadow {
         this.iconShadowPaths.forEach(function(path) {
             path.scale(scale, this.iconPath.position);
         }.bind(this));
+        this.unitedIconShadowPath.scale(scale, this.iconPath.position);
         this.length = this.length * scale;
         this.applyShadow();
     }
@@ -231,6 +232,7 @@ class IconShadow {
         this.iconShadowPaths.forEach(function(path) {
             path.position = path.position.add(delta);
         });
+        this.unitedIconShadowPath.position = this.unitedIconShadowPath.position.add(delta);
         this.applyShadow();
     }
 
@@ -239,30 +241,25 @@ class IconShadow {
      * Remove this shadow form the canvas.
      */
     remove() {
-        this.iconShadowPath.remove();
+        this.iconShadowPaths.forEach(function(path) {
+            path.remove();
+        });
+        if (this.unitedIconShadowPath) this.unitedIconShadowPath.remove();
         if (this.appliedIconShadowPath) this.appliedIconShadowPath.remove();
     }
 
 
     /**
-     * this.iconShadowPath is not actually visible on the canvas, but
-     * rather serves as a template for the actual shadow path which is
-     * cut to fit the base.
+     * Cut the shadow path template(s) to base size. This creates the
+     * final shadow path.
      */
     applyShadow() {
         // join sub shadows to from one path
-        let iconShadowPath = new paper.Path(this.iconShadowPaths[0].pathData);
-        for (let i = 1; i < this.iconShadowPaths.length; ++i) {
-            let subPathCopy = new paper.Path(this.iconShadowPaths[i].pathData);
-            let newShadowPath = iconShadowPath.unite(subPathCopy);
-            subPathCopy.remove();
-            iconShadowPath.remove();
-            iconShadowPath = newShadowPath;
-        }
+        if (!this.unitedIconShadowPath) this.createUnitedIconShadowPath();
 
         // cut shadow to base
         let basePath = this.iconBase.getPathWithoutShadows();
-        let newAppliedIconShadowPath = iconShadowPath.intersect(basePath);
+        let newAppliedIconShadowPath = this.unitedIconShadowPath.intersect(basePath);
 
         // save shadow
         if (this.appliedIconShadowPath) {
@@ -291,6 +288,23 @@ class IconShadow {
 
 
     /**
+     * Unites all shadow parts to one shadow shape (doesn't intersect with base though,
+     * hence can be used as a 'template').
+     * Don't call this too often though, uniting shapes is CPU intensive.
+     */
+    createUnitedIconShadowPath() {
+        this.unitedIconShadowPath = new paper.Path(this.iconShadowPaths[0].pathData);
+        for (let i = 1; i < this.iconShadowPaths.length; ++i) {
+            let subPathCopy = new paper.Path(this.iconShadowPaths[i].pathData);
+            let newShadowPath = this.unitedIconShadowPath.unite(subPathCopy);
+            subPathCopy.remove();
+            this.unitedIconShadowPath.remove();
+            this.unitedIconShadowPath = newShadowPath;
+        }
+    }
+
+
+    /**
      * Sets the length of this shadow (diagonal)
      * @param {Number} length
      */
@@ -305,6 +319,7 @@ class IconShadow {
         }
 
         this.length = length;
+        this.createUnitedIconShadowPath();
         this.applyShadow();
     }
 

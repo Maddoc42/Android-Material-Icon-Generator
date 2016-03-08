@@ -3,7 +3,9 @@
 let paper = require('js/paper-core.min'),
     paperScope = require('js/PaperScopeManager');
 
-const TARGET_ANGLE = Math.PI / 4;
+const
+    INITIAL_SHADOW_LENGTH = 2000,
+    TARGET_ANGLE = Math.PI / 4;
 
 
 class IconShadow {
@@ -32,22 +34,25 @@ class IconShadow {
             if (path) subPaths.push(path);
 
             // create shadow sub shapes
-            let translation = new paper.Point(5000, 5000);
+            let xyTranslation = Math.sqrt(INITIAL_SHADOW_LENGTH * INITIAL_SHADOW_LENGTH / 2);
+            let translation = new paper.Point(xyTranslation, xyTranslation);
             for (let i = 0; i < subPaths.length; ++i) {
                 let subPath = subPaths[i];
 
-                let firstSegment = subPath.firstSegment;
-                firstSegment.handleIn.x = 0;
-                firstSegment.handleIn.y = 0;
-                firstSegment = new paper.Segment(firstSegment.point.add(translation));
-
-                let lastSegment = subPath.lastSegment;
-                lastSegment.handleOut.x = 0;
-                lastSegment.handleOut.y = 0;
-                lastSegment = new paper.Segment(lastSegment.point.add(translation));
-
-                subPath.insert(0, firstSegment);
-                subPath.add(lastSegment);
+                // offset + insert all segments to create closed form
+                for (let j = subPath.segments.length - 1; j >= 0; --j) {
+                    let segment = subPath.segments[j];
+                    // make shade edges 'sharp'
+                    if (j === subPath.segments.length -1) {
+                        segment.handleOut.x = 0;
+                        segment.handleOut.y = 0;
+                    }
+                    if (j === 0) {
+                        segment.handleIn.x = 0;
+                        segment.handleIn.y = 0;
+                    }
+                    subPath.add(new paper.Segment(segment.point.add(translation), segment.handleOut, segment.handleIn));
+                }
                 subPath.closed = true;
             }
 
@@ -73,6 +78,10 @@ class IconShadow {
                 this.iconShadowPath = newIconShadowPath;
             }
         }
+
+        // find bottom right edge of shadow (for changing length)
+        this.iconShadowBottomRightSegments = this.findBottomRightSegments(this.iconShadowPath);
+        this.length = INITIAL_SHADOW_LENGTH;
 
         // store shadow template and cut with base
         this.applyShadow();
@@ -198,12 +207,33 @@ class IconShadow {
     }
 
 
+    findBottomRightSegments(path) {
+        // debugger;
+        let segments = [];
+        if (path instanceof paper.CompoundPath) {
+            for (let i = 0; i < path.children.length; ++i) {
+                segments = segments.concat(this.findBottomRightSegments(path.children[i]));
+            }
+
+        } else {
+            for (let i = 0; i < path.segments.length; ++i) {
+                let segment = path.segments[i];
+                if (segment.point.getDistance(this.iconPath.bounds.topLeft) > INITIAL_SHADOW_LENGTH) {
+                    segments.push(segment);
+                }
+            }
+        }
+
+        return segments;
+    }
+
 
     /**
      * @param scale factor to scale this shadow by.
      */
     scale(scale) {
         this.iconShadowPath.scale(scale, this.iconPath.position);
+        this.length = this.length * scale;
         this.applyShadow();
     }
 
@@ -267,9 +297,17 @@ class IconShadow {
      * @param {Number} length
      */
     setLength(length) {
-        let xDistance = Math.sqrt(length * length / 2);
-        let destination = this.appliedIconShadowPath.fillColor.origin.add(xDistance);
-        this.appliedIconShadowPath.fillColor.destination = destination;
+        let deltaLength = length - this.length;
+        let translation = Math.sqrt(deltaLength * deltaLength / 2);
+        if (deltaLength < 0) translation = translation * -1;
+
+        for (let i = 0; i < this.iconShadowBottomRightSegments.length; ++i) {
+            let segment = this.iconShadowBottomRightSegments[i];
+            segment.point = segment.point.add(translation);
+        }
+
+        this.length = length;
+        this.applyShadow();
     }
 
 
@@ -279,7 +317,7 @@ class IconShadow {
      */
     setIntensity(intensity) {
         this.appliedIconShadowPath.fillColor.gradient.stops[0].color.alpha = intensity;
-        // hack: just chaning alpha does not trigger a redraw, 'change' this as well
+        // hack: just changing alpha does not trigger a redraw, 'change' this as well
         this.appliedIconShadowPath.fillColor.destination = this.appliedIconShadowPath.fillColor.destination;
     }
 

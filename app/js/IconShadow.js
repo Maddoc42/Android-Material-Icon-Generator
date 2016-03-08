@@ -18,6 +18,8 @@ class IconShadow {
         this.iconBase = iconBase;
         this.iconPath = iconPath;
 
+        this.iconShadowPaths = [];
+
         let outlineIconPaths = this.getOutlinePaths(iconPath);
         for (let outlineIdx = 0; outlineIdx < outlineIconPaths.length; ++outlineIdx) {
             let path = outlineIconPaths[outlineIdx];
@@ -54,33 +56,16 @@ class IconShadow {
                     subPath.add(new paper.Segment(segment.point.add(translation), segment.handleOut, segment.handleIn));
                 }
                 subPath.closed = true;
-            }
 
-            // join all sub paths into final shadow
-            let shadowPath = new paper.Path(subPaths[0].pathData);
-            subPaths[0].remove();
-            for (let i = 1; i < subPaths.length; ++i) {
-                let subPathCopy = new paper.Path(subPaths[i].pathData);
-                let newShadowPath = shadowPath.unite(subPathCopy);
-                subPathCopy.remove();
-                subPaths[i].remove();
-                shadowPath.remove();
-                shadowPath = newShadowPath;
-            }
-
-            // join with previous shadows
-            if (!this.iconShadowPath) {
-                this.iconShadowPath = shadowPath;
-            } else {
-                let newIconShadowPath = this.iconShadowPath.unite(shadowPath);
-                this.iconShadowPath.remove();
-                shadowPath.remove();
-                this.iconShadowPath = newIconShadowPath;
+                this.iconShadowPaths.push(new paper.Path(subPath.pathData));
             }
         }
 
         // find bottom right edge of shadow (for changing length)
-        this.iconShadowBottomRightSegments = this.findBottomRightSegments(this.iconShadowPath);
+        this.iconShadowBottomRightSegments = [];
+        this.iconShadowPaths.forEach(function(path) {
+            this.iconShadowBottomRightSegments = this.iconShadowBottomRightSegments.concat(this.findBottomRightSegments(path));
+        }.bind(this));
         this.length = INITIAL_SHADOW_LENGTH;
 
         // store shadow template and cut with base
@@ -208,7 +193,6 @@ class IconShadow {
 
 
     findBottomRightSegments(path) {
-        // debugger;
         let segments = [];
         if (path instanceof paper.CompoundPath) {
             for (let i = 0; i < path.children.length; ++i) {
@@ -232,7 +216,9 @@ class IconShadow {
      * @param scale factor to scale this shadow by.
      */
     scale(scale) {
-        this.iconShadowPath.scale(scale, this.iconPath.position);
+        this.iconShadowPaths.forEach(function(path) {
+            path.scale(scale, this.iconPath.position);
+        }.bind(this));
         this.length = this.length * scale;
         this.applyShadow();
     }
@@ -242,7 +228,9 @@ class IconShadow {
      * @param {paper.Point} delta - how much this icon + shadow should be moved.
      */
     move(delta) {
-        this.iconShadowPath.position = this.iconShadowPath.position.add(delta);
+        this.iconShadowPaths.forEach(function(path) {
+            path.position = path.position.add(delta);
+        });
         this.applyShadow();
     }
 
@@ -262,9 +250,19 @@ class IconShadow {
      * cut to fit the base.
      */
     applyShadow() {
+        // join sub shadows to from one path
+        let iconShadowPath = new paper.Path(this.iconShadowPaths[0].pathData);
+        for (let i = 1; i < this.iconShadowPaths.length; ++i) {
+            let subPathCopy = new paper.Path(this.iconShadowPaths[i].pathData);
+            let newShadowPath = iconShadowPath.unite(subPathCopy);
+            subPathCopy.remove();
+            iconShadowPath.remove();
+            iconShadowPath = newShadowPath;
+        }
+
         // cut shadow to base
         let basePath = this.iconBase.getPathWithoutShadows();
-        let newAppliedIconShadowPath = this.iconShadowPath.intersect(basePath);
+        let newAppliedIconShadowPath = iconShadowPath.intersect(basePath);
 
         // save shadow
         if (this.appliedIconShadowPath) {

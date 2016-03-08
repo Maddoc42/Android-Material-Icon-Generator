@@ -274,13 +274,12 @@ class IconShadow {
                         [new paper.Color(0, 0, 0, 1), 0],
                         [new paper.Color(0, 0, 0, 0), 1]
                     ]
-                },
-                origin: basePath.bounds.topLeft,
-                destination: basePath.bounds.bottomRight
+                }
             }
 
         }
         this.appliedIconShadowPath = newAppliedIconShadowPath;
+        this.updateAppliedIconShadowPathGradientBounds();
 
         // move shadow below icon
         this.appliedIconShadowPath.moveBelow(this.iconPath);
@@ -293,6 +292,7 @@ class IconShadow {
      * Don't call this too often though, uniting shapes is CPU intensive.
      */
     createUnitedIconShadowPath() {
+        if (this.unitedIconShadowPath) this.unitedIconShadowPath.remove();
         this.unitedIconShadowPath = new paper.Path(this.iconShadowPaths[0].pathData);
         for (let i = 1; i < this.iconShadowPaths.length; ++i) {
             let subPathCopy = new paper.Path(this.iconShadowPaths[i].pathData);
@@ -341,8 +341,15 @@ class IconShadow {
      */
     setFading(fading) {
         this.appliedIconShadowPath.fillColor.gradient.stops[0].rampPoint = fading;
-        // hack: just chaning alpha does not trigger a redraw, 'change' this as well
+        // hack: just changing alpha does not trigger a redraw, 'change' this as well
         this.appliedIconShadowPath.fillColor.destination = this.appliedIconShadowPath.fillColor.destination;
+    }
+
+
+    updateAppliedIconShadowPathGradientBounds() {
+        let bounds = this.unitedIconShadowPath.bounds;
+        this.appliedIconShadowPath.fillColor.origin = bounds.topLeft;
+        this.appliedIconShadowPath.fillColor.destination = bounds.bottomRight;
     }
 
 

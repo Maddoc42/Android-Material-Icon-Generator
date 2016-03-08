@@ -337,10 +337,10 @@ class IconShadow {
 
     /**
      * Sets where the shadow should begin fading.
-     * @param {Number} fading - between 0 and 1. 0 Start fading right away, 1 never fade.
+     * @param {Number} fading - between 0 and 1. 1 Start fading right away, 0 never fade.
      */
     setFading(fading) {
-        this.appliedIconShadowPath.fillColor.gradient.stops[0].rampPoint = fading;
+        this.appliedIconShadowPath.fillColor.gradient.stops[0].rampPoint = 1 - fading;
         // hack: just changing alpha does not trigger a redraw, 'change' this as well
         this.appliedIconShadowPath.fillColor.destination = this.appliedIconShadowPath.fillColor.destination;
     }

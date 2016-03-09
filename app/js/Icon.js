@@ -18,7 +18,8 @@ class Icon {
         this.originalPosition = new paper.Point(position);
         this.iconPath = iconPath;
         this.iconPath.position = position;
-        this.iconPath.visible = false;
+        this.iconPath.remove();
+        this.iconPath.fillColor = null;
         this.iconBase = iconBase;
         this.iconShadow = new IconShadow(iconPath, iconBase);
         this.size = Math.max(iconPath.bounds.width, iconPath.bounds.height);

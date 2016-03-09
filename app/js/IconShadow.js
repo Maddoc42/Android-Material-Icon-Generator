@@ -202,7 +202,7 @@ class IconShadow {
         } else {
             for (let i = 0; i < path.segments.length; ++i) {
                 let segment = path.segments[i];
-                if (segment.point.getDistance(this.iconPath.bounds.topLeft) > INITIAL_SHADOW_LENGTH) {
+                if (segment.point.getDistance(this.iconPath.bounds.topLeft) >= INITIAL_SHADOW_LENGTH * 0.95) {
                     segments.push(segment);
                 }
             }

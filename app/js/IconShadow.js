@@ -358,7 +358,7 @@ class IconShadow {
      */
     getAndCopyPaths(pathItem) {
         if (pathItem instanceof paper.Path) {
-            return [ new paper.Path(pathItem.pathData) ];
+            return [ pathItem.clone() ];
         }
 
         // copy children

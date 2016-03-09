@@ -20,7 +20,7 @@ class IconShadow {
 
         this.iconShadowPaths = [];
 
-        let outlineIconPaths = this.getOutlinePaths(iconPath);
+        let outlineIconPaths = this.getAndCopyPaths(iconPath);
         for (let outlineIdx = 0; outlineIdx < outlineIconPaths.length; ++outlineIdx) {
             let path = outlineIconPaths[outlineIdx];
             let subPaths = [];
@@ -354,52 +354,19 @@ class IconShadow {
 
 
     /**
-     * Removes 'holes' from paths and returns all paths which together from the outline of
-     * the given path. The return paths will have been inserted into the project and are a
-     * clone from the original.
-     * @param {paper.PathItem} pathItem - input path
-     * @returns {paper.PathItem[]} - an array containing the paths.
+     * Copies and returns all paths from a given Path / CompoundPath object.
      */
-    getOutlinePaths(pathItem) {
+    getAndCopyPaths(pathItem) {
         if (pathItem instanceof paper.Path) {
             return [ new paper.Path(pathItem.pathData) ];
         }
-        if (!(pathItem instanceof paper.CompoundPath)) {
-            console.warn('unknown path class');
-            console.warn(pathItem);
-            return [];
-        }
 
-        // copy children and skip non paper.Path objects
+        // copy children
         let children = [];
         for (let i = 0; i < pathItem.children.length; ++i) {
-            let path = pathItem.children[i];
-            if (!(path instanceof paper.Path)) {
-                console.warn('child is not a paper.Path!');
-                console.warn(path);
-                continue;
-            }
-            children.push(path);
+            children.push(new paper.Path(pathItem.children[i].pathData));
         }
-
-        // sort ascending by area
-        children.sort(function(a, b) {
-            return Math.abs(a.area) - Math.abs(b.area);
-        });
-
-        // find largest areas which do not overlap with others
-        let resultPaths = [];
-        outerLoop:
-            for (let i = 0; i < children.length; ++i) {
-                let path = children[i];
-                let insidePoint = path.interiorPoint;
-                for (let j = i + 1; j < children.length; ++j) {
-                    if (children[j].contains(insidePoint)) continue outerLoop;
-                }
-                resultPaths.push(new paper.Path(path.pathData));
-            }
-
-        return resultPaths;
+        return children;
     }
 
 }

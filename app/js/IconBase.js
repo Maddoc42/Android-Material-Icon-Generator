@@ -12,10 +12,8 @@ class IconBase {
     /**
      * @param center - of the icon base relative to the underlying canvas
      * @param radius - of the icon base
-     * @param formShape - input for choosing base shape
-     * @param shapeChangedCallback - called when the base shape has changed
      */
-    constructor(center, radius, formShape, shapeChangedCallback) {
+    constructor(center, radius) {
         this.circleBasePath = new paper.Path.Circle({
             center: center,
             radius: radius,
@@ -23,6 +21,7 @@ class IconBase {
             shadowBlur: 10,
             shadowOffset: new paper.Point(0, 3)
         });
+        this.shape = SHAPE_CIRCLE;
 
         this.squareBasePath = new paper.Path.Rectangle({
             point: new paper.Point(center.x - radius, center.y - radius),
@@ -34,20 +33,16 @@ class IconBase {
         });
         this.squareBasePath.remove();
 
+    }
+
+    setSquareShape() {
+        this.circleBasePath.replaceWith(this.squareBasePath);
+        this.shape = SHAPE_SQUARE;
+    }
+
+    setCircularShape() {
+        this.squareBasePath.replaceWith(this.circleBasePath);
         this.shape = SHAPE_CIRCLE;
-
-        formShape.find('input[name="radio-base-shape"]').change(function(event) {
-            let element = $(event.target);
-            if (element.attr('id') === 'base-shape-square') {
-                this.circleBasePath.replaceWith(this.squareBasePath);
-                this.shape = SHAPE_SQUARE;
-            } else {
-                this.squareBasePath.replaceWith(this.circleBasePath);
-                this.shape = SHAPE_CIRCLE;
-            }
-            shapeChangedCallback();
-        }.bind(this));
-
     }
 
     setColor(color) {

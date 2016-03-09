@@ -141,6 +141,22 @@ class IconManager {
             paperScope.draw().view.draw();
         }.bind(this));
 
+        // setup base shape button
+        let baseShapePicker = this.containerEdit.find('#base-shape input[name="radio-base-shape"]');
+        this.setIconBaseShapeFunction = function(event, disableDraw) {
+            if (this.containerEdit.find('#base-shape-circle')[0].checked === true) {
+                this.iconBase.setCircularShape();
+            } else {
+                this.iconBase.setSquareShape();
+            }
+            if (this.icon) {
+                this.icon.applyIcon();
+                this.icon.getIconShadow().applyShadow();
+            }
+            if (!disableDraw) paperScope.draw().view.draw();
+        }.bind(this);
+        baseShapePicker.change(this.setIconBaseShapeFunction);
+
         // setup download
         this.btnDownload.click(function() {
             exportManager.createAndDownloadZip();
@@ -206,18 +222,11 @@ class IconManager {
 
 
     setupBase() {
-        this.iconBase = new IconBase(
-            this.center,
-            BASE_RADIUS,
-            this.containerEdit.find('#base-shape'),
-            function () {
-                this.icon.applyIcon();
-                this.icon.getIconShadow().applyShadow();
-                paperScope.draw().view.draw();
-            }.bind(this));
+        this.iconBase = new IconBase(this.center, BASE_RADIUS);
 
         // set default values
         this.setIconBaseColorFunction(null, true);
+        this.setIconBaseShapeFunction(null, true);
     }
 
 

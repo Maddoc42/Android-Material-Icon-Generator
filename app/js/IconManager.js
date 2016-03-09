@@ -239,6 +239,7 @@ class IconManager {
 
         // set default icon values
         this.icon.setSize(BASE_RADIUS * 2 * 0.60);
+        this.setSizeFunction(null, true);
         this.setIconColorFunction(null, true);
         this.setShadowLengthFunction(null, true);
         this.setShadowIntensityFunction(null, true);

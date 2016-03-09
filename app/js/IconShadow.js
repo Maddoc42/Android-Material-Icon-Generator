@@ -174,14 +174,14 @@ class IconShadow {
             let time = timeParams[i];
 
             // if very close to 0, set value to 0
-            if (time < 1E-10) {
+            if (time < 1E-5) {
                 timeParams[i] = 0;
                 continue;
             }
 
             // if very close to 1, set value to 1
             time = Math.abs(1 - time);
-            if (time < 1E-10) {
+            if (time < 1E-5) {
                 timeParams[i] = 1;
                 continue;
             }

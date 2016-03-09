@@ -163,8 +163,8 @@ class IconShadow {
                 if (Math.abs(t0 - 1) < 1E-5) t0 = 1;
                 if (Math.abs(t1 - 1) < 1E-5) t1 = 1;
 
-                if (t0 >= 0 && t0 < 1) timeParams.push(t0);
-                if (t1 >= 0 && t1 < 1) timeParams.push(t1);
+                if (t0 >= 0 && t0 <= 1) timeParams.push(t0);
+                if (t1 >= 0 && t1 <= 1) timeParams.push(t1);
             }
         }
         if (timeParams.length === 0) return timeParams;

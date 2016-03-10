@@ -6,7 +6,8 @@ let paper = require('js/paper-core.min'),
     ColorPicker = require('js/ColorPicker'),
     paperScope = require('js/PaperScopeManager'),
     exportManager = require('js/ExportManager'),
-    errors = require('js/errors');
+    errors = require('js/errors'),
+    gaConstants = require('js/gaConstants');
 
 // Default android icon size (48 DIP)
 const
@@ -83,7 +84,10 @@ class IconManager {
         let defaultBaseColor = '#512DA8';
         this.setIconBaseColorFunction = function(event, disableDraw) {
             this.iconBase.setColor(this.baseColorPicker.getColor());
-            if (!disableDraw) paperScope.draw().view.draw();
+            if (!disableDraw) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BASE_COLOR);
+                paperScope.draw().view.draw();
+            }
         }.bind(this);
         this.baseColorPicker = new ColorPicker(this.baseColorPicker, defaultBaseColor, this.setIconBaseColorFunction);
 
@@ -91,14 +95,20 @@ class IconManager {
         let defaultIconColor = '#ffffff';
         this.setIconColorFunction = function (event, disableDraw) {
             this.icon.setColor(this.iconColorPicker.getColor());
-            if (!disableDraw) paperScope.draw().view.draw();
+            if (!disableDraw) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_ICON_COLOR);
+                paperScope.draw().view.draw();
+            }
         }.bind(this);
         this.iconColorPicker = new ColorPicker(this.iconColorPicker, defaultIconColor, this.setIconColorFunction);
 
         // setup shadow length slider
         this.setShadowLengthFunction = function (event, disableDraw) {
             this.icon.getIconShadow().setLength(this.sliderShadowLengthData.getValue());
-            if (!disableDraw) paperScope.draw().view.draw();
+            if (!disableDraw) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_SHADOW_LENGTH);
+                paperScope.draw().view.draw();
+            }
         }.bind(this);
         this.sliderShadowLengthData = this.sliderShadowLength.slider()
             .on('slide', this.setShadowLengthFunction)
@@ -107,7 +117,10 @@ class IconManager {
         // setup shadow intensity slider
         this.setShadowIntensityFunction = function (event, disableDraw) {
             this.icon.getIconShadow().setIntensity(this.sliderShadowIntensityData.getValue());
-            if (!disableDraw) paperScope.draw().view.draw();
+            if (!disableDraw) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_SHADOW_INTENSITY);
+                paperScope.draw().view.draw();
+            }
         }.bind(this);
         this.sliderShadowIntensityData  = this.sliderShadowIntensity.slider()
             .on('slide', this.setShadowIntensityFunction)
@@ -116,7 +129,10 @@ class IconManager {
         // setup shadow fading slider
         this.setShadowFadingFunction = function (event, disableDraw) {
             this.icon.getIconShadow().setFading(this.sliderShadowFadingData.getValue());
-            if (!disableDraw) paperScope.draw().view.draw();
+            if (!disableDraw) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_SHADOW_FADING);
+                paperScope.draw().view.draw();
+            }
         }.bind(this);
         this.sliderShadowFadingData = this.sliderShadowFading.slider()
             .on('slide', this.setShadowFadingFunction)
@@ -127,7 +143,10 @@ class IconManager {
             let size = this.sliderIconSizeData.getValue();
             let scale = 0.0954548 * Math.exp(0.465169 * size);
             this.icon.setScale(scale);
-            if (!disableDraw) paperScope.draw().view.draw();
+            if (!disableDraw) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_ICON_SIZE);
+                paperScope.draw().view.draw();
+            }
         }.bind(this);
         this.sliderIconSizeData = this.sliderIconSize.slider()
             .on('slide', this.setSizeFunction)
@@ -139,17 +158,20 @@ class IconManager {
             let checked = this.checkBoxCenterIcon.prop('checked');
             if (checked) this.icon.center();
             paperScope.draw().view.draw();
+            ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_CENTER_ICON);
         }.bind(this));
 
         // setup base shape button
         let baseShapePicker = this.containerEdit.find('#base-shape input[name="radio-base-shape"]');
         this.setIconBaseShapeFunction = function(event, disableDraw) {
-            if (this.containerEdit.find('#base-shape-circle')[0].checked === true) {
+            let setCircularShape = this.containerEdit.find('#base-shape-circle')[0].checked === true;
+            if (setCircularShape) {
                 this.iconBase.setCircularShape();
             } else {
                 this.iconBase.setSquareShape();
             }
             if (this.icon) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BASE_SHAPE, setCircularShape ? 'circular' : 'square');
                 this.icon.applyIcon();
                 this.icon.getIconShadow().applyShadow();
             }
@@ -159,6 +181,7 @@ class IconManager {
 
         // setup download
         this.btnDownload.click(function() {
+            ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_DOWNLOAD);
             exportManager.createAndDownloadZip();
         }.bind(this));
     }

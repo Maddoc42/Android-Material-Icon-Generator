@@ -1,5 +1,8 @@
 'use strict';
 
+let gaConstants = require('js/gaConstants');
+
+
 
 /**
  * Handles loading svg files.
@@ -21,6 +24,7 @@ class InputManager {
         let input = this.containerInput.find('#file-picker-input');
 
         overlay.click(function() {
+            ga('send', 'event', gaConstants.CATEGORY_INPUT, gaConstants.ACTION_PICK_FILE, 'click');
             input.click();
         });
 
@@ -37,6 +41,7 @@ class InputManager {
                 overlay.parent().removeClass('container-file-picker-hovered');
             })
             .on('drop', function (e) {
+                ga('send', 'event', gaConstants.CATEGORY_INPUT, gaConstants.ACTION_PICK_FILE, 'drop');
                 input[0].files = e.originalEvent.dataTransfer.files;
             });
 
@@ -66,6 +71,7 @@ class InputManager {
                 let category = icon.attr('data-icon-category');
                 let iconName = icon.attr('data-icon-name');
                 let iconFileName = 'img/material-icons/' + category + '/ic_' + iconName + '_48px.svg';
+                ga('send', 'event', gaConstants.CATEGORY_INPUT, gaConstants.ACTION_PICK_ICON, category + '/' + iconName);
                 instanceThis.onSvgLoaded(iconFileName);
             });
         });
@@ -73,6 +79,7 @@ class InputManager {
         // setup smooth scrolling
         let containerInput = this.containerInput;
         $('a').click(function () {
+            ga('send', 'event', gaConstants.CATEGORY_INPUT, gaConstants.ACTION_PICK_ICON, 'scroll-down');
             let scrollContent = containerInput.find('.simplebar-scroll-content');
             scrollContent.animate({
                 scrollTop: $($.attr(this, 'href')).offset().top

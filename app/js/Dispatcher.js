@@ -1,5 +1,7 @@
 'use strict';
 
+let gaConstants = require('js/gaConstants');
+
 const TRANSITION_TIME = 500; // ms, time between input / icon windows
 
 const
@@ -36,6 +38,7 @@ class Dispatcher {
 
         // setup error handling
         this.iconManager.setErrorCallback(function(error) {
+            ga('send', 'event', gaConstants.CATEGORY_INPUT, gaConstants.ACTION_ERROR, error.title);
             this.errorManager.show(error);
         }.bind(this));
         this.errorManager.setDismissCallback(function() {
@@ -52,6 +55,7 @@ class Dispatcher {
 
             let page = event.state.currentPage;
             if (page === PAGE_INPUT) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_BACK);
                 if (errorManager.isVisible()) errorManager.hide();
                 this.showInput();
             } else {

@@ -15,5 +15,6 @@ module.exports = {
     ACTION_CHANGE_ICON_SIZE: 'change-icon-size',
     ACTION_CHANGE_CENTER_ICON: 'change-center-icon',
     ACTION_CHANGE_BASE_SHAPE: 'change-base-shape',
+    ACTION_CHANGE_BANNER: 'change-banner',
     ACTION_DOWNLOAD: 'download'
 };

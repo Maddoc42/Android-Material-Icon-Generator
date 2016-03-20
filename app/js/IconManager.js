@@ -7,7 +7,8 @@ let paper = require('js/paper-core.min'),
     paperScope = require('js/PaperScopeManager'),
     exportManager = require('js/ExportManager'),
     errors = require('js/errors'),
-    gaConstants = require('js/gaConstants');
+    gaConstants = require('js/gaConstants'),
+    Banner = require('js/Banner');
 
 // Default android icon size (48 DIP)
 const
@@ -174,10 +175,26 @@ class IconManager {
                 ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BASE_SHAPE, setCircularShape ? 'circular' : 'square');
                 this.icon.applyIcon();
                 this.icon.getIconShadow().applyShadow();
+                this.icon.getBanner().applyBanner();
             }
             if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);
         baseShapePicker.change(this.setIconBaseShapeFunction);
+
+        // setup banner
+        let bannerPicker = this.containerEdit.find('#banner input[name="radio-banner"]');
+        this.setBannerFunction = function(event, disableDraw) {
+            let setBanner = this.containerEdit.find('#banner-beta')[0].checked === true;
+            this.icon.getBanner().setBannerBeta(setBanner);
+            if (this.icon) {
+              ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER, setBanner ? 'none' : 'beta');
+              this.icon.applyIcon();
+              this.icon.getIconShadow().applyShadow();
+              this.icon.getBanner().applyBanner();
+            }
+            if (!disableDraw) paperScope.draw().view.draw();
+        }.bind(this);
+        bannerPicker.change(this.setBannerFunction);
 
         // setup download
         this.btnDownload.click(function() {
@@ -268,6 +285,7 @@ class IconManager {
         this.setShadowIntensityFunction(null, true);
         this.setShadowFadingFunction(null, true);
         this.icon.getIconShadow().applyShadow();
+        this.icon.getBanner().applyBanner();
     }
 
 

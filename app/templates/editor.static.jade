@@ -34,6 +34,22 @@ section#container-edit.container-fluid.full-height
 
                 .controls-entry
                     .row
+                        h3 Banner
+                    .row
+                        from(role='form')#banner
+                            .radio-inline
+                                input(type='radio', name='radio-banner', checked='checked')#banner-none
+                                label(for='banner-none')
+                                    span
+                                    span None
+                            .radio-inline
+                                input(type='radio', name='radio-banner')#banner-beta
+                                label(for='banner-beta')
+                                    span
+                                    span Beta
+
+                .controls-entry
+                    .row
                         h3 Icon color
                     .row
                         #color-icon.input-group.color-input-group
@@ -95,5 +111,3 @@ section#container-edit.container-fluid.full-height
     canvas#canvas-export-xhdpi
     canvas#canvas-export-xxhdpi
     canvas#canvas-export-xxxhdpi
-    canvas#canvas-export-playstore-icon
-

@@ -15,7 +15,7 @@ casper.on("page.error", function(msg, trace) {
 
 
 // actual test
-casper.test.begin('Simple shadow create + download', 12, function (test) {
+casper.test.begin('Simple shadow create + download', 13, function (test) {
     casper.start('http://localhost:3333/');
 
     var downloadListener = function(resource) {
@@ -33,6 +33,7 @@ casper.test.begin('Simple shadow create + download', 12, function (test) {
         test.assertTruthy(zip.file('icons/mipmap-xhdpi/ic_launcher.png'));
         test.assertTruthy(zip.file('icons/mipmap-xxhdpi/ic_launcher.png'));
         test.assertTruthy(zip.file('icons/mipmap-xxxhdpi/ic_launcher.png'));
+        test.assertTruthy(zip.file('icons/playstore/icon.png'));
         test.assertTruthy(zip.file('icons/icon.svg'));
     };
     casper.on('resource.received', downloadListener);

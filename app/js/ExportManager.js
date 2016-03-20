@@ -5,12 +5,13 @@ let JSZip = require('js/jszip.min'),
     paperScope = require('js/PaperScopeManager'),
     licenses =  require('js/licenses');
 
-const RESOLUTIONS = [
-    { name: 'mdpi', factor: 1 },
-    { name: 'hdpi', factor: 1.5 },
-    { name: 'xhdpi', factor: 2 },
-    { name: 'xxhdpi', factor: 3 },
-    { name: 'xxxhdpi', factor: 4 }
+const EXPORT_SETTINGS = [
+    { folderName: 'mipmap-mdpi', fileName: 'ic_launcher.png', factor: 1 },
+    { folderName: 'mipmap-hdpi', fileName: 'ic_launcher.png', factor: 1.5 },
+    { folderName: 'mipmap-xhdpi', fileName: 'ic_launcher.png', factor: 2 },
+    { folderName: 'mipmap-xxhdpi', fileName: 'ic_launcher.png', factor: 3 },
+    { folderName: 'mipmap-xxxhdpi', fileName: 'ic_launcher.png', factor: 4 },
+    { folderName: 'playstore', fileName: 'icon.png', factor: 512 / 48 }
 ];
 
 
@@ -42,8 +43,8 @@ class ExportManager {
 
     createAndZipImages(rootFolder) {
         let drawProject = paperScope.draw().project;
-        for (let i = 0; i < 5; ++i) {
-            let resolution = RESOLUTIONS[i];
+        for (let i = 0; i < EXPORT_SETTINGS.length; ++i) {
+            let exportSettings = EXPORT_SETTINGS[i];
 
             paperScope.activateExpo(i);
             let exportProject = paperScope.expo(i).project;
@@ -57,13 +58,13 @@ class ExportManager {
                 layer.addChild(child.clone(false));
             }
             paperScope.expo(i).view.center = new paper.Point(24, 24); // center at icon center (which is 48 px big)
-            paperScope.expo(i).view.zoom = resolution.factor;
+            paperScope.expo(i).view.zoom = exportSettings.factor;
             paperScope.expo(i).view.draw();
 
             // copy png
             let pngData = paperScope.expoCanvas(i)[0].toDataURL('image/png').split(',')[1];
-            let pngFileName = 'ic_launcher.png';
-            rootFolder.folder('mipmap-' + resolution.name).file(pngFileName, pngData, { base64: true });
+            let pngFileName = exportSettings.fileName;
+            rootFolder.folder(exportSettings.folderName).file(pngFileName, pngData, { base64: true });
 
             if (i !== 0) continue;
 

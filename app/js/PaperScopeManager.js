@@ -29,7 +29,8 @@ class PaperScopeManager {
             containerExport.find('#canvas-export-hdpi'),
             containerExport.find('#canvas-export-xhdpi'),
             containerExport.find('#canvas-export-xxhdpi'),
-            containerExport.find('#canvas-export-xxxhdpi')
+            containerExport.find('#canvas-export-xxxhdpi'),
+            containerExport.find('#canvas-export-playstore-icon')
         ];
         this.exportScopes = [];
         for (let i = 0; i < this.exportCanvases.length; ++i) {

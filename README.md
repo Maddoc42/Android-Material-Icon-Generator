@@ -2,7 +2,9 @@
 
 *Android icons with that loooong material shadow for everyone!*
 
-![Screenshot](screenshots/01.png)
+![Android icon example](screenshots/android.png) ![Bug icon example](screenshots/bug.png) ![Heart icon example](screenshots/heart.png) ![Idea icon example](screenshots/idea.png)
+
+![Screenshot](screenshots/01.small.png)
 
 
 ## Build
@@ -16,7 +18,7 @@ npm install -g brunch
 Then to start compiling + watching files run
 
 ```
-npm run start
+npm start
 ```
 
 which will start the a local server at [http://localhost:3333](http://localhost:3333).

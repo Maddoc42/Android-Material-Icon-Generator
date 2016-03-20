@@ -67,9 +67,18 @@ class ExportManager {
 
             if (i !== 0) continue;
 
-            // generate final svg
-            let svg = exportProject.exportSVG({ asString: true });
-            let svgData = btoa(svg);
+            // manually created shadow for raw svg
+            // huge thanks at the guys from paper js!
+            // https://github.com/paperjs/paper.js/issues/1003
+            let svgNode = exportProject.exportSVG();
+            let filter = document.createElementNS('http://www.w3.org/2000/svg', 'filter');
+            filter.innerHTML = '<feColorMatrix type="matrix" values="0 0 0 0 .05  0 0 0 0 .15  0 0 0 0 .1  0 0 0 .8 0" /> <feOffset dx="0" dy="1"/> <feGaussianBlur stdDeviation="1"/> <feComposite in="SourceGraphic" />';
+            filter.setAttribute('id', 'dropshadow');
+            svgNode.getElementsByTagName('defs')[0].appendChild(filter);
+            svgNode.getElementsByTagName('path')[0].setAttribute('filter', 'url(#dropshadow)');
+
+            // export svg!
+            let svgData = btoa(svgNode.outerHTML);
             let svgFileName = 'icon.svg';
             rootFolder.file(svgFileName, svgData, { base64: true });
         }

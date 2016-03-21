@@ -52,7 +52,6 @@ class IconManager {
 
         this.initCanvas();
         this.initControls();
-
     }
 
 

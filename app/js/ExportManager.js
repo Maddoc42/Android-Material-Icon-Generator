@@ -3,15 +3,16 @@
 let JSZip = require('js/jszip.min'),
     paper = require('js/paper-core.min'),
     paperScope = require('js/PaperScopeManager'),
-    licenses =  require('js/licenses');
+    licenses = require('js/licenses'),
+    fileSaver = require('js/FileSaver');
 
 const EXPORT_SETTINGS = [
-    { folderName: 'mipmap-mdpi', fileName: 'ic_launcher.png', factor: 1 },
-    { folderName: 'mipmap-hdpi', fileName: 'ic_launcher.png', factor: 1.5 },
-    { folderName: 'mipmap-xhdpi', fileName: 'ic_launcher.png', factor: 2 },
-    { folderName: 'mipmap-xxhdpi', fileName: 'ic_launcher.png', factor: 3 },
-    { folderName: 'mipmap-xxxhdpi', fileName: 'ic_launcher.png', factor: 4 },
-    { folderName: 'playstore', fileName: 'icon.png', factor: 512 / 48 }
+    {folderName: 'mipmap-mdpi', fileName: 'ic_launcher.png', factor: 1},
+    {folderName: 'mipmap-hdpi', fileName: 'ic_launcher.png', factor: 1.5},
+    {folderName: 'mipmap-xhdpi', fileName: 'ic_launcher.png', factor: 2},
+    {folderName: 'mipmap-xxhdpi', fileName: 'ic_launcher.png', factor: 3},
+    {folderName: 'mipmap-xxxhdpi', fileName: 'ic_launcher.png', factor: 4},
+    {folderName: 'playstore', fileName: 'icon.png', factor: 512 / 48}
 ];
 
 
@@ -32,12 +33,7 @@ class ExportManager {
         this.createAndZipLicenses(rootFolder);
 
         // download
-        if (JSZip.support.blob) {
-            window.location = "data:application/zip;base64," + zip.generate({type:"base64"});
-        } else {
-            console.error('blob not supported');
-            // TODO
-        }
+        fileSaver.saveAs(zip.generate({type: 'blob'}), 'icons.zip');
     }
 
 
@@ -64,7 +60,7 @@ class ExportManager {
             // copy png
             let pngData = paperScope.expoCanvas(i)[0].toDataURL('image/png').split(',')[1];
             let pngFileName = exportSettings.fileName;
-            rootFolder.folder(exportSettings.folderName).file(pngFileName, pngData, { base64: true });
+            rootFolder.folder(exportSettings.folderName).file(pngFileName, pngData, {base64: true});
 
             if (i !== 0) continue;
 
@@ -81,7 +77,7 @@ class ExportManager {
             // export svg!
             let svgData = btoa(svgNode.outerHTML);
             let svgFileName = 'icon.svg';
-            rootFolder.file(svgFileName, svgData, { base64: true });
+            rootFolder.file(svgFileName, svgData, {base64: true});
         }
 
         // reactivate draw scope
@@ -92,7 +88,7 @@ class ExportManager {
     createAndZipLicenses(rootFolder) {
         let licenseFolder = rootFolder.folder('LICENSE');
         licenseFolder.file('LICENSE.txt', licenses.LICENSE_GENERAL);
-        licenseFolder.file('LICENSE.CC_BY_4_0.txt',  licenses.LICENSE_CC_BY_4);
+        licenseFolder.file('LICENSE.CC_BY_4_0.txt', licenses.LICENSE_CC_BY_4);
     }
 
 }

@@ -9,30 +9,33 @@ $canvas-transition-time: 0.5s;
   #container-canvas-draw-parent {
     padding-left: 5px;
 
-    #about {
+    .about {
       border-radius: 4px;
       position: absolute;
-      bottom: $controls-padding;
       right: $controls-padding + 10px;
       padding: 6px 10px;
       background: $color-primary;
       font-size: 12px;
       text-align: center;
       transition: 0.3s;
-      a {
-        color: $color-text-disabled;
-        text-decoration: none;
-        transition: 0.3s;
-      }
+      color: $color-text-disabled;
+      text-decoration: none;
       &:hover {
         background: $color-accent;
-        a {
-          color: $color-text;
-        }
+        color: $color-text;
       }
       strong {
         color: $color-text;
       }
+    }
+  }
+  #about-homepage {
+    bottom: $controls-padding - 4px;
+  }
+  #about-github {
+    bottom: $controls-padding + 40px;
+    strong {
+      font-size: 14px;
     }
   }
 

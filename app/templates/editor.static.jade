@@ -84,10 +84,14 @@ section#container-edit.container-fluid.full-height
             #canvas-loading
                 span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate
 
-            #about
-                a(href='https://github.com/Maddoc42/Android-Material-Icon-Generator')
-                    strong Android Material Icon Generator
-                    |  by Philipp
+            a(href='https://github.com/Maddoc42/Android-Material-Icon-Generator').about#about-github
+                strong
+                    i.fa.fa-github
+                | &nbsp; Star
+
+            a(href='http://bitdroid.de/android-material-icon-generator').about#about-homepage
+                strong Android Material Icon Generator
+                |  by Philipp
 
     // hidden canvas for exporting
     canvas#canvas-export-mdpi

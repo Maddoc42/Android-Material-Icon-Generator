@@ -9,7 +9,13 @@
 
 ## Build
 
-This project uses [brunch](http://brunch.io/) for building. Install via
+First, download / setup the dependencies:
+
+```
+npm install
+```
+
+Next get a hold of [brunch](http://brunch.io/), the build tool used for this project. To install globally:
 
 ```
 npm install -g brunch
@@ -21,7 +27,7 @@ Then to start compiling + watching files run
 npm start
 ```
 
-which will start the a local server at [http://localhost:3333](http://localhost:3333).
+which will start a local server at [http://localhost:3333](http://localhost:3333).
 
 
 ## Updating the Google Material Icons
@@ -34,7 +40,7 @@ and create a file with all icon names under `app/templates/input-material-icons-
 ## Tests
 
 Tests require [PhantomJS](http://phantomjs.org/) (v2.1.1), [CasperJS](http://casperjs.org/) (v1.1.0-beta5) and
-the site running at http://localhost:3333 (e.g. `npm run start`). Run tests via `npm test`.
+the site running at http://localhost:3333 (e.g. `npm start`). Run tests via `npm test`.
 
 ![Travis Status](https://api.travis-ci.org/Maddoc42/Android-Material-Icon-Generator.svg?branch=master)
 

@@ -3,8 +3,7 @@
 let paper = require('js/paper-core.min'),
     IconShadow = require('js/IconShadow'),
     drawUtils = require('js/drawUtils'),
-    paperScope = require('js/PaperScopeManager'),
-    Banner = require('js/Banner');
+    paperScope = require('js/PaperScopeManager');
 
 
 class Icon {
@@ -23,7 +22,6 @@ class Icon {
         this.iconPath.fillColor = null;
         this.iconBase = iconBase;
         this.iconShadow = new IconShadow(iconPath, iconBase);
-        this.banner = new Banner(iconPath, iconBase);
         this.size = Math.max(iconPath.bounds.width, iconPath.bounds.height);
         this.scale = 1;
         this.iconPath.moveAbove(iconBase.getPathWithoutShadows());
@@ -95,10 +93,6 @@ class Icon {
 
     getIconShadow() {
         return this.iconShadow;
-    }
-
-    getBanner() {
-        return this.banner;
     }
 
 

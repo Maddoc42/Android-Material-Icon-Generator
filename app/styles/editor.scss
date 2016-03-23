@@ -128,6 +128,25 @@ $canvas-transition-time: 0.5s;
         &:hover h3, &:hover .color-input-group input, &:hover .toggle-off , &:hover label * {
           color: $color-text;
         }
+        .collapse-controller {
+          h3 {
+            display: inline-block;
+          }
+          button {
+            display: inline-block;
+            float: right;
+            background: none;
+            border: none;
+            outline: none;
+            color: $color-text-disabled;
+          }
+          button:hover {
+            color: $color-text;
+          }
+        }
+        .collapse-container {
+          display: none;
+        }
       }
     }
   }

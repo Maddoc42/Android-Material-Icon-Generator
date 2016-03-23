@@ -37,7 +37,8 @@ class IconManager {
     constructor(canvas, containerEdit,
                 btnDownload, iconColorPicker, baseColorPicker,
                 sliderIconSize, sliderShadowLength, sliderShadowIntensity,
-                sliderShadowFading, checkBoxCenterIcon) {
+                sliderShadowFading, checkBoxCenterIcon, bannerColorPicker,
+                bannerTextColorPicker) {
 
         this.canvas = canvas;
         this.containerEdit = containerEdit;
@@ -49,6 +50,8 @@ class IconManager {
         this.sliderShadowFading = sliderShadowFading;
         this.btnDownload = btnDownload;
         this.checkBoxCenterIcon = checkBoxCenterIcon;
+        this.bannerColorPicker = bannerColorPicker;
+        this.bannerTextColorPicker = bannerTextColorPicker;
         this.loadingOverlay = this.containerEdit.find('#canvas-loading');
 
         this.initCanvas();
@@ -175,26 +178,64 @@ class IconManager {
                 ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BASE_SHAPE, setCircularShape ? 'circular' : 'square');
                 this.icon.applyIcon();
                 this.icon.getIconShadow().applyShadow();
-                this.icon.getBanner().applyBanner();
             }
             if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);
         baseShapePicker.change(this.setIconBaseShapeFunction);
 
+        // setup banner container controller
+        let bannerCollapseController = this.containerEdit.find("#banner-controller");
+        let bannerContainer = this.containerEdit.find("#banner-container")
+        this.setBannerContainerCollapseFunction = function(event, disableDraw) {
+          if(bannerCollapseController.hasClass('glyphicon-chevron-down')){
+            bannerCollapseController.removeClass('glyphicon-chevron-down');
+            bannerCollapseController.addClass('glyphicon-chevron-up');
+            bannerContainer.css('display', 'block');
+          } else {
+            bannerCollapseController.removeClass('glyphicon-chevron-up');
+            bannerCollapseController.addClass('glyphicon-chevron-down');
+            bannerContainer.css('display', 'none');
+          }
+        }.bind(this);
+        bannerCollapseController.click(this.setBannerContainerCollapseFunction);
+
         // setup banner
         let bannerPicker = this.containerEdit.find('#banner input[name="radio-banner"]');
         this.setBannerFunction = function(event, disableDraw) {
             let setBanner = this.containerEdit.find('#banner-beta')[0].checked === true;
-            this.icon.getBanner().setBannerBeta(setBanner);
             if (this.icon) {
               ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER, setBanner ? 'none' : 'beta');
-              this.icon.applyIcon();
-              this.icon.getIconShadow().applyShadow();
-              this.icon.getBanner().applyBanner();
+              if(setBanner)
+                this.banner.showBanner();
+              else {
+                this.banner.hideBanner();
+              }
             }
             if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);
         bannerPicker.change(this.setBannerFunction);
+
+        // setup banner background color
+        let defaultBannerBackgroundColor = '#373B3C';
+        this.setBannerColorFunction = function(event, disableDraw) {
+            this.banner.setBackgroundColor(this.bannerColorPicker.getColor());
+            if (!disableDraw) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER_COLOR);
+                paperScope.draw().view.draw();
+            }
+        }.bind(this);
+        this.bannerColorPicker = new ColorPicker(this.bannerColorPicker, defaultBannerBackgroundColor, this.setBannerColorFunction);
+
+        // setup banner text color
+        let defaultBannerTextColor = '#ffffff';
+        this.setBannerTextColorFunction = function(event, disableDraw) {
+            this.banner.setTextColor(this.bannerTextColorPicker.getColor());
+            if (!disableDraw) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER_TEXT_COLOR);
+                paperScope.draw().view.draw();
+            }
+        }.bind(this);
+        this.bannerTextColorPicker = new ColorPicker(this.bannerTextColorPicker, defaultBannerTextColor, this.setBannerTextColorFunction);
 
         // setup download
         this.btnDownload.click(function() {
@@ -250,6 +291,9 @@ class IconManager {
                 // create icon and shadow
                 this.setupIcon(importedPath);
 
+                // create banner
+                this.setupBanner();
+
                 this.loadingOverlay.css('opacity', 0);
                 this.canvas.css('opacity', 1);
                 setTimeout(function() {
@@ -269,6 +313,9 @@ class IconManager {
         this.setIconBaseShapeFunction(null, true);
     }
 
+    setupBanner(){
+        this.banner = new Banner();
+    }
 
     setupIcon(importedPath) {
         // create icon + shadow
@@ -285,7 +332,6 @@ class IconManager {
         this.setShadowIntensityFunction(null, true);
         this.setShadowFadingFunction(null, true);
         this.icon.getIconShadow().applyShadow();
-        this.icon.getBanner().applyBanner();
     }
 
 

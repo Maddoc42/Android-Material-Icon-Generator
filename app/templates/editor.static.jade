@@ -33,34 +33,6 @@ section#container-edit.container-fluid.full-height
                                     span Square
 
                 .controls-entry
-                    .row.collapse-controller
-                        h3 Banner
-                        button.glyphicon.glyphicon-chevron-down#banner-controller
-
-                    .row.collapse-container#banner-container
-                        from(role='form')#banner
-                          .radio-inline
-                              input(type='radio', name='radio-banner', checked='checked')#banner-none
-                              label(for='banner-none')
-                                  span
-                                  span None
-                          .radio-inline
-                              input(type='radio', name='radio-banner')#banner-beta
-                              label(for='banner-beta')
-                                  span
-                                  span Beta
-                        h3 Banner background color
-                        #color-banner.input-group.color-input-group
-                            input.form-control(type='text')
-                            span.input-group-addon
-                                i
-                        h3 Banner text color
-                        #color-banner-text.input-group.color-input-group
-                            input.form-control(type='text')
-                            span.input-group-addon
-                                i
-
-                .controls-entry
                     .row
                         h3 Icon color
                     .row
@@ -98,6 +70,22 @@ section#container-edit.container-fluid.full-height
                         h3 Icon size
                     .row
                         input#slider-icon-size(type='text', data-slider-id='slider-icon-size-id', data-slider-min='0.1', data-slider-max='7', data-slider-value='5', data-slider-step='0.1', data-slider-tooltip='bottom')
+
+                .controls-entry
+                    .row.collapse-controller
+                        h3 Banner
+                        input#banner-controller(type='checkbox', data-toggle='toggle', data-width='100')
+                    .row.collapse-container#banner-container
+                        h3 Banner background color
+                        #color-banner.input-group.color-input-group
+                            input.form-control(type='text')
+                            span.input-group-addon
+                                i
+                        h3 Banner text color
+                        #color-banner-text.input-group.color-input-group
+                            input.form-control(type='text')
+                            span.input-group-addon
+                                i
 
                 .controls-entry
                     button#btn-download-svg.btn.btn-lg.full-width(type='submit') Download

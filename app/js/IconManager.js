@@ -184,36 +184,31 @@ class IconManager {
         baseShapePicker.change(this.setIconBaseShapeFunction);
 
         // setup banner container controller
-        let bannerCollapseController = this.containerEdit.find("#banner-controller");
+
+        let bannerCollapseController = this.containerEdit.find("#banner-controller")
+        bannerCollapseController.bootstrapToggle();
         let bannerContainer = this.containerEdit.find("#banner-container")
         this.setBannerContainerCollapseFunction = function(event, disableDraw) {
-          if(bannerCollapseController.hasClass('glyphicon-chevron-down')){
-            bannerCollapseController.removeClass('glyphicon-chevron-down');
-            bannerCollapseController.addClass('glyphicon-chevron-up');
-            bannerContainer.css('display', 'block');
-          } else {
-            bannerCollapseController.removeClass('glyphicon-chevron-up');
-            bannerCollapseController.addClass('glyphicon-chevron-down');
-            bannerContainer.css('display', 'none');
-          }
-        }.bind(this);
-        bannerCollapseController.click(this.setBannerContainerCollapseFunction);
-
-        // setup banner
-        let bannerPicker = this.containerEdit.find('#banner input[name="radio-banner"]');
-        this.setBannerFunction = function(event, disableDraw) {
-            let setBanner = this.containerEdit.find('#banner-beta')[0].checked === true;
-            if (this.icon) {
-              ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER, setBanner ? 'none' : 'beta');
-              if(setBanner)
-                this.banner.showBanner();
-              else {
-                this.banner.hideBanner();
-              }
+            let setBanner = bannerCollapseController.prop('checked');
+            if(setBanner){
+            bannerContainer.css('transform', 'scaleY(1)');
+            bannerContainer.css('max-height', '1000px');
+            if(this.icon) {
+              this.banner.showBanner();
             }
-            if (!disableDraw) paperScope.draw().view.draw();
+          } else {
+            bannerContainer.css('transform', 'scaleY(0)');
+            bannerContainer.css('max-height', '0');
+            if(this.icon) {
+              this.banner.hideBanner();
+            }
+          }
+          ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER, setBanner ? 'none' : 'beta');
+
+          if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);
-        bannerPicker.change(this.setBannerFunction);
+        bannerCollapseController.change(this.setBannerContainerCollapseFunction);
+
 
         // setup banner background color
         let defaultBannerBackgroundColor = '#373B3C';

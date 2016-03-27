@@ -257,6 +257,11 @@ class IconManager {
         // remove any previous icons
         if (this.icon) this.icon.remove();
         if (this.iconBase) this.iconBase.remove();
+        if (this.banner) {
+          this.banner.remove();
+          let bannerCollapseController = this.containerEdit.find("#banner-controller")
+          bannerCollapseController.prop("checked", false).change();
+        }
 
         this.loadingSvg = true;
         paperScope.draw().project.importSVG(svgData, {

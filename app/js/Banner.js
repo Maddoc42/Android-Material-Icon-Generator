@@ -43,6 +43,11 @@ class Banner {
       this.rectangle.visible = false;
       this.text.visible = false;
     }
+
+    remove() {
+        this.rectangle.remove();
+        this.text.remove();
+    }
 }
 
 

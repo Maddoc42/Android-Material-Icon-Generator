@@ -1,12 +1,11 @@
 'use strict';
 
-let paper = require('js/paper-core.min'),
-    paperScope = require('js/PaperScopeManager');
+let paper = require('js/paper-core.min');
 
 class Banner {
 
     /**
-     * @param iconBase of the icon used to cut the banner
+     * @param iconBase - of the icon used to cut the banner
      */
 
     constructor() {
@@ -15,15 +14,15 @@ class Banner {
         fillColor: "#373B3C",
         shadowColor: new paper.Color(0, 0, 0, 0.6),
         shadowBlur: 20
-      }
+      };
       this.text = new PointText(new Point(19, 33));
       this.text.content = "BETA";
       this.text.characterStyle = {
           fontSize:8,
           fillColor:"white",
           font:"Arial"
-      }
-      this.hideBanner();
+      };
+      this.hide();
     }
 
     setBackgroundColor(color) {
@@ -34,12 +33,12 @@ class Banner {
       this.text.fillColor = color;
     }
 
-    showBanner(){
+    show(){
       this.rectangle.visible = true;
       this.text.visible = true;
     }
 
-    hideBanner(){
+    hide(){
       this.rectangle.visible = false;
       this.text.visible = false;
     }

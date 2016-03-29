@@ -106,11 +106,6 @@ $canvas-transition-time: 0.5s;
         padding-bottom: 15px;
         padding-left: 5px;
         padding-right: 15px;
-        &:last-child {
-          margin-bottom: $controls-padding;
-          margin-left: 0;
-          margin-right: 0;
-        }
         h3 {
           color: $color-text-disabled;
           font-weight: bold;
@@ -128,32 +123,17 @@ $canvas-transition-time: 0.5s;
         h3, .color-input-group, .radio-inline label span {
           transition: 0.3s;
         }
-        &:not(.multiple-entry) {
-          &:hover h3, &:hover .color-input-group input, &:hover .toggle-off, a:hover label * {
-            color: $color-text;
-          }
+        &:hover h3, &:hover .color-input-group input, &:hover .toggle-off, a:hover label * {
+          color: $color-text;
         }
-        .collapse-controller:hover h3 {
-            color: $color-text;
-        }
-        .collapse-container {
-          max-height: 0;
-          transform: scaleY(0);
-          transform-origin: top;
-          transition: transform 0.2s ease, max-height 0.2s;
-          overflow: hidden;
-          .row {
-            padding-top: 15px;
-            padding-left: 15px;
-            padding-right: 15px;
-            &:hover h3, &:hover .color-input-group input, &:hover .toggle-off , &:hover label * {
-              color: $color-text;
-            }
-          }
-          > h3 {
-            padding-top: 15px;
-          }
-        }
+      }
+      #download-container {
+        margin: 10px 0 $controls-padding;
+      }
+      #banner-collapsible-container {
+        max-height: 0;
+        transition: max-height 0.3s ease;
+        overflow: hidden;
       }
     }
   }

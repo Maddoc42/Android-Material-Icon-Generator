@@ -183,31 +183,23 @@ class IconManager {
         baseShapePicker.change(this.setIconBaseShapeFunction);
 
         // setup banner container controller
-
-        let bannerCollapseController = this.containerEdit.find("#banner-controller")
-        bannerCollapseController.bootstrapToggle();
-        let bannerContainer = this.containerEdit.find("#banner-container")
-        this.setBannerContainerCollapseFunction = function(event, disableDraw) {
-            let setBanner = bannerCollapseController.prop('checked');
-            if(setBanner){
-            bannerContainer.css('transform', 'scaleY(1)');
-            bannerContainer.css('max-height', '1000px');
-            if(this.icon) {
-              this.banner.showBanner();
+        let bannerPicker = this.containerEdit.find('#banner input[name="radio-banner"]');
+        let bannerCollapsibleContainer = this.containerEdit.find('#banner-collapsible-container');
+        this.setBannerFunction = function(event, disableDraw) {
+            let enableBanner = this.containerEdit.find('#banner-beta')[0].checked === true;
+            if (enableBanner) {
+                this.banner.show();
+                bannerCollapsibleContainer.css('max-height', '1000px');
+            } else {
+                this.banner.hide();
+                bannerCollapsibleContainer.css('max-height', '0');
             }
-          } else {
-            bannerContainer.css('transform', 'scaleY(0)');
-            bannerContainer.css('max-height', '0');
-            if(this.icon) {
-              this.banner.hideBanner();
+            if (this.icon) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER, enableBanner ? 'beta' : 'none');
             }
-          }
-          ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER, setBanner ? 'none' : 'beta');
-
-          if (!disableDraw) paperScope.draw().view.draw();
+            if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);
-        bannerCollapseController.change(this.setBannerContainerCollapseFunction);
-
+        bannerPicker.change(this.setBannerFunction);
 
         // setup banner background color
         let defaultBannerBackgroundColor = '#373B3C';

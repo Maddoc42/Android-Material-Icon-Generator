@@ -21,7 +21,7 @@ var App = {
             $('#slider-shadow-intensity'),
             $('#slider-shadow-fading'),
             $('#checkbox-center-icon'),
-            $('#color-banner'),
+            $('#color-banner-background'),
             $('#color-banner-text')
         );
 

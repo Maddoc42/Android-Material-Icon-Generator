@@ -20,7 +20,9 @@ var App = {
             $('#slider-shadow-length'),
             $('#slider-shadow-intensity'),
             $('#slider-shadow-fading'),
-            $('#checkbox-center-icon')
+            $('#checkbox-center-icon'),
+            $('#color-banner'),
+            $('#color-banner-text')
         );
 
         let inputManager = new InputManager($('#container-input'));

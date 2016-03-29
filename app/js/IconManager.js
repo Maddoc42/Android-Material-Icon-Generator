@@ -7,7 +7,8 @@ let paper = require('js/paper-core.min'),
     paperScope = require('js/PaperScopeManager'),
     exportManager = require('js/ExportManager'),
     errors = require('js/errors'),
-    gaConstants = require('js/gaConstants');
+    gaConstants = require('js/gaConstants'),
+    Banner = require('js/Banner');
 
 // Default android icon size (48 DIP)
 const
@@ -36,7 +37,8 @@ class IconManager {
     constructor(canvas, containerEdit,
                 btnDownload, iconColorPicker, baseColorPicker,
                 sliderIconSize, sliderShadowLength, sliderShadowIntensity,
-                sliderShadowFading, checkBoxCenterIcon) {
+                sliderShadowFading, checkBoxCenterIcon, bannerColorPicker,
+                bannerTextColorPicker) {
 
         this.canvas = canvas;
         this.containerEdit = containerEdit;
@@ -48,6 +50,8 @@ class IconManager {
         this.sliderShadowFading = sliderShadowFading;
         this.btnDownload = btnDownload;
         this.checkBoxCenterIcon = checkBoxCenterIcon;
+        this.bannerColorPicker = bannerColorPicker;
+        this.bannerTextColorPicker = bannerTextColorPicker;
         this.loadingOverlay = this.containerEdit.find('#canvas-loading');
 
         this.initCanvas();
@@ -178,6 +182,55 @@ class IconManager {
         }.bind(this);
         baseShapePicker.change(this.setIconBaseShapeFunction);
 
+        // setup banner container controller
+
+        let bannerCollapseController = this.containerEdit.find("#banner-controller")
+        bannerCollapseController.bootstrapToggle();
+        let bannerContainer = this.containerEdit.find("#banner-container")
+        this.setBannerContainerCollapseFunction = function(event, disableDraw) {
+            let setBanner = bannerCollapseController.prop('checked');
+            if(setBanner){
+            bannerContainer.css('transform', 'scaleY(1)');
+            bannerContainer.css('max-height', '1000px');
+            if(this.icon) {
+              this.banner.showBanner();
+            }
+          } else {
+            bannerContainer.css('transform', 'scaleY(0)');
+            bannerContainer.css('max-height', '0');
+            if(this.icon) {
+              this.banner.hideBanner();
+            }
+          }
+          ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER, setBanner ? 'none' : 'beta');
+
+          if (!disableDraw) paperScope.draw().view.draw();
+        }.bind(this);
+        bannerCollapseController.change(this.setBannerContainerCollapseFunction);
+
+
+        // setup banner background color
+        let defaultBannerBackgroundColor = '#373B3C';
+        this.setBannerColorFunction = function(event, disableDraw) {
+            this.banner.setBackgroundColor(this.bannerColorPicker.getColor());
+            if (!disableDraw) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER_COLOR);
+                paperScope.draw().view.draw();
+            }
+        }.bind(this);
+        this.bannerColorPicker = new ColorPicker(this.bannerColorPicker, defaultBannerBackgroundColor, this.setBannerColorFunction);
+
+        // setup banner text color
+        let defaultBannerTextColor = '#ffffff';
+        this.setBannerTextColorFunction = function(event, disableDraw) {
+            this.banner.setTextColor(this.bannerTextColorPicker.getColor());
+            if (!disableDraw) {
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER_TEXT_COLOR);
+                paperScope.draw().view.draw();
+            }
+        }.bind(this);
+        this.bannerTextColorPicker = new ColorPicker(this.bannerTextColorPicker, defaultBannerTextColor, this.setBannerTextColorFunction);
+
         // setup download
         this.btnDownload.click(function() {
             ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_DOWNLOAD);
@@ -203,6 +256,11 @@ class IconManager {
         // remove any previous icons
         if (this.icon) this.icon.remove();
         if (this.iconBase) this.iconBase.remove();
+        if (this.banner) {
+          this.banner.remove();
+          let bannerCollapseController = this.containerEdit.find("#banner-controller")
+          bannerCollapseController.prop("checked", false).change();
+        }
 
         this.loadingSvg = true;
         paperScope.draw().project.importSVG(svgData, {
@@ -232,6 +290,9 @@ class IconManager {
                 // create icon and shadow
                 this.setupIcon(importedPath);
 
+                // create banner
+                this.setupBanner();
+
                 this.loadingOverlay.css('opacity', 0);
                 this.canvas.css('opacity', 1);
                 setTimeout(function() {
@@ -251,6 +312,9 @@ class IconManager {
         this.setIconBaseShapeFunction(null, true);
     }
 
+    setupBanner(){
+        this.banner = new Banner();
+    }
 
     setupIcon(importedPath) {
         // create icon + shadow

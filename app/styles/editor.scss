@@ -101,7 +101,7 @@ $canvas-transition-time: 0.5s;
     }
 
     #container-controls {
-      .controls-entry {
+      .controls-entry{
         margin: 0 $controls-padding 10px;
         padding-bottom: 15px;
         padding-left: 5px;
@@ -128,8 +128,31 @@ $canvas-transition-time: 0.5s;
         h3, .color-input-group, .radio-inline label span {
           transition: 0.3s;
         }
-        &:hover h3, &:hover .color-input-group input, &:hover .toggle-off , &:hover label * {
-          color: $color-text;
+        &:not(.multiple-entry) {
+          &:hover h3, &:hover .color-input-group input, &:hover .toggle-off, a:hover label * {
+            color: $color-text;
+          }
+        }
+        .collapse-controller:hover h3 {
+            color: $color-text;
+        }
+        .collapse-container {
+          max-height: 0;
+          transform: scaleY(0);
+          transform-origin: top;
+          transition: transform 0.2s ease, max-height 0.2s;
+          overflow: hidden;
+          .row {
+            padding-top: 15px;
+            padding-left: 15px;
+            padding-right: 15px;
+            &:hover h3, &:hover .color-input-group input, &:hover .toggle-off , &:hover label * {
+              color: $color-text;
+            }
+          }
+          > h3 {
+            padding-top: 15px;
+          }
         }
       }
     }

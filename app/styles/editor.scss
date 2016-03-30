@@ -137,20 +137,15 @@ $canvas-transition-time: 0.5s;
 }
 
 
-.colorpicker-2x .colorpicker-saturation {
-  width: 200px;
-  height: 200px;
-}
-
-.colorpicker-2x .colorpicker-hue,
-.colorpicker-2x .colorpicker-alpha {
-  width: 30px;
-  height: 200px;
-}
-
-.colorpicker-2x .colorpicker-color,
-.colorpicker-2x .colorpicker-color div {
-  height: 30px;
+.colorpicker {
+  background-color: $color-primary-very-light;
+  border-radius: 2px;
+  border-right-width: 5px;
+  border-left-width: 5px;
+  border-color: $color-primary-very-light;
+  &::before, &::after {
+    border-bottom-color: $color-primary-very-light;
+  }
 }
 
 

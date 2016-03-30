@@ -13,21 +13,8 @@ class ColorPicker {
     constructor(colorPickerObject, defaultColor, onColorChangeCallback) {
         colorPickerObject
             .colorpicker({
-                customClass: 'colorpicker-2x',
                 color: defaultColor,
-                align: 'left',
-                sliders: {
-                    saturation: {
-                        maxLeft: 200,
-                        maxTop: 200
-                    },
-                    hue: {
-                        maxTop: 200
-                    },
-                    alpha: {
-                        maxTop: 200
-                    }
-                }
+                align: 'left'
             })
             .on('changeColor.colorpicker', function () {
                 onColorChangeCallback(this.getColor());

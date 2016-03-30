@@ -197,7 +197,7 @@ class IconManager {
             if (enableBeta) this.banner.showBeta();
             else if (enableDev) this.banner.showDev();
             if (this.icon) {
-                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER, enableBeta || enableDev ? (enableBeta ? 'beta' : 'dev' ) : 'none');
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER_VALUE, enableBeta || enableDev ? (enableBeta ? 'beta' : 'dev' ) : 'none');
             }
             if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);
@@ -208,7 +208,7 @@ class IconManager {
         this.setBannerBackgroundColorFunction = function(event, disableDraw) {
             this.banner.setBackgroundColor(this.bannerColorPicker.getColor());
             if (!disableDraw) {
-                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER_COLOR);
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER_BACKGROUND_COLOR);
                 paperScope.draw().view.draw();
             }
         }.bind(this);

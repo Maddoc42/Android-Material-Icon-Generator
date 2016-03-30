@@ -203,14 +203,14 @@ class IconManager {
 
         // setup banner background color
         let defaultBannerBackgroundColor = '#373B3C';
-        this.setBannerColorFunction = function(event, disableDraw) {
+        this.setBannerBackgroundColorFunction = function(event, disableDraw) {
             this.banner.setBackgroundColor(this.bannerColorPicker.getColor());
             if (!disableDraw) {
                 ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER_COLOR);
                 paperScope.draw().view.draw();
             }
         }.bind(this);
-        this.bannerColorPicker = new ColorPicker(this.bannerColorPicker, defaultBannerBackgroundColor, this.setBannerColorFunction);
+        this.bannerColorPicker = new ColorPicker(this.bannerColorPicker, defaultBannerBackgroundColor, this.setBannerBackgroundColorFunction);
 
         // setup banner text color
         let defaultBannerTextColor = '#ffffff';
@@ -306,6 +306,11 @@ class IconManager {
 
     setupBanner(){
         this.banner = new Banner();
+
+        // set default values
+        this.setBannerFunction(null, true);
+        this.setBannerBackgroundColorFunction(null, true);
+        this.setBannerTextColorFunction(null, true);
     }
 
     setupIcon(importedPath) {

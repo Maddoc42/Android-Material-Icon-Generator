@@ -1,7 +1,6 @@
 'use strict';
 
-let paper = require('js/paper-core.min'),
-    paperScope = require('js/PaperScopeManager');
+let paper = require('js/paper-core.min');
 
 const
     SHAPE_CIRCLE = 0,

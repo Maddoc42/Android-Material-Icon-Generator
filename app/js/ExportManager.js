@@ -50,7 +50,7 @@ class ExportManager {
             let layer = new paper.Layer();
             for (let j = 0; j < drawProject.layers[0].children.length; ++j) {
                 let child = drawProject.layers[0].children[j];
-                if (!child.fillColor) continue;
+                if (!child.fillColor || !child.visible) continue;
                 layer.addChild(child.clone(false));
             }
             paperScope.expo(i).view.center = new paper.Point(24, 24); // center at icon center (which is 48 px big)

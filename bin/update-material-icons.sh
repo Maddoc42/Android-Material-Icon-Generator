@@ -2,7 +2,7 @@
 
 githubRepo=https://github.com/google/material-design-icons
 repoDir=./tmp/material-android-icons-google
-assetsDir=./app/assets/material-icons
+assetsDir=./app/assets/img/material-icons
 jadeDataFile=./app/templates/input-material-icons-data.static.jade
 
 # pre-cleanup

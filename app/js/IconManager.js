@@ -202,7 +202,7 @@ class IconManager {
         bannerPicker.change(this.setBannerFunction);
 
         // setup banner background color
-        let defaultBannerBackgroundColor = '#373B3C';
+        let defaultBannerBackgroundColor = '#404041';
         this.setBannerBackgroundColorFunction = function(event, disableDraw) {
             this.banner.setBackgroundColor(this.bannerColorPicker.getColor());
             if (!disableDraw) {

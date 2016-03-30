@@ -5,7 +5,7 @@ let paper = require('js/paper-core.min');
 class Banner {
 
     constructor() {
-      this.rectangle = new Path.Rectangle(14.02,25,30,10);
+      this.rectangle = new Path.Rectangle(14.02,24,30,12);
       this.rectangle.style = {
         shadowColor: new paper.Color(0, 0, 0, 0.6),
         shadowBlur: 20
@@ -14,7 +14,8 @@ class Banner {
       this.text.content = "BETA";
       this.text.characterStyle = {
           fontSize: 8,
-          font: "Arial"
+          fontFamily: 'sans-serif',
+          fontWeight: 'bold'
       };
       this.hide();
     }

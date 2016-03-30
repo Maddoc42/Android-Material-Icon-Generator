@@ -39,10 +39,6 @@ $canvas-transition-time: 0.5s;
     }
   }
 
-  .simplebar-scroll-content {
-    overflow-y: hidden;
-  }
-
 
   #container-canvas-draw {
     display: flex;
@@ -79,6 +75,7 @@ $canvas-transition-time: 0.5s;
   #container-controls-parent {
     height: 100%;
     overflow: hidden;
+    padding: 0 !important;
 
     #container-controls {
       overflow: hidden;

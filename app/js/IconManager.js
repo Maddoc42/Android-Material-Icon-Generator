@@ -186,16 +186,18 @@ class IconManager {
         let bannerPicker = this.containerEdit.find('#banner input[name="radio-banner"]');
         let bannerCollapsibleContainer = this.containerEdit.find('#banner-collapsible-container');
         this.setBannerFunction = function(event, disableDraw) {
-            let enableBanner = this.containerEdit.find('#banner-beta')[0].checked === true;
-            if (enableBanner) {
-                this.banner.show();
+            let enableBeta = this.containerEdit.find('#banner-beta')[0].checked === true;
+            let enableDev  = this.containerEdit.find('#banner-dev')[0].checked === true;
+            if (enableBeta || enableDev) {
                 bannerCollapsibleContainer.css('max-height', '1000px');
             } else {
                 this.banner.hide();
                 bannerCollapsibleContainer.css('max-height', '0');
             }
+            if (enableBeta) this.banner.showBeta();
+            else if (enableDev) this.banner.showDev();
             if (this.icon) {
-                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER, enableBanner ? 'beta' : 'none');
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BANNER, enableBeta || enableDev ? (enableBeta ? 'beta' : 'dev' ) : 'none');
             }
             if (!disableDraw) paperScope.draw().view.draw();
         }.bind(this);

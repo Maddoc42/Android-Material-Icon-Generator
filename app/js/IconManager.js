@@ -13,7 +13,7 @@ let paper = require('js/paper-core.min'),
 // Default android icon size (48 DIP)
 const
     CANVAS_SIZE = 48,
-    BASE_RADIUS = 20;
+    BASE_RADIUS = 21;
 
 
 

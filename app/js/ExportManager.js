@@ -4,7 +4,8 @@ let JSZip = require('js/jszip.min'),
     paper = require('js/paper-core.min'),
     paperScope = require('js/PaperScopeManager'),
     licenses = require('js/licenses'),
-    fileSaver = require('js/FileSaver');
+    fileSaver = require('js/FileSaver'),
+    ShadowZoomUtils = require('js/ShadowZoomUtils');
 
 const EXPORT_SETTINGS = [
     {folderName: 'mipmap-mdpi', fileName: 'ic_launcher.png', factor: 1},
@@ -38,7 +39,7 @@ class ExportManager {
 
 
     createAndZipImages(rootFolder) {
-        let drawProject = paperScope.draw().project;
+        const drawProject = paperScope.draw().project;
         for (let i = 0; i < EXPORT_SETTINGS.length; ++i) {
             let exportSettings = EXPORT_SETTINGS[i];
 
@@ -51,7 +52,9 @@ class ExportManager {
             for (let j = 0; j < drawProject.layers[0].children.length; ++j) {
                 let child = drawProject.layers[0].children[j];
                 if (!child.fillColor || !child.visible) continue;
-                layer.addChild(child.clone(false));
+                let clonedChild = child.clone(false);
+                ShadowZoomUtils.zoomShadowToExportSize(clonedChild.style, exportSettings.factor);
+                layer.addChild(clonedChild);
             }
             paperScope.expo(i).view.center = new paper.Point(24, 24); // center at icon center (which is 48 px big)
             paperScope.expo(i).view.zoom = exportSettings.factor;

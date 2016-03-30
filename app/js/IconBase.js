@@ -1,6 +1,7 @@
 'use strict';
 
-let paper = require('js/paper-core.min');
+let paper = require('js/paper-core.min'),
+    ShadowZoomUtils = require('js/ShadowZoomUtils');
 
 const
     SHAPE_CIRCLE = 0,
@@ -16,19 +17,21 @@ class IconBase {
         this.circleBasePath = new paper.Path.Circle({
             center: center,
             radius: radius,
-            shadowColor: new paper.Color(0, 0, 0, 0.6),
-            shadowBlur: 10,
-            shadowOffset: new paper.Point(0, 3)
+            shadowColor: new paper.Color(0, 0, 0, 0.4),
+            shadowBlur: 2,
+            shadowOffset: new paper.Point(0, 1)
         });
+        // console.log(shadowZoomUtils);
+        ShadowZoomUtils.zoomShadowToEditorSize(this.circleBasePath.style);
         this.shape = SHAPE_CIRCLE;
 
         this.squareBasePath = new paper.Path.Rectangle({
             point: new paper.Point(center.x - radius, center.y - radius),
             size: new paper.Size(radius * 2, radius * 2),
             radius: 2,
-            shadowColor: new paper.Color(0, 0, 0, 0.6),
-            shadowBlur: 10,
-            shadowOffset: new paper.Point(0, 3)
+            shadowColor: this.circleBasePath.shadowColor,
+            shadowBlur: this.circleBasePath.shadowBlur,
+            shadowOffset: this.circleBasePath.shadowOffset
         });
         this.squareBasePath.remove();
 

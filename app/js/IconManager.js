@@ -276,6 +276,9 @@ class IconManager {
                     this.errorCallback(errors.ERROR_INVALID_SVG_STRUCTURE);
                     return;
                 }
+                if (!this.isClosedPath(importedPath)) {
+                    this.errorCallback(errors.ERROR_OPEN_PATHS);
+                }
                 importedPath.strokeWidth = 0;
 
                 // one time base setup
@@ -388,6 +391,20 @@ class IconManager {
         this.canvas.css('opacity', 0);
         this.loadingOverlay.show();
         this.loadingOverlay.css('opacity', 1);
+    }
+
+    /**
+     * Returns true if the path / compound path is closed, false otherwise.
+     */
+    isClosedPath(path) {
+        if (path instanceof paper.Path) return path.closed;
+        else if (path instanceof paper.CompoundPath) {
+            for (let i = 0; i < path.children.length; ++i) {
+                if (!this.isClosedPath(path.children[i])) return false;
+            }
+            return true;
+        }
+        return false;
     }
 
 }

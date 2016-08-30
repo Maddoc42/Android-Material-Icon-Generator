@@ -6,6 +6,20 @@
 
 ![Screenshot](screenshots/01.small.png)
 
+## FAQ
+
+### Custom SVG file contains only a single path, but no output is generated
+
+Make sure that your SVG file contains closed paths instead of open ones. For example
+
+![Open vs close paths example](screenshots/faq-closed-paths.png)
+
+The icon on the left contains a single path (made up of two sub paths) that is open at the ends (first
+node does not connect to the last node). The icon on the right has closed paths, where the shape of the paths
+are that of the stroke width of the original icon.
+
+For Inkscape users there is a nice tool that does the above conversion: "Path" -> "Stroke to Path".
+
 
 ## Build
 

@@ -247,6 +247,8 @@ class IconManager {
      * @param svgData either raw svg data or a URL pointing to a svg file.
      */
     onSvgLoaded(svgData) {
+        console.log('Loaded svg file: ' + svgData);
+
         // remove any previous icons
         if (this.icon) this.icon.remove();
         if (this.iconBase) this.iconBase.remove();
@@ -261,6 +263,8 @@ class IconManager {
             applyMatrix: true,
             expandShapes: true,
             onLoad: function (importedItem) {
+                console.log('Imported svg data: ' + importedItem);
+
                 if (!this.loadingSvg) return;
                 this.loadingSvg = false; // on error callback is fired twice. This flag stops that
 

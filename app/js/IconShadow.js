@@ -1,8 +1,5 @@
 'use strict';
 
-let paper = require('js/paper-core.min'),
-    paperScope = require('js/PaperScopeManager');
-
 const
     INITIAL_SHADOW_LENGTH = 2000,
     TARGET_ANGLE = Math.PI / 4;

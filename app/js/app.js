@@ -3,9 +3,7 @@
 let IconManager = require('js/IconManager'),
     InputManager = require('js/InputManager'),
     ErrorManager = require('js/ErrorManager'),
-    Dispatcher = require('js/Dispatcher'),
-    paper = require('js/paper-core.min'),
-    paperScope = require('js/PaperScopeManager');
+    Dispatcher = require('js/Dispatcher');
 
 var App = {
 

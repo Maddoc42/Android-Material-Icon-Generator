@@ -1,7 +1,5 @@
 'use strict';
 
-let paper = require('js/paper-core.min');
-
 
 class ColorPicker {
 

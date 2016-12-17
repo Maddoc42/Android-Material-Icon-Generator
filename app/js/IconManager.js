@@ -1,7 +1,6 @@
 'use strict';
 
-let paper = require('js/paper-core.min'),
-    IconBase = require('js/IconBase'),
+let IconBase = require('js/IconBase'),
     Icon = require('js/Icon'),
     ColorPicker = require('js/ColorPicker'),
     paperScope = require('js/PaperScopeManager'),

@@ -1,8 +1,5 @@
 'use strict';
 
-let paper = require('js/paper-core.min'),
-    ShadowZoomUtils = require('js/ShadowZoomUtils');
-
 class Banner {
 
     constructor() {
@@ -12,7 +9,6 @@ class Banner {
             shadowBlur: 2,
             shadowOffset: new paper.Point(0, 1)
         };
-        ShadowZoomUtils.zoomShadowToEditorSize(this.rectangle.style);
         this.text = new PointText(new Point(29, 33));
         this.text.characterStyle = {
             fontSize: 8,

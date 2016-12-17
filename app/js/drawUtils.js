@@ -1,9 +1,6 @@
 "use strict";
 
 
-let paper = require('js/paper-core.min');
-
-
 function drawBounds(item, color) {
     var bounds = item.strokeBounds;
     var rect = new paper.Shape.Rectangle(

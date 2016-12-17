@@ -59,6 +59,14 @@ the site running at http://localhost:3333 (e.g. `npm start`). Run tests via `npm
 ![Travis Status](https://api.travis-ci.org/Maddoc42/Android-Material-Icon-Generator.svg?branch=master)
 
 
+## Nice to know
+
+To directly open an specific icon in the editor, pass the url to the icon as a `icon` query parameter to the website,
+for example
+
+http://localhost:3333/?icon=/img/material-icons/action/ic_android_48px.svg
+
+
 ## License
 Copyright 2016 Philipp Eichhorn 
 

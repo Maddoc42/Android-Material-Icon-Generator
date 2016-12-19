@@ -7,6 +7,10 @@ const
 
 class IconBase {
 
+    static ID() {
+        return 'base 1';
+    }
+
     /**
      * @param center - of the icon base relative to the underlying canvas
      * @param radius - of the icon base
@@ -17,7 +21,8 @@ class IconBase {
             radius: radius,
             shadowColor: new paper.Color(0, 0, 0, 0.4),
             shadowBlur: 2,
-            shadowOffset: new paper.Point(0, 1)
+            shadowOffset: new paper.Point(0, 1),
+            name: IconBase.ID()
         });
         this.shape = SHAPE_CIRCLE;
 
@@ -27,7 +32,8 @@ class IconBase {
             radius: 2,
             shadowColor: this.circleBasePath.shadowColor,
             shadowBlur: this.circleBasePath.shadowBlur,
-            shadowOffset: this.circleBasePath.shadowOffset
+            shadowOffset: this.circleBasePath.shadowOffset,
+            name: IconBase.ID()
         });
         this.squareBasePath.remove();
 

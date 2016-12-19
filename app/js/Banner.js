@@ -2,6 +2,10 @@
 
 class Banner {
 
+    static ID() {
+        return 'banner';
+    }
+
     constructor() {
         this.rectangle = new Path.Rectangle(15.02, 24, 30, 12);
         this.rectangle.style = {
@@ -9,6 +13,7 @@ class Banner {
             shadowBlur: 2,
             shadowOffset: new paper.Point(0, 1)
         };
+        this.rectangle.name = Banner.ID();
         this.text = new PointText(new Point(29, 33));
         this.text.characterStyle = {
             fontSize: 8,

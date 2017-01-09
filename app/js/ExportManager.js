@@ -103,7 +103,7 @@ class ExportManager {
     createAndZipLicenses(rootFolder) {
         let licenseFolder = rootFolder.folder('LICENSE');
         licenseFolder.file('LICENSE.txt', licenses.LICENSE_GENERAL);
-        licenseFolder.file('LICENSE.CC_BY_4_0.txt', licenses.LICENSE_CC_BY_4);
+        licenseFolder.file('LICENSE.CC_BY_NC_3.txt', licenses.LICENSE_CC_BY_NC_3);
     }
 
 }

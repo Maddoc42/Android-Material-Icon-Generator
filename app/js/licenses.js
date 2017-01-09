@@ -1,417 +1,67 @@
 'use strict';
 
-const LICENSE_CC_BY_4 =
-    "Attribution 4.0 International\n" +
-    "\n" +
-    "=======================================================================\n" +
-    "\n" +
-    "Creative Commons Corporation (\"Creative Commons\") is not a law firm and\n" +
-    "does not provide legal services or legal advice. Distribution of\n" +
-    "Creative Commons public licenses does not create a lawyer-client or\n" +
-    "other relationship. Creative Commons makes its licenses and related\n" +
-    "information available on an \"as-is\" basis. Creative Commons gives no\n" +
-    "warranties regarding its licenses, any material licensed under their\n" +
-    "terms and conditions, or any related information. Creative Commons\n" +
-    "disclaims all liability for damages resulting from their use to the\n" +
-    "fullest extent possible.\n" +
-    "\n" +
-    "Using Creative Commons Public Licenses\n" +
-    "\n" +
-    "Creative Commons public licenses provide a standard set of terms and\n" +
-    "conditions that creators and other rights holders may use to share\n" +
-    "original works of authorship and other material subject to copyright\n" +
-    "and certain other rights specified in the public license below. The\n" +
-    "following considerations are for informational purposes only, are not\n" +
-    "exhaustive, and do not form part of our licenses.\n" +
-    "\n" +
-    "     Considerations for licensors: Our public licenses are\n" +
-    "     intended for use by those authorized to give the public\n" +
-    "     permission to use material in ways otherwise restricted by\n" +
-    "     copyright and certain other rights. Our licenses are\n" +
-    "     irrevocable. Licensors should read and understand the terms\n" +
-    "     and conditions of the license they choose before applying it.\n" +
-    "     Licensors should also secure all rights necessary before\n" +
-    "     applying our licenses so that the public can reuse the\n" +
-    "     material as expected. Licensors should clearly mark any\n" +
-    "     material not subject to the license. This includes other CC-\n" +
-    "     licensed material, or material used under an exception or\n" +
-    "     limitation to copyright. More considerations for licensors:\n" +
-    "	wiki.creativecommons.org/Considerations_for_licensors\n" +
-    "\n" +
-    "     Considerations for the public: By using one of our public\n" +
-    "     licenses, a licensor grants the public permission to use the\n" +
-    "     licensed material under specified terms and conditions. If\n" +
-    "     the licensor's permission is not necessary for any reason--for\n" +
-    "     example, because of any applicable exception or limitation to\n" +
-    "     copyright--then that use is not regulated by the license. Our\n" +
-    "     licenses grant only permissions under copyright and certain\n" +
-    "     other rights that a licensor has authority to grant. Use of\n" +
-    "     the licensed material may still be restricted for other\n" +
-    "     reasons, including because others have copyright or other\n" +
-    "     rights in the material. A licensor may make special requests,\n" +
-    "     such as asking that all changes be marked or described.\n" +
-    "     Although not required by our licenses, you are encouraged to\n" +
-    "     respect those requests where reasonable. More_considerations\n" +
-    "     for the public: \n" +
-    "	wiki.creativecommons.org/Considerations_for_licensees\n" +
-    "\n" +
-    "=======================================================================\n" +
-    "\n" +
-    "Creative Commons Attribution 4.0 International Public License\n" +
-    "\n" +
-    "By exercising the Licensed Rights (defined below), You accept and agree\n" +
-    "to be bound by the terms and conditions of this Creative Commons\n" +
-    "Attribution 4.0 International Public License (\"Public License\"). To the\n" +
-    "extent this Public License may be interpreted as a contract, You are\n" +
-    "granted the Licensed Rights in consideration of Your acceptance of\n" +
-    "these terms and conditions, and the Licensor grants You such rights in\n" +
-    "consideration of benefits the Licensor receives from making the\n" +
-    "Licensed Material available under these terms and conditions.\n" +
-    "\n" +
-    "\n" +
-    "Section 1 -- Definitions.\n" +
-    "\n" +
-    "  a. Adapted Material means material subject to Copyright and Similar\n" +
-    "     Rights that is derived from or based upon the Licensed Material\n" +
-    "     and in which the Licensed Material is translated, altered,\n" +
-    "     arranged, transformed, or otherwise modified in a manner requiring\n" +
-    "     permission under the Copyright and Similar Rights held by the\n" +
-    "     Licensor. For purposes of this Public License, where the Licensed\n" +
-    "     Material is a musical work, performance, or sound recording,\n" +
-    "     Adapted Material is always produced where the Licensed Material is\n" +
-    "     synched in timed relation with a moving image.\n" +
-    "\n" +
-    "  b. Adapter's License means the license You apply to Your Copyright\n" +
-    "     and Similar Rights in Your contributions to Adapted Material in\n" +
-    "     accordance with the terms and conditions of this Public License.\n" +
-    "\n" +
-    "  c. Copyright and Similar Rights means copyright and/or similar rights\n" +
-    "     closely related to copyright including, without limitation,\n" +
-    "     performance, broadcast, sound recording, and Sui Generis Database\n" +
-    "     Rights, without regard to how the rights are labeled or\n" +
-    "     categorized. For purposes of this Public License, the rights\n" +
-    "     specified in Section 2(b)(1)-(2) are not Copyright and Similar\n" +
-    "     Rights.\n" +
-    "\n" +
-    "  d. Effective Technological Measures means those measures that, in the\n" +
-    "     absence of proper authority, may not be circumvented under laws\n" +
-    "     fulfilling obligations under Article 11 of the WIPO Copyright\n" +
-    "     Treaty adopted on December 20, 1996, and/or similar international\n" +
-    "     agreements.\n" +
-    "\n" +
-    "  e. Exceptions and Limitations means fair use, fair dealing, and/or\n" +
-    "     any other exception or limitation to Copyright and Similar Rights\n" +
-    "     that applies to Your use of the Licensed Material.\n" +
-    "\n" +
-    "  f. Licensed Material means the artistic or literary work, database,\n" +
-    "     or other material to which the Licensor applied this Public\n" +
-    "     License.\n" +
-    "\n" +
-    "  g. Licensed Rights means the rights granted to You subject to the\n" +
-    "     terms and conditions of this Public License, which are limited to\n" +
-    "     all Copyright and Similar Rights that apply to Your use of the\n" +
-    "     Licensed Material and that the Licensor has authority to license.\n" +
-    "\n" +
-    "  h. Licensor means the individual(s) or entity(ies) granting rights\n" +
-    "     under this Public License.\n" +
-    "\n" +
-    "  i. Share means to provide material to the public by any means or\n" +
-    "     process that requires permission under the Licensed Rights, such\n" +
-    "     as reproduction, public display, public performance, distribution,\n" +
-    "     dissemination, communication, or importation, and to make material\n" +
-    "     available to the public including in ways that members of the\n" +
-    "     public may access the material from a place and at a time\n" +
-    "     individually chosen by them.\n" +
-    "\n" +
-    "  j. Sui Generis Database Rights means rights other than copyright\n" +
-    "     resulting from Directive 96/9/EC of the European Parliament and of\n" +
-    "     the Council of 11 March 1996 on the legal protection of databases,\n" +
-    "     as amended and/or succeeded, as well as other essentially\n" +
-    "     equivalent rights anywhere in the world.\n" +
-    "\n" +
-    "  k. You means the individual or entity exercising the Licensed Rights\n" +
-    "     under this Public License. Your has a corresponding meaning.\n" +
-    "\n" +
-    "\n" +
-    "Section 2 -- Scope.\n" +
-    "\n" +
-    "  a. License grant.\n" +
-    "\n" +
-    "       1. Subject to the terms and conditions of this Public License,\n" +
-    "          the Licensor hereby grants You a worldwide, royalty-free,\n" +
-    "          non-sublicensable, non-exclusive, irrevocable license to\n" +
-    "          exercise the Licensed Rights in the Licensed Material to:\n" +
-    "\n" +
-    "            a. reproduce and Share the Licensed Material, in whole or\n" +
-    "               in part; and\n" +
-    "\n" +
-    "            b. produce, reproduce, and Share Adapted Material.\n" +
-    "\n" +
-    "       2. Exceptions and Limitations. For the avoidance of doubt, where\n" +
-    "          Exceptions and Limitations apply to Your use, this Public\n" +
-    "          License does not apply, and You do not need to comply with\n" +
-    "          its terms and conditions.\n" +
-    "\n" +
-    "       3. Term. The term of this Public License is specified in Section\n" +
-    "          6(a).\n" +
-    "\n" +
-    "       4. Media and formats; technical modifications allowed. The\n" +
-    "          Licensor authorizes You to exercise the Licensed Rights in\n" +
-    "          all media and formats whether now known or hereafter created,\n" +
-    "          and to make technical modifications necessary to do so. The\n" +
-    "          Licensor waives and/or agrees not to assert any right or\n" +
-    "          authority to forbid You from making technical modifications\n" +
-    "          necessary to exercise the Licensed Rights, including\n" +
-    "          technical modifications necessary to circumvent Effective\n" +
-    "          Technological Measures. For purposes of this Public License,\n" +
-    "          simply making modifications authorized by this Section 2(a)\n" +
-    "          (4) never produces Adapted Material.\n" +
-    "\n" +
-    "       5. Downstream recipients.\n" +
-    "            a. Offer from the Licensor -- Licensed Material. Every\n" +
-    "               recipient of the Licensed Material automatically\n" +
-    "               receives an offer from the Licensor to exercise the\n" +
-    "               Licensed Rights under the terms and conditions of this\n" +
-    "               Public License.\n" +
-    "\n" +
-    "            b. No downstream restrictions. You may not offer or impose\n" +
-    "               any additional or different terms or conditions on, or\n" +
-    "               apply any Effective Technological Measures to, the\n" +
-    "               Licensed Material if doing so restricts exercise of the\n" +
-    "               Licensed Rights by any recipient of the Licensed\n" +
-    "               Material.\n" +
-    "\n" +
-    "       6. No endorsement. Nothing in this Public License constitutes or\n" +
-    "          may be construed as permission to assert or imply that You\n" +
-    "          are, or that Your use of the Licensed Material is, connected\n" +
-    "          with, or sponsored, endorsed, or granted official status by,\n" +
-    "          the Licensor or others designated to receive attribution as\n" +
-    "          provided in Section 3(a)(1)(A)(i).\n" +
-    "\n" +
-    "  b. Other rights.\n" +
-    "\n" +
-    "       1. Moral rights, such as the right of integrity, are not\n" +
-    "          licensed under this Public License, nor are publicity,\n" +
-    "          privacy, and/or other similar personality rights; however, to\n" +
-    "          the extent possible, the Licensor waives and/or agrees not to\n" +
-    "          assert any such rights held by the Licensor to the limited\n" +
-    "          extent necessary to allow You to exercise the Licensed\n" +
-    "          Rights, but not otherwise.\n" +
-    "\n" +
-    "       2. Patent and trademark rights are not licensed under this\n" +
-    "          Public License.\n" +
-    "\n" +
-    "       3. To the extent possible, the Licensor waives any right to\n" +
-    "          collect royalties from You for the exercise of the Licensed\n" +
-    "          Rights, whether directly or through a collecting society\n" +
-    "          under any voluntary or waivable statutory or compulsory\n" +
-    "          licensing scheme. In all other cases the Licensor expressly\n" +
-    "          reserves any right to collect such royalties.\n" +
-    "\n" +
-    "\n" +
-    "Section 3 -- License Conditions.\n" +
-    "\n" +
-    "Your exercise of the Licensed Rights is expressly made subject to the\n" +
-    "following conditions.\n" +
-    "\n" +
-    "  a. Attribution.\n" +
-    "\n" +
-    "       1. If You Share the Licensed Material (including in modified\n" +
-    "          form), You must:\n" +
-    "\n" +
-    "            a. retain the following if it is supplied by the Licensor\n" +
-    "               with the Licensed Material:\n" +
-    "\n" +
-    "                 i. identification of the creator(s) of the Licensed\n" +
-    "                    Material and any others designated to receive\n" +
-    "                    attribution, in any reasonable manner requested by\n" +
-    "                    the Licensor (including by pseudonym if\n" +
-    "                    designated);\n" +
-    "                ii. a copyright notice;\n" +
-    "\n" +
-    "               iii. a notice that refers to this Public License;\n" +
-    "\n" +
-    "                iv. a notice that refers to the disclaimer of\n" +
-    "                    warranties;\n" +
-    "\n" +
-    "                 v. a URI or hyperlink to the Licensed Material to the\n" +
-    "                    extent reasonably practicable;\n" +
-    "\n" +
-    "            b. indicate if You modified the Licensed Material and\n" +
-    "               retain an indication of any previous modifications; and\n" +
-    "\n" +
-    "            c. indicate the Licensed Material is licensed under this\n" +
-    "               Public License, and include the text of, or the URI or\n" +
-    "               hyperlink to, this Public License.\n" +
-    "\n" +
-    "       2. You may satisfy the conditions in Section 3(a)(1) in any\n" +
-    "          reasonable manner based on the medium, means, and context in\n" +
-    "          which You Share the Licensed Material. For example, it may be\n" +
-    "          reasonable to satisfy the conditions by providing a URI or\n" +
-    "          hyperlink to a resource that includes the required\n" +
-    "          information.\n" +
-    "\n" +
-    "       3. If requested by the Licensor, You must remove any of the\n" +
-    "          information required by Section 3(a)(1)(A) to the extent\n" +
-    "          reasonably practicable.\n" +
-    "\n" +
-    "       4. If You Share Adapted Material You produce, the Adapter's\n" +
-    "          License You apply must not prevent recipients of the Adapted\n" +
-    "          Material from complying with this Public License.\n" +
-    "\n" +
-    "\n" +
-    "Section 4 -- Sui Generis Database Rights.\n" +
-    "\n" +
-    "Where the Licensed Rights include Sui Generis Database Rights that\n" +
-    "apply to Your use of the Licensed Material:\n" +
-    "\n" +
-    "  a. for the avoidance of doubt, Section 2(a)(1) grants You the right\n" +
-    "     to extract, reuse, reproduce, and Share all or a substantial\n" +
-    "     portion of the contents of the database;\n" +
-    "\n" +
-    "  b. if You include all or a substantial portion of the database\n" +
-    "     contents in a database in which You have Sui Generis Database\n" +
-    "     Rights, then the database in which You have Sui Generis Database\n" +
-    "     Rights (but not its individual contents) is Adapted Material; and\n" +
-    "\n" +
-    "  c. You must comply with the conditions in Section 3(a) if You Share\n" +
-    "     all or a substantial portion of the contents of the database.\n" +
-    "\n" +
-    "For the avoidance of doubt, this Section 4 supplements and does not\n" +
-    "replace Your obligations under this Public License where the Licensed\n" +
-    "Rights include other Copyright and Similar Rights.\n" +
-    "\n" +
-    "\n" +
-    "Section 5 -- Disclaimer of Warranties and Limitation of Liability.\n" +
-    "\n" +
-    "  a. UNLESS OTHERWISE SEPARATELY UNDERTAKEN BY THE LICENSOR, TO THE\n" +
-    "     EXTENT POSSIBLE, THE LICENSOR OFFERS THE LICENSED MATERIAL AS-IS\n" +
-    "     AND AS-AVAILABLE, AND MAKES NO REPRESENTATIONS OR WARRANTIES OF\n" +
-    "     ANY KIND CONCERNING THE LICENSED MATERIAL, WHETHER EXPRESS,\n" +
-    "     IMPLIED, STATUTORY, OR OTHER. THIS INCLUDES, WITHOUT LIMITATION,\n" +
-    "     WARRANTIES OF TITLE, MERCHANTABILITY, FITNESS FOR A PARTICULAR\n" +
-    "     PURPOSE, NON-INFRINGEMENT, ABSENCE OF LATENT OR OTHER DEFECTS,\n" +
-    "     ACCURACY, OR THE PRESENCE OR ABSENCE OF ERRORS, WHETHER OR NOT\n" +
-    "     KNOWN OR DISCOVERABLE. WHERE DISCLAIMERS OF WARRANTIES ARE NOT\n" +
-    "     ALLOWED IN FULL OR IN PART, THIS DISCLAIMER MAY NOT APPLY TO YOU.\n" +
-    "\n" +
-    "  b. TO THE EXTENT POSSIBLE, IN NO EVENT WILL THE LICENSOR BE LIABLE\n" +
-    "     TO YOU ON ANY LEGAL THEORY (INCLUDING, WITHOUT LIMITATION,\n" +
-    "     NEGLIGENCE) OR OTHERWISE FOR ANY DIRECT, SPECIAL, INDIRECT,\n" +
-    "     INCIDENTAL, CONSEQUENTIAL, PUNITIVE, EXEMPLARY, OR OTHER LOSSES,\n" +
-    "     COSTS, EXPENSES, OR DAMAGES ARISING OUT OF THIS PUBLIC LICENSE OR\n" +
-    "     USE OF THE LICENSED MATERIAL, EVEN IF THE LICENSOR HAS BEEN\n" +
-    "     ADVISED OF THE POSSIBILITY OF SUCH LOSSES, COSTS, EXPENSES, OR\n" +
-    "     DAMAGES. WHERE A LIMITATION OF LIABILITY IS NOT ALLOWED IN FULL OR\n" +
-    "     IN PART, THIS LIMITATION MAY NOT APPLY TO YOU.\n" +
-    "\n" +
-    "  c. The disclaimer of warranties and limitation of liability provided\n" +
-    "     above shall be interpreted in a manner that, to the extent\n" +
-    "     possible, most closely approximates an absolute disclaimer and\n" +
-    "     waiver of all liability.\n" +
-    "\n" +
-    "\n" +
-    "Section 6 -- Term and Termination.\n" +
-    "\n" +
-    "  a. This Public License applies for the term of the Copyright and\n" +
-    "     Similar Rights licensed here. However, if You fail to comply with\n" +
-    "     this Public License, then Your rights under this Public License\n" +
-    "     terminate automatically.\n" +
-    "\n" +
-    "  b. Where Your right to use the Licensed Material has terminated under\n" +
-    "     Section 6(a), it reinstates:\n" +
-    "\n" +
-    "       1. automatically as of the date the violation is cured, provided\n" +
-    "          it is cured within 30 days of Your discovery of the\n" +
-    "          violation; or\n" +
-    "\n" +
-    "       2. upon express reinstatement by the Licensor.\n" +
-    "\n" +
-    "     For the avoidance of doubt, this Section 6(b) does not affect any\n" +
-    "     right the Licensor may have to seek remedies for Your violations\n" +
-    "     of this Public License.\n" +
-    "\n" +
-    "  c. For the avoidance of doubt, the Licensor may also offer the\n" +
-    "     Licensed Material under separate terms or conditions or stop\n" +
-    "     distributing the Licensed Material at any time; however, doing so\n" +
-    "     will not terminate this Public License.\n" +
-    "\n" +
-    "  d. Sections 1, 5, 6, 7, and 8 survive termination of this Public\n" +
-    "     License.\n" +
-    "\n" +
-    "\n" +
-    "Section 7 -- Other Terms and Conditions.\n" +
-    "\n" +
-    "  a. The Licensor shall not be bound by any additional or different\n" +
-    "     terms or conditions communicated by You unless expressly agreed.\n" +
-    "\n" +
-    "  b. Any arrangements, understandings, or agreements regarding the\n" +
-    "     Licensed Material not stated herein are separate from and\n" +
-    "     independent of the terms and conditions of this Public License.\n" +
-    "\n" +
-    "\n" +
-    "Section 8 -- Interpretation.\n" +
-    "\n" +
-    "  a. For the avoidance of doubt, this Public License does not, and\n" +
-    "     shall not be interpreted to, reduce, limit, restrict, or impose\n" +
-    "     conditions on any use of the Licensed Material that could lawfully\n" +
-    "     be made without permission under this Public License.\n" +
-    "\n" +
-    "  b. To the extent possible, if any provision of this Public License is\n" +
-    "     deemed unenforceable, it shall be automatically reformed to the\n" +
-    "     minimum extent necessary to make it enforceable. If the provision\n" +
-    "     cannot be reformed, it shall be severed from this Public License\n" +
-    "     without affecting the enforceability of the remaining terms and\n" +
-    "     conditions.\n" +
-    "\n" +
-    "  c. No term or condition of this Public License will be waived and no\n" +
-    "     failure to comply consented to unless expressly agreed to by the\n" +
-    "     Licensor.\n" +
-    "\n" +
-    "  d. Nothing in this Public License constitutes or may be interpreted\n" +
-    "     as a limitation upon, or waiver of, any privileges and immunities\n" +
-    "     that apply to the Licensor or You, including from the legal\n" +
-    "     processes of any jurisdiction or authority.\n" +
-    "\n" +
-    "\n" +
-    "=======================================================================\n" +
-    "\n" +
-    "Creative Commons is not a party to its public licenses.\n" +
-    "Notwithstanding, Creative Commons may elect to apply one of its public\n" +
-    "licenses to material it publishes and in those instances will be\n" +
-    "considered the \"Licensor.\" Except for the limited purpose of indicating\n" +
-    "that material is shared under a Creative Commons public license or as\n" +
-    "otherwise permitted by the Creative Commons policies published at\n" +
-    "creativecommons.org/policies, Creative Commons does not authorize the\n" +
-    "use of the trademark \"Creative Commons\" or any other trademark or logo\n" +
-    "of Creative Commons without its prior written consent including,\n" +
-    "without limitation, in connection with any unauthorized modifications\n" +
-    "to any of its public licenses or any other arrangements,\n" +
-    "understandings, or agreements concerning use of licensed material. For\n" +
-    "the avoidance of doubt, this paragraph does not form part of the public\n" +
-    "licenses.\n" +
-    "\n" +
-    "Creative Commons may be contacted at creativecommons.org.\n";
-
+const LICENSE_CC_BY_NC_3 =
+        "Attribution-NonCommercial 3.0 Unported\n" +
+        "\n" +
+        "THE WORK (AS DEFINED BELOW) IS PROVIDED UNDER THE TERMS OF THIS CREATIVE COMMONS PUBLIC LICENSE (\"CCPL\" OR \"LICENSE\"). THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.\n" +
+        "BY EXERCISING ANY RIGHTS TO THE WORK PROVIDED HERE, YOU ACCEPT AND AGREE TO BE BOUND BY THE TERMS OF THIS LICENSE. TO THE EXTENT THIS LICENSE MAY BE CONSIDERED TO BE A CONTRACT, THE LICENSOR GRANTS YOU THE RIGHTS CONTAINED HERE IN CONSIDERATION OF YOUR ACCEPTANCE OF SUCH TERMS AND CONDITIONS.\n" +
+        "1. Definitions\n" +
+        "\"Adaptation\" means a work based upon the Work, or upon the Work and other pre-existing works, such as a translation, adaptation, derivative work, arrangement of music or other alterations of a literary or artistic work, or phonogram or performance and includes cinematographic adaptations or any other form in which the Work may be recast, transformed, or adapted including in any form recognizably derived from the original, except that a work that constitutes a Collection will not be considered an Adaptation for the purpose of this License. For the avoidance of doubt, where the Work is a musical work, performance or phonogram, the synchronization of the Work in timed-relation with a moving image (\"synching\") will be considered an Adaptation for the purpose of this License.\n" +
+        "\"Collection\" means a collection of literary or artistic works, such as encyclopedias and anthologies, or performances, phonograms or broadcasts, or other works or subject matter other than works listed in Section 1(f) below, which, by reason of the selection and arrangement of their contents, constitute intellectual creations, in which the Work is included in its entirety in unmodified form along with one or more other contributions, each constituting separate and independent works in themselves, which together are assembled into a collective whole. A work that constitutes a Collection will not be considered an Adaptation (as defined above) for the purposes of this License.\n" +
+        "\"Distribute\" means to make available to the public the original and copies of the Work or Adaptation, as appropriate, through sale or other transfer of ownership.\n" +
+        "\"Licensor\" means the individual, individuals, entity or entities that offer(s) the Work under the terms of this License.\n" +
+        "\"Original Author\" means, in the case of a literary or artistic work, the individual, individuals, entity or entities who created the Work or if no individual or entity can be identified, the publisher; and in addition (i) in the case of a performance the actors, singers, musicians, dancers, and other persons who act, sing, deliver, declaim, play in, interpret or otherwise perform literary or artistic works or expressions of folklore; (ii) in the case of a phonogram the producer being the person or legal entity who first fixes the sounds of a performance or other sounds; and, (iii) in the case of broadcasts, the organization that transmits the broadcast.\n" +
+        "\"Work\" means the literary and/or artistic work offered under the terms of this License including without limitation any production in the literary, scientific and artistic domain, whatever may be the mode or form of its expression including digital form, such as a book, pamphlet and other writing; a lecture, address, sermon or other work of the same nature; a dramatic or dramatico-musical work; a choreographic work or entertainment in dumb show; a musical composition with or without words; a cinematographic work to which are assimilated works expressed by a process analogous to cinematography; a work of drawing, painting, architecture, sculpture, engraving or lithography; a photographic work to which are assimilated works expressed by a process analogous to photography; a work of applied art; an illustration, map, plan, sketch or three-dimensional work relative to geography, topography, architecture or science; a performance; a broadcast; a phonogram; a compilation of data to the extent it is protected as a copyrightable work; or a work performed by a variety or circus performer to the extent it is not otherwise considered a literary or artistic work.\n" +
+        "\"You\" means an individual or entity exercising rights under this License who has not previously violated the terms of this License with respect to the Work, or who has received express permission from the Licensor to exercise rights under this License despite a previous violation.\n" +
+        "\"Publicly Perform\" means to perform public recitations of the Work and to communicate to the public those public recitations, by any means or process, including by wire or wireless means or public digital performances; to make available to the public Works in such a way that members of the public may access these Works from a place and at a place individually chosen by them; to perform the Work to the public by any means or process and the communication to the public of the performances of the Work, including by public digital performance; to broadcast and rebroadcast the Work by any means including signs, sounds or images.\n" +
+        "\"Reproduce\" means to make copies of the Work by any means including without limitation by sound or visual recordings and the right of fixation and reproducing fixations of the Work, including storage of a protected performance or phonogram in digital form or other electronic medium.\n" +
+        "2. Fair Dealing Rights. Nothing in this License is intended to reduce, limit, or restrict any uses free from copyright or rights arising from limitations or exceptions that are provided for in connection with the copyright protection under copyright law or other applicable laws.\n" +
+        "3. License Grant. Subject to the terms and conditions of this License, Licensor hereby grants You a worldwide, royalty-free, non-exclusive, perpetual (for the duration of the applicable copyright) license to exercise the rights in the Work as stated below:\n" +
+        "to Reproduce the Work, to incorporate the Work into one or more Collections, and to Reproduce the Work as incorporated in the Collections;\n" +
+        "to create and Reproduce Adaptations provided that any such Adaptation, including any translation in any medium, takes reasonable steps to clearly label, demarcate or otherwise identify that changes were made to the original Work. For example, a translation could be marked \"The original work was translated from English to Spanish,\" or a modification could indicate \"The original work has been modified.\";\n" +
+        "to Distribute and Publicly Perform the Work including as incorporated in Collections; and,\n" +
+        "to Distribute and Publicly Perform Adaptations.\n" +
+        "The above rights may be exercised in all media and formats whether now known or hereafter devised. The above rights include the right to make such modifications as are technically necessary to exercise the rights in other media and formats. Subject to Section 8(f), all rights not expressly granted by Licensor are hereby reserved, including but not limited to the rights set forth in Section 4(d).\n" +
+        "4. Restrictions. The license granted in Section 3 above is expressly made subject to and limited by the following restrictions:\n" +
+        "You may Distribute or Publicly Perform the Work only under the terms of this License. You must include a copy of, or the Uniform Resource Identifier (URI) for, this License with every copy of the Work You Distribute or Publicly Perform. You may not offer or impose any terms on the Work that restrict the terms of this License or the ability of the recipient of the Work to exercise the rights granted to that recipient under the terms of the License. You may not sublicense the Work. You must keep intact all notices that refer to this License and to the disclaimer of warranties with every copy of the Work You Distribute or Publicly Perform. When You Distribute or Publicly Perform the Work, You may not impose any effective technological measures on the Work that restrict the ability of a recipient of the Work from You to exercise the rights granted to that recipient under the terms of the License. This Section 4(a) applies to the Work as incorporated in a Collection, but this does not require the Collection apart from the Work itself to be made subject to the terms of this License. If You create a Collection, upon notice from any Licensor You must, to the extent practicable, remove from the Collection any credit as required by Section 4(c), as requested. If You create an Adaptation, upon notice from any Licensor You must, to the extent practicable, remove from the Adaptation any credit as required by Section 4(c), as requested.\n" +
+        "You may not exercise any of the rights granted to You in Section 3 above in any manner that is primarily intended for or directed toward commercial advantage or private monetary compensation. The exchange of the Work for other copyrighted works by means of digital file-sharing or otherwise shall not be considered to be intended for or directed toward commercial advantage or private monetary compensation, provided there is no payment of any monetary compensation in connection with the exchange of copyrighted works.\n" +
+        "If You Distribute, or Publicly Perform the Work or any Adaptations or Collections, You must, unless a request has been made pursuant to Section 4(a), keep intact all copyright notices for the Work and provide, reasonable to the medium or means You are utilizing: (i) the name of the Original Author (or pseudonym, if applicable) if supplied, and/or if the Original Author and/or Licensor designate another party or parties (e.g., a sponsor institute, publishing entity, journal) for attribution (\"Attribution Parties\") in Licensor's copyright notice, terms of service or by other reasonable means, the name of such party or parties; (ii) the title of the Work if supplied; (iii) to the extent reasonably practicable, the URI, if any, that Licensor specifies to be associated with the Work, unless such URI does not refer to the copyright notice or licensing information for the Work; and, (iv) consistent with Section 3(b), in the case of an Adaptation, a credit identifying the use of the Work in the Adaptation (e.g., \"French translation of the Work by Original Author,\" or \"Screenplay based on original Work by Original Author\"). The credit required by this Section 4(c) may be implemented in any reasonable manner; provided, however, that in the case of a Adaptation or Collection, at a minimum such credit will appear, if a credit for all contributing authors of the Adaptation or Collection appears, then as part of these credits and in a manner at least as prominent as the credits for the other contributing authors. For the avoidance of doubt, You may only use the credit required by this Section for the purpose of attribution in the manner set out above and, by exercising Your rights under this License, You may not implicitly or explicitly assert or imply any connection with, sponsorship or endorsement by the Original Author, Licensor and/or Attribution Parties, as appropriate, of You or Your use of the Work, without the separate, express prior written permission of the Original Author, Licensor and/or Attribution Parties.\n" +
+        "For the avoidance of doubt:\n" +
+        "Non-waivable Compulsory License Schemes. In those jurisdictions in which the right to collect royalties through any statutory or compulsory licensing scheme cannot be waived, the Licensor reserves the exclusive right to collect such royalties for any exercise by You of the rights granted under this License;\n" +
+        "Waivable Compulsory License Schemes. In those jurisdictions in which the right to collect royalties through any statutory or compulsory licensing scheme can be waived, the Licensor reserves the exclusive right to collect such royalties for any exercise by You of the rights granted under this License if Your exercise of such rights is for a purpose or use which is otherwise than noncommercial as permitted under Section 4(b) and otherwise waives the right to collect royalties through any statutory or compulsory licensing scheme; and,\n" +
+        "Voluntary License Schemes. The Licensor reserves the right to collect royalties, whether individually or, in the event that the Licensor is a member of a collecting society that administers voluntary licensing schemes, via that society, from any exercise by You of the rights granted under this License that is for a purpose or use which is otherwise than noncommercial as permitted under Section 4(c).\n" +
+        "Except as otherwise agreed in writing by the Licensor or as may be otherwise permitted by applicable law, if You Reproduce, Distribute or Publicly Perform the Work either by itself or as part of any Adaptations or Collections, You must not distort, mutilate, modify or take other derogatory action in relation to the Work which would be prejudicial to the Original Author's honor or reputation. Licensor agrees that in those jurisdictions (e.g. Japan), in which any exercise of the right granted in Section 3(b) of this License (the right to make Adaptations) would be deemed to be a distortion, mutilation, modification or other derogatory action prejudicial to the Original Author's honor and reputation, the Licensor will waive or not assert, as appropriate, this Section, to the fullest extent permitted by the applicable national law, to enable You to reasonably exercise Your right under Section 3(b) of this License (right to make Adaptations) but not otherwise.\n" +
+        "5. Representations, Warranties and Disclaimer\n" +
+        "UNLESS OTHERWISE MUTUALLY AGREED TO BY THE PARTIES IN WRITING, LICENSOR OFFERS THE WORK AS-IS AND MAKES NO REPRESENTATIONS OR WARRANTIES OF ANY KIND CONCERNING THE WORK, EXPRESS, IMPLIED, STATUTORY OR OTHERWISE, INCLUDING, WITHOUT LIMITATION, WARRANTIES OF TITLE, MERCHANTIBILITY, FITNESS FOR A PARTICULAR PURPOSE, NONINFRINGEMENT, OR THE ABSENCE OF LATENT OR OTHER DEFECTS, ACCURACY, OR THE PRESENCE OF ABSENCE OF ERRORS, WHETHER OR NOT DISCOVERABLE. SOME JURISDICTIONS DO NOT ALLOW THE EXCLUSION OF IMPLIED WARRANTIES, SO SUCH EXCLUSION MAY NOT APPLY TO YOU.\n" +
+        "6. Limitation on Liability. EXCEPT TO THE EXTENT REQUIRED BY APPLICABLE LAW, IN NO EVENT WILL LICENSOR BE LIABLE TO YOU ON ANY LEGAL THEORY FOR ANY SPECIAL, INCIDENTAL, CONSEQUENTIAL, PUNITIVE OR EXEMPLARY DAMAGES ARISING OUT OF THIS LICENSE OR THE USE OF THE WORK, EVEN IF LICENSOR HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.\n" +
+        "7. Termination\n" +
+        "This License and the rights granted hereunder will terminate automatically upon any breach by You of the terms of this License. Individuals or entities who have received Adaptations or Collections from You under this License, however, will not have their licenses terminated provided such individuals or entities remain in full compliance with those licenses. Sections 1, 2, 5, 6, 7, and 8 will survive any termination of this License.\n" +
+        "Subject to the above terms and conditions, the license granted here is perpetual (for the duration of the applicable copyright in the Work). Notwithstanding the above, Licensor reserves the right to release the Work under different license terms or to stop distributing the Work at any time; provided, however that any such election will not serve to withdraw this License (or any other license that has been, or is required to be, granted under the terms of this License), and this License will continue in full force and effect unless terminated as stated above.\n" +
+        "8. Miscellaneous\n" +
+        "Each time You Distribute or Publicly Perform the Work or a Collection, the Licensor offers to the recipient a license to the Work on the same terms and conditions as the license granted to You under this License.\n" +
+        "Each time You Distribute or Publicly Perform an Adaptation, Licensor offers to the recipient a license to the original Work on the same terms and conditions as the license granted to You under this License.\n" +
+        "If any provision of this License is invalid or unenforceable under applicable law, it shall not affect the validity or enforceability of the remainder of the terms of this License, and without further action by the parties to this agreement, such provision shall be reformed to the minimum extent necessary to make such provision valid and enforceable.\n" +
+        "No term or provision of this License shall be deemed waived and no breach consented to unless such waiver or consent shall be in writing and signed by the party to be charged with such waiver or consent.\n" +
+        "This License constitutes the entire agreement between the parties with respect to the Work licensed here. There are no understandings, agreements or representations with respect to the Work not specified here. Licensor shall not be bound by any additional provisions that may appear in any communication from You. This License may not be modified without the mutual written agreement of the Licensor and You.\n" +
+        "The rights granted under, and the subject matter referenced, in this License were drafted utilizing the terminology of the Berne Convention for the Protection of Literary and Artistic Works (as amended on September 28, 1979), the Rome Convention of 1961, the WIPO Copyright Treaty of 1996, the WIPO Performances and Phonograms Treaty of 1996 and the Universal Copyright Convention (as revised on July 24, 1971). These rights and subject matter take effect in the relevant jurisdiction in which the License terms are sought to be enforced according to the corresponding provisions of the implementation of those treaty provisions in the applicable national law. If the standard suite of rights granted under applicable copyright law includes additional rights not granted under this License, such additional rights are deemed to be included in the License; this License is not intended to restrict the license of any rights under applicable law.\n"
+    ;
 
 const LICENSE_GENERAL =
-    "Android Material Icon Generator License\n" +
-    "================================\n" +
+    "License\n" +
+    "=======\n" +
     "\n" +
-    "Icons generated with the Android Material Icon Generator come with the Creative Common\n" +
-    "Attribution 4.0 International License (CC-BY 4.0). You are free to change,\n" +
-    "combine and sell any of the icons as you please. Attribution would be great,\n" +
-    "but is not strictly required.\n" +
+    "Icons generated with the Android Material Icon Generator are licensed under the Creative Commons Attribution-NonCommercial 3.0 License" +
+    " (https://creativecommons.org/licenses/by-nc/3.0/).\n" +
     "\n" +
-    "This text only applies to the icons (.zip file) you download from the icon\n" +
-    "generator. The software behind the generator has its own license\n" +
-    "(https://www.apache.org/licenses/LICENSE-2.0). See the GitHub repository for\n" +
-    "details (https://github.com/Maddoc42/Android-Material-Icon-Generator).\n" +
+    "For commercial usage, please submit a request under https://goo.gl/forms/zX8GZ3Jz89SRyHdJ2 " +
+    "or send us an email to material-icons@bitdroid.de." +
     "\n" +
     "\n" +
     "\n" +
     "Google Material Icons License\n" +
     "=============================\n" +
+    "\n" +
+    "This license applies to the Google Material Icons, which can be seen on the front page of the Android Material icon generator.\n" +
     "\n" +
     "(Copied from https://github.com/google/material-design-icons)\n" +
     "We have made these icons available for you to incorporate them into your\n" +
@@ -423,7 +73,7 @@ const LICENSE_GENERAL =
 
 
 module.exports = {
-    LICENSE_CC_BY_4: LICENSE_CC_BY_4,
+    LICENSE_CC_BY_NC_3: LICENSE_CC_BY_NC_3,
     LICENSE_GENERAL: LICENSE_GENERAL
 };
 

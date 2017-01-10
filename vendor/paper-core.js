@@ -9870,6 +9870,8 @@ PathItem.inject(new function() {
 				prevCurve = curve;
 			}
 			if (exclude) {
+				// TODO this line has been added to work arround a bug!
+				if (!rescaleLocs) rescaleLocs = [];
 				rescaleLocs.push(loc);
 				continue;
 			} else if (include) {

@@ -379,7 +379,9 @@ class IconManager {
             simplePaths.sort(function(a , b) {
                 return a.area - b.area;
             });
-            return new paper.CompoundPath({ children: simplePaths });
+            const result = new paper.CompoundPath({ children: simplePaths });
+            result.fillColor = result.children[0].fillColor;
+            return result;
         }
 
         if (importedItem instanceof paper.PathItem) {

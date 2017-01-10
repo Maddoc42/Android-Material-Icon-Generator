@@ -29,7 +29,7 @@ casper.test.begin('Simple shadow create + download', 14, function (test) {
         // check that all files are present
         var zip = new JSZip(downloadedBinaryData);
         test.assertTruthy(zip.file('icons/LICENSE/LICENSE.txt'));
-        test.assertTruthy(zip.file('icons/LICENSE/LICENSE.CC_BY_4_0.txt'));
+        test.assertTruthy(zip.file('icons/LICENSE/LICENSE.CC_BY_NC_3.txt'));
         test.assertTruthy(zip.file('icons/mipmap-mdpi/ic_launcher.png'));
         test.assertTruthy(zip.file('icons/mipmap-hdpi/ic_launcher.png'));
         test.assertTruthy(zip.file('icons/mipmap-xhdpi/ic_launcher.png'));

@@ -16,10 +16,10 @@ class Icon {
         this.originalPosition = new paper.Point(position);
         this.iconPath = iconPath;
         this.iconPath.position = position;
-        this.iconPath.remove();
         this.iconPath.fillColor = null;
         this.iconBase = iconBase;
         this.iconShadow = new IconShadow(iconPath, iconBase);
+        this.iconPath.remove();
         this.size = Math.max(iconPath.bounds.width, iconPath.bounds.height);
         this.scale = 1;
         this.iconPath.moveAbove(iconBase.getPathWithoutShadows());

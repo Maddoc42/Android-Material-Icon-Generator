@@ -54,7 +54,7 @@ class IconShadow {
                 }
                 subPath.closed = true;
 
-                this.iconShadowPaths.push(new paper.Path(subPath.pathData));
+                this.iconShadowPaths.push(subPath.clone());
             }
         }
 
@@ -290,9 +290,9 @@ class IconShadow {
      */
     createUnitedIconShadowPath() {
         if (this.unitedIconShadowPath) this.unitedIconShadowPath.remove();
-        this.unitedIconShadowPath = new paper.Path(this.iconShadowPaths[0].pathData);
+        this.unitedIconShadowPath = this.iconShadowPaths[0].clone();
         for (let i = 1; i < this.iconShadowPaths.length; ++i) {
-            let subPathCopy = new paper.Path(this.iconShadowPaths[i].pathData);
+            let subPathCopy = this.iconShadowPaths[i].clone();
             let newShadowPath = this.unitedIconShadowPath.unite(subPathCopy);
             subPathCopy.remove();
             this.unitedIconShadowPath.remove();
@@ -355,11 +355,13 @@ class IconShadow {
      */
     getAndCopyPaths(pathItem) {
         if (pathItem instanceof paper.Path) {
-            return [ pathItem.clone() ];
+            const result = [ new paper.Path(pathItem.pathData) ];
+            result[0].position = pathItem.position.clone();
+            return result;
         }
 
         // copy children
-        let children = [];
+        const children = [];
         for (let i = 0; i < pathItem.children.length; ++i) {
             children.push(new paper.Path(pathItem.children[i].pathData));
         }

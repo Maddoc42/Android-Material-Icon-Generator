@@ -361,25 +361,10 @@ class IconManager {
                 path.remove();
             }
 
-            // create new CompoundPath from single paths
-            let simplePaths = [];
+            let result = filledPaths[0];
             for (let i = 0; i < filledPaths.length; ++i) {
-                let path = filledPaths[i];
-                if (path instanceof paper.Path) {
-                    simplePaths.push(path);
-                } else if (path instanceof paper.CompoundPath) {
-                    for (let j = 0; j < path.children.length; ++j) {
-                        simplePaths.push(path.children[j]);
-                    }
-                }
-                simplePaths[simplePaths.length - 1].fillColor = new paper.Color(0, 0, 0, 0);
+                result = result.unite(filledPaths[i]);
             }
-            // sorting paths by area seems to be necessary to properly determine inside / outside of paths
-            // (yes, it shouldn't, but ic_child_care_* seems to do just this)
-            simplePaths.sort(function(a , b) {
-                return a.area - b.area;
-            });
-            const result = new paper.CompoundPath({ children: simplePaths });
             result.fillColor = result.children[0].fillColor;
             return result;
         }

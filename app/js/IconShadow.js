@@ -72,16 +72,16 @@ class IconShadow {
 
     findNextTangent(path) {
         // go over each curve and try finding tangent with target angle
-        for (let i = 0; i < path.curves.length; ++i) {
+        outer: for (let i = 0; i < path.curves.length; ++i) {
             let curve = path.curves[i];
 
             // search for tangent within curve
             let timeParams = this.findNextTangentFromCurve(curve);
             if (timeParams.length > 0) {
                 // don't split curve right at the beginning (otherwise it might never stop splitting there ...)
-                if (i === 0 && timeParams[0] < 1E-10) {
+                while (i === 0 && timeParams[0] < 1E-10) {
                     timeParams.splice(0, 1);
-                    if (timeParams.length === 0) continue;
+                    if (timeParams.length === 0) continue outer;
                 }
 
                 return {

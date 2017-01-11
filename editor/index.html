@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+	<head lang="en">
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+		<title>Android Material Icon Generator</title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		<script type="text/javascript" src="/js/vendor.js"></script>
+		<script type="text/javascript" src="/js/index.js"></script>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/bootstrap-slider.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/css/bootstrap-slider.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700" rel="stylesheet" type="text/css">
+		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="/css/index.css">
+		<link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png">
+		<link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon-60x60.png">
+		<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
+		<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png">
+		<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
+		<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png">
+		<link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
+		<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
+		<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="android-chrome-192x192.png" sizes="192x192">
+		<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
+		<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="manifest.json">
+		<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
+		<meta name="msapplication-TileColor" content="#da532c">
+		<meta name="msapplication-TileImage" content="mstile-144x144.png">
+		<meta name="theme-color" content="#ffffff">
+	</head>
+	<body>
+		<div id="barba-wrapper">
+			<div id="container-edit" data-namespace="editor" class="container-fluid full-height barba-container">
+				<div class="row full-height">
+					<!-- controls-->
+					<div id="container-controls-parent" data-simplebar-direction="vertical" class="col-sm-4 col-md-3">
+						<div id="container-controls">
+							<div class="controls-entry">
+								<div class="row">
+									<h3>Background color</h3>
+								</div>
+								<div class="row">
+									<div id="color-base" class="input-group color-input-group">
+										<input type="text" class="form-control"><span class="input-group-addon"><i></i></span>
+									</div>
+								</div>
+							</div>
+							<div class="controls-entry">
+								<div class="row">
+									<h3>Background shape</h3>
+								</div>
+								<div class="row">
+									<from role="form" id="base-shape">
+										<div class="radio-inline">
+											<input type="radio" name="radio-base-shape" checked="checked" id="base-shape-circle">
+											<label for="base-shape-circle"><span></span><span>Circle</span></label>
+										</div>
+										<div class="radio-inline">
+											<input type="radio" name="radio-base-shape" id="base-shape-square">
+											<label for="base-shape-square"><span></span><span>Square</span></label>
+										</div>
+									</from>
+								</div>
+							</div>
+							<div class="controls-entry">
+								<div class="row">
+									<h3>Icon color</h3>
+								</div>
+								<div class="row">
+									<div id="color-icon" class="input-group color-input-group">
+										<input type="text" class="form-control"><span class="input-group-addon"><i></i></span>
+									</div>
+								</div>
+							</div>
+							<div class="controls-entry">
+								<div class="row">
+									<h3>Center icon</h3>
+								</div>
+								<div class="row">
+									<input id="checkbox-center-icon" checked type="checkbox" data-toggle="toggle" data-width="100">
+								</div>
+							</div>
+							<div class="controls-entry">
+								<div class="row">
+									<h3>Shadow length</h3>
+								</div>
+								<div class="row">
+									<input id="slider-shadow-length" type="text" data-slider-id="slider-shadow-length-id" data-slider-min="0.5" data-slider-max="60" data-slider-step="0.5" data-slider-value="30">
+								</div>
+							</div>
+							<div class="controls-entry">
+								<div class="row">
+									<h3>Shadow intensity</h3>
+								</div>
+								<div class="row">
+									<input id="slider-shadow-intensity" type="text" data-slider-id="slider-shadow-intensity-id" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="0.7">
+								</div>
+							</div>
+							<div class="controls-entry">
+								<div class="row">
+									<h3>Shadow fading</h3>
+								</div>
+								<div class="row">
+									<input id="slider-shadow-fading" type="text" data-slider-id="slider-shadow-fading-id" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="1">
+								</div>
+							</div>
+							<div class="controls-entry">
+								<div class="row">
+									<h3>Icon size</h3>
+								</div>
+								<div class="row">
+									<input id="slider-icon-size" type="text" data-slider-id="slider-icon-size-id" data-slider-min="0.1" data-slider-max="7" data-slider-value="5" data-slider-step="0.1" data-slider-tooltip="bottom">
+								</div>
+							</div>
+							<div class="controls-entry">
+								<div class="row">
+									<h3>Banner</h3>
+								</div>
+								<div class="row">
+									<from role="form" id="banner">
+										<div class="radio-inline">
+											<input type="radio" name="radio-banner" checked="checked" id="banner-none">
+											<label for="banner-none"><span></span><span>None</span></label>
+										</div>
+										<div class="radio-inline">
+											<input type="radio" name="radio-banner" id="banner-beta">
+											<label for="banner-beta"><span></span><span>Beta</span></label>
+										</div>
+										<div class="radio-inline">
+											<input type="radio" name="radio-banner" id="banner-dev">
+											<label for="banner-dev"><span></span><span>Dev</span></label>
+										</div>
+									</from>
+								</div>
+							</div>
+							<div id="banner-collapsible-container">
+								<div class="controls-entry">
+									<div class="row">
+										<h3>Banner background color</h3>
+									</div>
+									<div class="row">
+										<div id="color-banner-background" class="input-group color-input-group">
+											<input type="text" class="form-control"><span class="input-group-addon"><i></i></span>
+										</div>
+									</div>
+								</div>
+								<div class="controls-entry">
+									<div class="row">
+										<h3>Banner text color</h3>
+									</div>
+									<div class="row">
+										<div id="color-banner-text" class="input-group color-input-group">
+											<input type="text" class="form-control"><span class="input-group-addon"><i></i></span>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div id="download-container" class="controls-entry">
+								<button id="btn-download-svg" type="submit" class="btn btn-lg full-width">Download</button>
+							</div>
+						</div>
+					</div>
+					<!-- canvas-->
+					<div id="container-canvas-draw-parent" class="col-sm-8 col-md-9 full-height">
+						<div id="container-canvas-draw" class="full-height full-width">
+							<div id="container-canvas-draw-wrapper">
+								<canvas id="canvas-draw"></canvas>
+							</div>
+						</div>
+						<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="about"><strong><i class="fa fa-github"></i></strong>&nbsp; Star</a><a href="http://bitdroid.de/me" id="about-homepage" class="about"><strong>Android Material Icon Generator</strong> by Philipp. I'm for hire!</a>
+					</div>
+				</div>
+				<!-- hidden canvas for exporting-->
+				<canvas id="canvas-export-mdpi"></canvas>
+				<canvas id="canvas-export-hdpi"></canvas>
+				<canvas id="canvas-export-xhdpi"></canvas>
+				<canvas id="canvas-export-xxhdpi"></canvas>
+				<canvas id="canvas-export-xxxhdpi"></canvas>
+				<canvas id="canvas-export-playstore-icon"></canvas>
+			</div>
+			<section id="container-error" class="full-height full-width">
+				<div id="container-error-content">
+					<div id="container-error-content-inner">
+						<div id="error-icon"><i class="material-icons">warning</i></div>
+						<div id="error-text">
+							<p id="error-title">No path found</p>
+							<p id="error-msg-1" class="error-msg">Make sure that your SVG file looks something like this:</p>
+							<p id="error-msg-2" class="error-msg">&lt;svg&gt;&lt;path ... /&gt;&lt;/svg&gt;</p>
+						</div>
+					</div><span id="error-close" aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+				</div>
+			</section>
+		</div>
+	</body>
+	<script>require('js/pageInit').init();</script>
+	<script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-74966922-1', 'auto');
+		ga('send', 'pageview');
+	</script>
+</html>

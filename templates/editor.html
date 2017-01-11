@@ -1,0 +1,149 @@
+
+<section id="container-edit" class="container-fluid full-height">
+	<div class="row full-height">
+		<!-- controls-->
+		<div id="container-controls-parent" data-simplebar-direction="vertical" class="col-sm-4 col-md-3">
+			<div id="container-controls">
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Background color</h3>
+					</div>
+					<div class="row">
+						<div id="color-base" class="input-group color-input-group">
+							<input type="text" class="form-control"/><span class="input-group-addon"><i></i></span>
+						</div>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Background shape</h3>
+					</div>
+					<div class="row">
+						<from role="form" id="base-shape">
+							<div class="radio-inline">
+								<input type="radio" name="radio-base-shape" checked="checked" id="base-shape-circle"/>
+								<label for="base-shape-circle"><span></span><span>Circle</span></label>
+							</div>
+							<div class="radio-inline">
+								<input type="radio" name="radio-base-shape" id="base-shape-square"/>
+								<label for="base-shape-square"><span></span><span>Square</span></label>
+							</div>
+						</from>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Icon color</h3>
+					</div>
+					<div class="row">
+						<div id="color-icon" class="input-group color-input-group">
+							<input type="text" class="form-control"/><span class="input-group-addon"><i></i></span>
+						</div>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Center icon</h3>
+					</div>
+					<div class="row">
+						<input id="checkbox-center-icon" checked="checked" type="checkbox" data-toggle="toggle" data-width="100"/>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Shadow length</h3>
+					</div>
+					<div class="row">
+						<input id="slider-shadow-length" type="text" data-slider-id="slider-shadow-length-id" data-slider-min="0.5" data-slider-max="60" data-slider-step="0.5" data-slider-value="30"/>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Shadow intensity</h3>
+					</div>
+					<div class="row">
+						<input id="slider-shadow-intensity" type="text" data-slider-id="slider-shadow-intensity-id" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="0.7"/>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Shadow fading</h3>
+					</div>
+					<div class="row">
+						<input id="slider-shadow-fading" type="text" data-slider-id="slider-shadow-fading-id" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="1"/>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Icon size</h3>
+					</div>
+					<div class="row">
+						<input id="slider-icon-size" type="text" data-slider-id="slider-icon-size-id" data-slider-min="0.1" data-slider-max="7" data-slider-value="5" data-slider-step="0.1" data-slider-tooltip="bottom"/>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
+						<h3>Banner</h3>
+					</div>
+					<div class="row">
+						<from role="form" id="banner">
+							<div class="radio-inline">
+								<input type="radio" name="radio-banner" checked="checked" id="banner-none"/>
+								<label for="banner-none"><span></span><span>None</span></label>
+							</div>
+							<div class="radio-inline">
+								<input type="radio" name="radio-banner" id="banner-beta"/>
+								<label for="banner-beta"><span></span><span>Beta</span></label>
+							</div>
+							<div class="radio-inline">
+								<input type="radio" name="radio-banner" id="banner-dev"/>
+								<label for="banner-dev"><span></span><span>Dev</span></label>
+							</div>
+						</from>
+					</div>
+				</div>
+				<div id="banner-collapsible-container">
+					<div class="controls-entry">
+						<div class="row">
+							<h3>Banner background color</h3>
+						</div>
+						<div class="row">
+							<div id="color-banner-background" class="input-group color-input-group">
+								<input type="text" class="form-control"/><span class="input-group-addon"><i></i></span>
+							</div>
+						</div>
+					</div>
+					<div class="controls-entry">
+						<div class="row">
+							<h3>Banner text color</h3>
+						</div>
+						<div class="row">
+							<div id="color-banner-text" class="input-group color-input-group">
+								<input type="text" class="form-control"/><span class="input-group-addon"><i></i></span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="download-container" class="controls-entry">
+					<button id="btn-download-svg" type="submit" class="btn btn-lg full-width">Download</button>
+				</div>
+			</div>
+		</div>
+		<!-- canvas-->
+		<div id="container-canvas-draw-parent" class="col-sm-8 col-md-9 full-height">
+			<div id="container-canvas-draw" class="full-height full-width">
+				<div id="container-canvas-draw-wrapper">
+					<canvas id="canvas-draw"></canvas>
+				</div>
+			</div>
+			<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="about"><strong><i class="fa fa-github"></i></strong>&nbsp; Star</a><a href="http://bitdroid.de/me" id="about-homepage" class="about"><strong>Android Material Icon Generator</strong> by Philipp. I'm for hire!</a>
+		</div>
+	</div>
+	<!-- hidden canvas for exporting-->
+	<canvas id="canvas-export-mdpi"></canvas>
+	<canvas id="canvas-export-hdpi"></canvas>
+	<canvas id="canvas-export-xhdpi"></canvas>
+	<canvas id="canvas-export-xxhdpi"></canvas>
+	<canvas id="canvas-export-xxxhdpi"></canvas>
+	<canvas id="canvas-export-playstore-icon"></canvas>
+</section>

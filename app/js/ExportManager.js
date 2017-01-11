@@ -1,7 +1,6 @@
 'use strict';
 
-let JSZip = require('js/jszip.min'),
-    paperScope = require('js/PaperScopeManager'),
+let paperScope = require('js/PaperScopeManager'),
     licenses = require('js/licenses'),
     fileSaver = require('js/FileSaver'),
     IconBase = require('js/IconBase'),

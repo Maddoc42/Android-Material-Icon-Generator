@@ -4,6 +4,8 @@ $controls-padding: 20px;
 $canvas-transition-time: 0.5s;
 
 #container-edit {
+  height: 100%;
+  overflow: hidden;
   position: absolute;
   top: 0;
   left: 0;
@@ -289,5 +291,3 @@ $canvas-transition-time: 0.5s;
     to { transform: scale(1) rotate(360deg);}
   }
 }
-
-

@@ -1,0 +1,156 @@
+#container-input
+    .navbar.navbar-default.shadow-depth-1
+        .container
+            .navbar-header
+                button(type='button', data-toggle='collapse', data-target='#collapsible-navbar').navbar-toggle
+                    span.icon-bar
+                    span.icon-bar
+                    span.icon-bar
+                .navbar-brand
+                    a(href='/') Material Icon Generator
+            .collapse.navbar-collapse#collapsible-navbar
+                ul.nav.navbar-nav.navbar-right
+                    li
+                        a(href='#section-license') License
+                    li
+                        a(target='_blank', href='https://github.com/Maddoc42/Android-Material-Icon-Generator') GitHub
+
+    section.section-1
+        .container
+            .row
+                .col-xs-12
+                    h1 Icons with that loooooong material shadow.
+                .col-xs-12
+                    h2 Fast and simple material style SVG icons for your Android app and website!
+                .col-xs-12
+                    .hero-card.shadow-depth-1
+                        .hero.hero-top
+                            img(src='/img/hero/icon-1.svg').img-center
+                            img(src='/img/hero/icon-2.svg').img-left
+                            img(src='/img/hero/icon-3.svg').img-right
+                        .hero.hero-bottom
+                            input(type='file').input-file-picker
+                            .icon-input.icon-input-file
+                                .btn.btn-primary Drop SVG icon here
+                            .icon-input-or or
+                            .icon-input.icon-input-select
+                                .btn.btn-primary Select Material Icon
+                        .hero.hero-msg
+                            p
+                                | For a product icon, the top light from above casts a soft shadow surrounding an element lightly on the top and left.
+                                a(target='_blank', href='https://material.io/guidelines/style/icons.html#') &ndash; Material Design
+
+    section.section-2
+        .container
+            .row
+                .col-xs-12.col-sm-4
+                    .text-center
+                        .feature-img
+                            img(src='/img/feature_svg.svg')
+                        h3 Everything as SVG
+                        p The icon, the material shadow and all effects are created in SVG!
+                .col-xs-12.col-sm-4
+                    .text-center
+                        .feature-img
+                            img(src='/img/feature_icons.svg')
+                        h3 Many icons
+                        p Use the standard Google Material icons or upload your own!
+                .col-xs-12.col-sm-4
+                    .text-center
+                        .feature-img
+                            img(src='/img/feature_customizable.svg')
+                        h3 Fully customizable
+                        p You can change colors, the material shadow, apply beta / dev banners and much more!
+
+    section.section-3#section-license
+        .container
+            .row
+                .col-xs-12
+                    .text-center
+                        h2 License
+                .col-xs-12.col-sm-6.col-md-5.col.col-md-offset-1
+                    .card.shadow-depth-1
+                        .text-center
+                            h3 Personal
+                            .price Free
+                                span.price-msg &nbsp;forever!
+                            p
+                                | If you need icons for your
+                                strong  personal or non-profit project
+                                | , the material icons are completely free!
+                            p
+                                | The generated icons are licensed under the&nbsp;
+                                a(href='https://creativecommons.org/licenses/by-nc/3.0/') Creative Commons Attribution-Non-Commercial 3.0 License.
+                .col-xs-12.col-sm-6.col-md-5
+                    .card.shadow-depth-1
+                        .text-center
+                            h3 Commercial
+                            .price $4.99
+                            p
+                                | If you would like to use the icons in a
+                                strong  commercial project
+                                | , you
+                                | need to purchase a commercial license first.
+                            p
+                                | One license is for one icon. Bulk discounts are available.
+                            a.btn.btn-primary(target='_blank', href='https://goo.gl/forms/zX8GZ3Jz89SRyHdJ2') Request license
+
+    section.section-4
+        include ./input-material-icons-data.static.jade
+        include ./input-material-icons-data-excludes.static.jade
+        .attribution.text-center
+            | Icons are copied from the&nbsp;
+            a(href='https://design.google.com/icons/') Google Material icons collection
+            | , which are available under the&nbsp;
+            a(href='https://creativecommons.org/licenses/by/4.0/') CC-BY license
+            | .
+
+        .icons
+            for category, index in icons
+                .col-xs-12
+                    .category-title.text-center
+                        p #{category.category}
+                        p
+                .icon-picker-icons-column
+                    for icon in category.fileNames
+                        - var iconName = icon.replace('ic_', '');
+                        - iconName = iconName.replace('_48px.svg', '');
+                        - var iconTitle = iconName.replace(new RegExp('_', 'g'), ' ');
+                        if (iconExcludes.indexOf(iconName) <= -1)
+                            .container-icon-anchor(data-icon-category=category.category, data-icon-name=iconName)
+                                .container-icon-inner
+                                    i.material-icons #{iconName}
+                                    .icon-title #{iconTitle}
+
+                if (index != icons.length - 1)
+                    hr.hr-icons
+
+    section.section-footer
+        .container
+            .row
+                .col-xs-10.col-xs-offset-1.col-sm-8.col-sm-offset-2
+                    .card
+                        .row
+                            .col-xs-4
+                                h4 Developers
+                                p
+                                    a(target='_blank', href='https://github.com/Maddoc42/Android-Material-Icon-Generator/') GitHub
+                                p
+                                    a(target='_blank', href='https://github.com/Maddoc42/Android-Material-Icon-Generator#faq') FAQs
+
+                            .col-xs-4
+                                h4 Legal
+                                p
+                                    a(target='_blank', href='https://www.bitdroid.de/legal-notice.html#impressum') Imprint
+                                p
+                                    a(target='_blank', href='https://www.bitdroid.de/legal-notice.html#datenschutz') Data protection
+                                p
+                                    a(target='_blank', href='https://www.bitdroid.de/material-icons-tos.html') ToS
+                            .col-xs-4
+                                h4 Company
+                                p
+                                    a(href='mailto:material-icons@bitdroid.de') Contact
+                .col-xs-12
+                    .made-by.text-center
+                        | &copy; 2016 &ndash; #{new Date().getFullYear()} Philipp Eichhorn &ndash; made in Erlangen, Germany with
+                        i.material-icons favorite_border

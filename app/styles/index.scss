@@ -4,9 +4,9 @@ html, body {
   width: 100%;
   height: 100%;
   background: #f5f5f5;
-  font-family: 'Open Sans', sans-serif;
-  overflow-y: hidden;
-  min-width: $screen-sm-min !important;;
+  // font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
+  overflow: hidden;
 }
 
 
@@ -25,23 +25,15 @@ h3 {
   font-size: 18px;
 }
 
-.full-height {
-  height: 100%;
-}
-
 .full-width {
   width: 100%;
 }
 
-
-.simplebar-scrollbar {
-  background-color: $color-primary-very-light !important;
+.full-height {
+  height: 100%;
 }
 
 
-* .container, * .container-fluid {
-  min-width: $screen-sm-min !important;
-}
 
 
 // creates a layout with 9 columns
@@ -94,4 +86,13 @@ $width-9-columns: 11.11%;
 .col-9-from-9 {
   @extend .col-x-from-9;
   width: 100%;
+}
+
+
+// material shadows
+.shadow-depth-1 {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.10), 0 2px 4px rgba(0, 0, 0, 0.20);
+}
+.shadow-depth-2 {
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }

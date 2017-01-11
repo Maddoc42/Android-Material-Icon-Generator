@@ -1,0 +1,28 @@
+@import 'constants';
+
+#container-input .section-2 {
+  background: #EEEEEE;
+  min-height: 500px;
+  margin-top: -200px;
+  padding-top: 320px;
+  padding-bottom: 120px;
+
+  .feature-img {
+    display: inline-block;
+    height: 140px;
+    width: 140px;
+    padding: 40px;
+    background: white;
+    border-radius: 100%;
+    text-align: center;
+  }
+
+  h3 {
+    font-style: italic;
+    font-weight: 700;
+  }
+
+  h3, p {
+    color: $text-color;
+  }
+}

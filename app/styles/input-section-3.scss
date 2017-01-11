@@ -1,0 +1,54 @@
+@import 'constants';
+
+#container-input .section-3 {
+  background: url('/img/pattern.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  padding-top: 120px;
+  padding-bottom: 120px;
+
+  h2 {
+    color: white;
+    // color: $text-color;
+    font-style: italic;
+    font-size: 38px;
+    font-weight: 700;
+    margin-bottom: 60px;
+  }
+  .card {
+    background: white;
+    border-radius: 2px;
+    padding: 30px;
+    color: $text-color;
+    min-height: 430px;
+    transition-duration: 300ms;
+    &:hover {
+      // box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+      box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    }
+
+    h3 {
+      font-weight: 700;
+      font-size: 22px;
+    }
+
+    .price {
+      margin-top: 40px;
+      margin-bottom: 40px;
+      font-size: 40px;
+      .price-msg {
+        font-size: 14px;
+        margin-left: 5px;
+      }
+    }
+
+    p {
+      text-align: left;
+    }
+
+    .btn {
+      margin-top: 10px;
+    }
+  }
+}
+

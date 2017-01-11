@@ -1,0 +1,40 @@
+@import 'constants';
+
+#container-input .section-footer {
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-image: url('/img/pattern.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  .card {
+    padding: 20px;
+    text-align: center;
+    background: rgba(133, 67, 67, 0.49);
+    border-radius: 2px;
+    color: white;
+    h4 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    p {
+      font-size: 12px;
+      a {
+        color: white;
+        text-decoration: none;
+      }
+    }
+  }
+
+  .made-by {
+    margin-top: 40px;
+    color: white;
+    font-size: 12px;
+    .material-icons {
+      color: white;
+      font-size: 12px;
+      margin-left: 10px;
+    }
+  }
+}

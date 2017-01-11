@@ -253,7 +253,7 @@ class IconManager {
         if (this.iconBase) this.iconBase.remove();
         if (this.banner) {
           this.banner.remove();
-          let bannerCollapseController = this.containerEdit.find("#banner-controller")
+          let bannerCollapseController = this.containerEdit.find("#banner-controller");
           bannerCollapseController.prop("checked", false).change();
         }
 

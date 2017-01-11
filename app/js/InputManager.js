@@ -20,8 +20,8 @@ class InputManager {
 
 
     setupFilePicker() {
-        let overlay = this.containerInput.find('#file-picker-overlay');
-        let input = this.containerInput.find('#file-picker-input');
+        let overlay = this.containerInput.find('.icon-input-file');
+        let input = this.containerInput.find('.input-file-picker');
 
         overlay.click(function() {
             ga('send', 'event', gaConstants.CATEGORY_INPUT, gaConstants.ACTION_PICK_FILE, 'click');
@@ -65,12 +65,12 @@ class InputManager {
     setupIconPicker() {
         // setup click to start editing
         let instanceThis = this;
-        this.containerInput.find('#container-icon-picker .container-icon-anchor').each(function() {
+        this.containerInput.find('.container-icon-anchor').each(function() {
             let icon = $(this);
             icon.click(function() {
                 let category = icon.attr('data-icon-category');
                 let iconName = icon.attr('data-icon-name');
-                let iconFileName = 'img/material-icons/' + category + '/ic_' + iconName + '_48px.svg';
+                let iconFileName = '/img/material-icons/' + category + '/ic_' + iconName + '_48px.svg';
                 ga('send', 'event', gaConstants.CATEGORY_INPUT, gaConstants.ACTION_PICK_ICON, category + '/' + iconName);
                 instanceThis.onSvgLoaded(iconFileName);
             });

@@ -1,0 +1,114 @@
+@import 'constants';
+
+#container-input .section-1 {
+  background-image: url('/img/pattern.svg');
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  h1, h2 {
+    text-align: center;
+    color: white;
+  }
+  h1 {
+    font-size: 36px;
+    font-weight: bold;
+    font-style: italic;
+    margin: 0;
+    margin-bottom: 20px;
+    margin-top: 60px;
+  }
+  h2 {
+    font-family: 'Roboto Light', sans-serif;
+    font-size: 20px;
+    margin: 0;
+  }
+
+  .hero-card {
+    background: white;
+    text-align: center;
+    border-radius: 2px;
+    margin-top: 300px;
+  }
+
+  $hero-border-radius: 2px;
+
+  .hero-top {
+    min-height: 100px;
+  }
+
+  .hero-bottom {
+    padding: 40px 20px 40px;
+
+    .input-file-picker {
+      display: none;
+      height: 0;
+    }
+    .icon-input-file {
+      border-style: dashed;
+      border-color: #BDBDBD;
+      border-width: 2px;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .icon-input {
+      padding: 40px;
+    }
+    .icon-input-or {
+      font-style: italic;
+      font-size: 22px;
+      margin: 20px;
+    }
+    .icon-input, .icon-input-or {
+      display: inline-block;
+    }
+  }
+
+  .hero-msg {
+    padding: 20px;
+    background: #EEEEEE;
+    p {
+      font-style: italic;
+      color: $text-color;
+      margin: 0;
+      a {
+        font-weight: 700;
+        text-decoration: none;
+        cursor: pointer;
+        color: $text-color;
+      }
+    }
+  }
+
+  $icon-size-primary: 350px;
+  $icon-size-secondary: 240px;
+  $icon-offset-primary: -50px;
+  $icon-offset-secondary: $icon-offset-primary - 70px;
+  .img-center {
+    position: absolute;
+    top: -$icon-offset-primary;
+    width: $icon-size-primary;
+    left: 50%;
+    margin-left: -$icon-size-primary / 2;
+    z-index: 100
+  }
+  .img-left {
+    position: absolute;
+    top: -$icon-offset-secondary;
+    z-index: 99;
+    width: $icon-size-secondary;
+    left: calc(50% - 230px);
+    margin-left: -$icon-size-secondary / 2;
+  }
+  .img-right {
+    position: absolute;
+    top: -$icon-offset-secondary;
+    z-index: 99;
+    width: $icon-size-secondary;
+    left: calc(50% + 230px);
+    margin-left: -$icon-size-secondary / 2;
+  }
+  .btn-primary {
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+}

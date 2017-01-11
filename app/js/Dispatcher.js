@@ -23,9 +23,13 @@ class Dispatcher {
      * Optional
      */
     constructor(inputManager, iconManager, errorManager, preselectedIconUrl) {
-        this.inputManager = inputManager;
-        this.iconManager = iconManager;
-        this.errorManager = errorManager;
+        // this.inputManager = inputManager;
+        // this.iconManager = iconManager;
+        // this.errorManager = errorManager;
+
+        this.inputManager.setSvgLoadedCallback(function(svgData) {
+            this.showEditor(svgData);
+        }.bind(this));
 
         // setup svg loading
         if (preselectedIconUrl) {
@@ -36,6 +40,7 @@ class Dispatcher {
             }.bind(this));
         }
 
+        /*
         // setup error handling
         this.iconManager.setErrorCallback(function(error) {
             ga('send', 'event', gaConstants.CATEGORY_INPUT, gaConstants.ACTION_ERROR, error.title);
@@ -44,7 +49,9 @@ class Dispatcher {
         this.errorManager.setDismissCallback(function() {
             window.history.back();
         });
+        */
 
+        /*
         // handle browser back button
         window.history.pushState({ currentPage: PAGE_INPUT }, '', '');
         window.onpopstate = function(event) {
@@ -62,6 +69,7 @@ class Dispatcher {
                 console.warn('unable to navigate to page ' + event.page);
             }
         }.bind(this);
+        */
     }
 
 

@@ -1,315 +1,64 @@
 @import 'constants';
 
 
+$text-color: #424242;
+$primary: #673AB7;
+$primary-dark: #512DA8;
+
 #container-input {
-  transition: 0.5s; // slide page down time
-  background-color: $color-primary;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 0;
-  z-index: 1000;
-  overflow-y: hidden;
-
-  #container-header {
-    padding-bottom: 60px;
-    background-color: $color-primary-dark;
-    padding-top: 20px;
-    margin-bottom: -130px;
-    text-align: center;
-
-    h1 {
-      color: $color-accent;
-      font-weight: 300;
-      font-size: 30px;
-      @media screen and (min-width: $screen-md-min) {
-        font-size: 40px;
-      }
-      @media screen and (min-width: $screen-lg-min) {
-        font-size: 50px;
-      }
-      margin: 0 0 20px;
-    }
-
-    h2 {
-      color: $color-text-disabled;
-      font-size: 14px;
-      @media screen and (min-width: $screen-md-min) {
-        font-size: 16px;
-      }
-      @media screen and (min-width: $screen-md-min) {
-        font-size: 18px;
-      }
-      font-style: italic;
-      margin: 0;
-      font-weight: 300;
-    }
-
-    i {
-      color: $color-primary;
-      margin-top: 30px;
-      font-size: 30px;
-      @media screen and (min-width: $screen-lg-min) {
-        font-size: 40px;
-      }
-      &:hover {
-        color: $color-primary-very-light;
-      }
-    }
-  }
-
-  .simplebar-scroll-content, .simplebar-content {
-    height: 100%;
-  }
+  background: #EEEEEE;
+  overflow-y: auto;
+  height: 100%;
 
   .row {
     margin: 0;
   }
 
-  .input-title {
-    color: $color-text;
-    font-weight: bold;
-    font-size: 20px;
-    @media screen and (min-width: $screen-lg-min) {
-      font-size: 28px;
-    }
-  }
-  .input-subtitle {
-    color: $color-text-disabled;
-    font-size: 16px;
-    @media screen and (min-width: $screen-lg-min) {
-      font-size: 20px;
-    }
-    a {
-      color: $color-text-disabled;
+  .btn-primary {
+    background-color: $primary;
+    border: none;
+    padding: 15px 40px;
+    text-transform: uppercase;
+    font-weight: 700;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.10), 0 2px 4px rgba(0, 0, 0, 0.20);
+    transition-duration: 300ms;
+    &:hover {
+      background-color: $primary-dark;
+      box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     }
   }
 
-
-  #container-file-picker, #input-or, #container-icon-selector {
-    position: relative;
-    top: 50%;
-    left: 50%;
-    transform: translateY(-50%) translateX(-50%);
+  .container {
+    max-width: 1000px;
   }
 
-
-  #container-file-picker {
-    height: $canvas-size-small;
-    width: $canvas-size-small;
-    @media screen and (min-width: $screen-lg-min) {
-      height: $canvas-size-medium;
-      width: $canvas-size-medium;
-    }
-    padding: 25px;
-    border-radius: 400px;
+  .navbar-default {
+    background-color: white;
+    border-radius: 0;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    margin-bottom: 0;
   }
 
-  #container-file-picker:hover #file-picker-overlay, .container-file-picker-hovered #file-picker-overlay {
-    border-color: $color-text;
+  .navbar-brand a {
+    text-decoration: none;
+    color: #B71C1C;
   }
 
-
-  #file-picker-overlay {
-    height: $canvas-size-small - 50px;
-    width: $canvas-size-small - 50px;
-    background-size: $canvas-size-small $canvas-size-small;
-    @media screen and (min-width: $screen-lg-min) {
-      height: $canvas-size-medium - 50px;
-      width: $canvas-size-medium - 50px;
-      background-size: ($canvas-size-medium - 50px) ($canvas-size-medium - 50px);
-    }
+  .navbar-nav li {
+    color: #757575;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    text-transform: uppercase;
+    margin-left: 4px;
+    margin-right: 4px;
     cursor: pointer;
-    border: 3px dashed $color-primary-light;
-    border-radius: 400px;
-  }
-
-  #file-picker-overlay-content {
-    width: 220px;
-    @media screen and (min-width: $screen-lg-min) {
-      width: 280px;
-    }
-    text-align: center;
-    margin: 0 auto;
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-  }
-
-  #file-picker-input {
-    display: none;
-    height: 0;
-  }
-
-
-  #container-icon-selector {
-    text-align: center;
-    cursor: pointer;
-    border-radius: 5px;
-    height: 180px;
-    width: 320px;
-    padding: 25px;
-    @media screen and (min-width: $screen-lg-min) {
-      height: 260px;
-      width: 440px;
-      padding: 50px;
-    }
-
-    .icon-selector-sample {
-      display: inline-block;
-      width: 24px;
-      height: 24px;
-      margin: 5px;
-      color: $color-text-disabled;
-    }
-
-    &:hover .icon-selector-sample {
-      color: $color-text;
-    }
-
-    a span {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      left: 0;
-      z-index: 1;
-      background-color: transparent;
+    border-radius: 4px;
+    transition-duration: 300ms;
+    &:hover {
+      background: #EEEEEE;
     }
   }
 
-
-  #input-or {
-    width: 30px;
-    height: 30px;
-    color: $color-text;
-    font-size: 20px;
-    font-style: italic;
-    @media screen and (min-width: $screen-lg-min) {
-      font-size: 30px;
-    }
-  }
-
-
-  #container-icon-selector:hover, #container-file-picker:hover, .container-file-picker-hovered {
-    background: $color-accent;
-    .input-title, .input-subtitle {
-      color: $color-text;
-      a {
-        color: $color-text;
-      }
-    }
-  }
-
-
-  #container-icon-picker {
-    a:hover, a:active, a:visited {
-      text-decoration: none;
-    }
-
-    .icon-picker-icons-column {
-      $icon-cols-min: 2;
-      $icon-cols-max: 9;
-      $icon-col-width: 150px;
-      $icon-col-height: 140px;
-      $icon-col-margin: 5px;
-      $icon-cols-width: $icon-cols-min * $icon-col-width;
-      @while $icon-cols-width < $icon-col-width * $icon-cols-max {
-        @media screen and (min-width: $icon-cols-width + 20px) { // space for scroll bar
-          width: $icon-cols-width;
-        }
-        $icon-cols-width: $icon-cols-width + $icon-col-width;
-      }
-
-      min-width: $icon-cols-min * $icon-col-width;
-      max-width: $icon-cols-max * $icon-col-width;
-      margin: 0 auto;
-      overflow: auto;
-      display: block;
-
-      .container-icon-anchor {
-        float: left;
-        text-align: center;
-        color: black;
-        cursor: pointer;
-        height: $icon-col-height - 2 * $icon-col-margin;
-        width: $icon-col-width - 2 * $icon-col-margin;
-        margin: $icon-col-margin;
-        border-radius: 2px;
-
-        &:hover {
-          background: $color-accent;
-          .container-icon-inner .icon-title {
-            color: $color-text;
-          }
-        }
-
-        .container-icon-inner {
-          position: relative;
-          top: 50%;
-          -webkit-transform: translateY(-50%);
-          -moz-transform: translateY(-50%);
-          transform: translateY(-50%);
-
-
-          .icon-title {
-            margin-top: 10px;
-            font-size: 10px;
-            color: $color-text-disabled;
-          }
-
-          .material-icons {
-            font-size: 40px;
-            color: $color-text;
-          }
-        }
-
-      }
-    }
-
-    #icon-picker-attribution {
-      font-style: italic;
-      color: $color-text-disabled;
-      padding-top:  100px;
-      padding-bottom: 20px;
-      a {
-        color: $color-text;
-        &:hover {
-          text-decoration: underline;
-        }
-      }
-    }
-
-    .hr-icons {
-      background: $color-primary-light;
-      padding: 0;
-      border: 0;
-      height: 1px;
-      width: 80%;
-      text-align:center;
-      margin: 0 auto;
-      margin-top: 80px;
-    }
-
-    .category-title {
-      text-transform: capitalize;
-      margin-top: 60px;
-      margin-bottom: 30px;
-      margin-left: 50px;
-      @media screen and (min-width: $screen-md-min) {
-        margin-left: 100px;
-      }
-      color: $color-text-disabled;
-      font-size: 30px;
-      font-weight: bold;
-    }
-
-  }
-
-
-}
-
-#container-input * {
-  transition: 0.3s;
 }

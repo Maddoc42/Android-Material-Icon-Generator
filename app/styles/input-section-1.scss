@@ -1,5 +1,8 @@
 @import 'constants';
 
+$break-small-input: 1000px;
+$break-tiny-input: 700px;
+
 #container-input .section-1 {
   background-image: url('/img/pattern.svg');
   background-repeat: no-repeat;
@@ -27,13 +30,25 @@
     background: white;
     text-align: center;
     border-radius: 2px;
-    margin-top: 300px;
+    margin-top: 150px;
+    @media screen and (min-width: $break-small-input) {
+      margin-top: 200px;
+    }
+    @media screen and (min-width: $break-small-input) {
+      margin-top: 300px;
+    }
   }
 
   $hero-border-radius: 2px;
 
   .hero-top {
-    min-height: 100px;
+    min-height: 30px;
+    @media screen and (min-width: $break-tiny-input) {
+      min-height: 130px;
+    }
+    @media screen and (min-width: $break-small-input) {
+      min-height: 100px;
+    }
   }
 
   .hero-bottom {
@@ -44,22 +59,43 @@
       height: 0;
     }
     .icon-input-file {
-      border-style: dashed;
-      border-color: #BDBDBD;
-      border-width: 2px;
-      border-radius: 6px;
       cursor: pointer;
+      @media screen and (min-width: $break-tiny-input) {
+        border-style: dashed;
+        border-color: #BDBDBD;
+        border-width: 2px;
+        border-radius: 6px;
+      }
     }
     .icon-input {
-      padding: 40px;
+      padding: 0;
+      @media screen and (min-width: $break-tiny-input) {
+        padding: 20px;
+      }
+      @media screen and (min-width: $break-small-input) {
+        padding: 40px;
+      }
     }
     .icon-input-or {
       font-style: italic;
       font-size: 22px;
-      margin: 20px;
+      margin: 10px;
+      @media screen and (min-width: $break-tiny-input) {
+        margin-top: 5px;
+        margin-bottom: -5px;
+      }
+      @media screen and (min-width: $break-small-input) {
+        margin: 20px;
+      }
     }
     .icon-input, .icon-input-or {
       display: inline-block;
+    }
+    .container-icon-input {
+      display: block;
+      @media screen and (min-width: $break-small-input) {
+        display: inline-block;
+      }
     }
   }
 
@@ -80,32 +116,72 @@
   }
 
   $icon-size-primary: 350px;
+  $icon-size-primary-small: 250px;
+  $icon-size-primary-tiny: 150px;
+
   $icon-size-secondary: 240px;
+  $icon-size-secondary-small: 190px;
+  $icon-size-secondary-tiny: 100px;
+
   $icon-offset-primary: -50px;
+  $icon-offset-primary-small: -50px;
+
   $icon-offset-secondary: $icon-offset-primary - 70px;
+  $icon-offset-secondary-small: $icon-offset-primary-small - 30px;
   .img-center {
     position: absolute;
-    top: -$icon-offset-primary;
-    width: $icon-size-primary;
+    z-index: 100;
     left: 50%;
-    margin-left: -$icon-size-primary / 2;
-    z-index: 100
+    top: -$icon-offset-primary-small;
+    margin-left: -$icon-size-primary-tiny / 2;
+    width: $icon-size-primary-tiny;
+    @media screen and (min-width: $break-tiny-input) {
+      margin-left: -$icon-size-primary-small / 2;
+      width: $icon-size-primary-small;
+    }
+    @media screen and (min-width: $break-small-input) {
+      top: -$icon-offset-primary;
+      margin-left: -$icon-size-primary / 2;
+      width: $icon-size-primary;
+    }
   }
   .img-left {
     position: absolute;
-    top: -$icon-offset-secondary;
     z-index: 99;
-    width: $icon-size-secondary;
-    left: calc(50% - 230px);
-    margin-left: -$icon-size-secondary / 2;
+    top: -$icon-offset-secondary-small;
+    left: calc(50% - 100px);
+    margin-left: -$icon-size-secondary-tiny / 2;
+    width: $icon-size-secondary-tiny;
+    @media screen and (min-width: $break-tiny-input) {
+      left: calc(50% - 170px);
+      margin-left: -$icon-size-secondary-small / 2;
+      width: $icon-size-secondary-small;
+    }
+    @media screen and (min-width: $break-small-input) {
+      top: -$icon-offset-secondary;
+      left: calc(50% - 230px);
+      margin-left: -$icon-size-secondary / 2;
+      width: $icon-size-secondary;
+    }
   }
   .img-right {
     position: absolute;
-    top: -$icon-offset-secondary;
     z-index: 99;
-    width: $icon-size-secondary;
-    left: calc(50% + 230px);
-    margin-left: -$icon-size-secondary / 2;
+    top: -$icon-offset-secondary-small;
+    left: calc(50% + 100px);
+    margin-left: -$icon-size-secondary-tiny / 2;
+    width: $icon-size-secondary-tiny;
+    @media screen and (min-width: $break-tiny-input) {
+      left: calc(50% + 170px);
+      margin-left: -$icon-size-secondary-small / 2;
+      width: $icon-size-secondary-small;
+    }
+    @media screen and (min-width: $break-small-input) {
+      top: -$icon-offset-secondary;
+      left: calc(50% + 230px);
+      margin-left: -$icon-size-secondary / 2;
+      width: $icon-size-secondary;
+    }
   }
   .btn-primary {
     margin-left: 10px;

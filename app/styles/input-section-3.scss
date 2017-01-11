@@ -15,7 +15,14 @@
     font-weight: 700;
     margin-bottom: 60px;
   }
+  .container-card {
+    text-align: center;
+    color: green;
+  }
   .card {
+    max-width: 350px;
+    margin: 10px auto;
+    display: block;
     background: white;
     border-radius: 2px;
     padding: 30px;

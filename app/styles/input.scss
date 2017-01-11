@@ -16,7 +16,10 @@ $primary-dark: #512DA8;
   .btn-primary {
     background-color: $primary;
     border: none;
-    padding: 15px 40px;
+    padding: 15px 20px;
+    @media screen and (min-width: $screen-sm-min) {
+      padding: 15px 40px;
+    }
     text-transform: uppercase;
     font-weight: 700;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.10), 0 2px 4px rgba(0, 0, 0, 0.20);

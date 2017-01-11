@@ -376,13 +376,6 @@ class IconManager {
         return null;
     }
 
-
-    hide() {
-        this.canvas.css('opacity', 0);
-        this.loadingOverlay.show();
-        this.loadingOverlay.css('opacity', 1);
-    }
-
     /**
      * Returns true if the path / compound path is closed, false otherwise.
      */
@@ -395,6 +388,30 @@ class IconManager {
             return true;
         }
         return false;
+    }
+
+
+    show() {
+        this.containerEdit.css('opacity', 1);
+        this.containerEdit.css('visibility', 'visible');
+        $('body').css({
+            height: '100%',
+            overflow: 'hidden',
+        });
+    }
+
+    hide() {
+        $('body').css({
+            height: 'auto',
+            overflow: 'auto',
+        });
+        this.containerEdit.css('opacity', 0);
+        setTimeout(() => {
+            this.containerEdit.css('visibility', 'hidden');
+            this.canvas.css('opacity', 0);
+            this.loadingOverlay.show();
+            this.loadingOverlay.css('opacity', 1);
+        }, 500);
     }
 
 }

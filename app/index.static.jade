@@ -1,5 +1,149 @@
 extends ./templates/base.static
 block content
+    #container-edit.container-fluid.full-height
+        .row.full-height
+            // controls
+            #container-controls-parent.col-sm-4.col-md-3(data-simplebar-direction='vertical')
+
+                #container-controls
+
+                    .controls-entry
+                        .row
+                            h3 Background color
+                        .row
+                            #color-base.input-group.color-input-group
+                                input.form-control(type='text')
+                                span.input-group-addon
+                                    i
+
+                    .controls-entry
+                        .row
+                            h3 Background shape
+                        .row
+                            from(role='form')#base-shape
+                                .radio-inline
+                                    input(type='radio', name='radio-base-shape', checked='checked')#base-shape-circle
+                                    label(for='base-shape-circle')
+                                        span
+                                        span Circle
+                                .radio-inline
+                                    input(type='radio', name='radio-base-shape')#base-shape-square
+                                    label(for='base-shape-square')
+                                        span
+                                        span Square
+
+                    .controls-entry
+                        .row
+                            h3 Icon color
+                        .row
+                            #color-icon.input-group.color-input-group
+                                input.form-control(type='text')
+                                span.input-group-addon
+                                    i
+
+                    .controls-entry
+                        .row
+                            h3 Center icon
+                        .row
+                            input#checkbox-center-icon(checked, type='checkbox', data-toggle='toggle', data-width='100')
+
+                    .controls-entry
+                        .row
+                            h3 Shadow length
+                        .row
+                            input#slider-shadow-length(type='text', data-slider-id='slider-shadow-length-id', data-slider-min='0.5', data-slider-max='60', data-slider-step='0.5', data-slider-value='30')
+
+                    .controls-entry
+                        .row
+                            h3 Shadow intensity
+                        .row
+                            input#slider-shadow-intensity(type='text', data-slider-id='slider-shadow-intensity-id', data-slider-min='0', data-slider-max='1', data-slider-step='0.01', data-slider-value='0.7')
+
+                    .controls-entry
+                        .row
+                            h3 Shadow fading
+                        .row
+                            input#slider-shadow-fading(type='text', data-slider-id='slider-shadow-fading-id', data-slider-min='0', data-slider-max='1', data-slider-step='0.01', data-slider-value='1')
+
+                    .controls-entry
+                        .row
+                            h3 Icon size
+                        .row
+                            input#slider-icon-size(type='text', data-slider-id='slider-icon-size-id', data-slider-min='0.1', data-slider-max='7', data-slider-value='5', data-slider-step='0.1', data-slider-tooltip='bottom')
+
+                    .controls-entry
+                        .row
+                            h3 Banner
+                        .row
+                            from(role='form')#banner
+                                .radio-inline
+                                    input(type='radio', name='radio-banner', checked='checked')#banner-none
+                                    label(for='banner-none')
+                                        span
+                                        span None
+                                .radio-inline
+                                    input(type='radio', name='radio-banner')#banner-beta
+                                    label(for='banner-beta')
+                                        span
+                                        span Beta
+                                .radio-inline
+                                    input(type='radio', name='radio-banner')#banner-dev
+                                    label(for='banner-dev')
+                                        span
+                                        span Dev
+
+                    #banner-collapsible-container
+                        .controls-entry
+                            .row
+                                h3 Banner background color
+                            .row
+                                #color-banner-background.input-group.color-input-group
+                                    input.form-control(type='text')
+                                    span.input-group-addon
+                                        i
+
+                        .controls-entry
+                            .row
+                                h3 Banner text color
+                            .row
+                                #color-banner-text.input-group.color-input-group
+                                    input.form-control(type='text')
+                                    span.input-group-addon
+                                        i
+
+                    .controls-entry#download-container
+                        button#btn-download-svg.btn.btn-lg.full-width(type='submit') Download
+
+
+            // canvas
+            #container-canvas-draw-parent.col-sm-8.col-md-9.full-height
+                #container-canvas-draw.full-height.full-width
+                    #container-canvas-draw-wrapper
+                        canvas#canvas-draw
+
+                #canvas-loading
+                    span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate
+
+                a(href='https://github.com/Maddoc42/Android-Material-Icon-Generator').about#about-github
+                    strong
+                        i.fa.fa-github
+                    | &nbsp; Star
+
+                a(href='http://bitdroid.de/me').about#about-homepage
+                    strong Android Material Icon Generator
+                    |  by Philipp. I'm for hire!
+
+        // hidden canvas for exporting
+        canvas#canvas-export-mdpi
+        canvas#canvas-export-hdpi
+        canvas#canvas-export-xhdpi
+        canvas#canvas-export-xxhdpi
+        canvas#canvas-export-xxxhdpi
+        canvas#canvas-export-playstore-icon
+
+        include ./templates/error.static.jade
+
+
     #container-input
         .navbar.navbar-default.shadow-depth-1
             .container
@@ -160,4 +304,4 @@ block content
 
 block script
     script.
-        require('js/app-landing').init()
+        require('js/app').init()

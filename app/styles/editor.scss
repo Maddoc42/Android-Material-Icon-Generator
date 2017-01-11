@@ -6,14 +6,17 @@ $canvas-transition-time: 0.5s;
 #container-edit {
   height: 100%;
   overflow: hidden;
-  position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
+  z-index: 200;
+  position: fixed;
+  visibility: hidden;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 500ms;
 
-  height: 100%;
-  overflow: hidden;
   padding: $controls-padding;
   background-color: $color-primary;
   #container-canvas-draw-parent {

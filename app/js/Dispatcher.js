@@ -23,9 +23,9 @@ class Dispatcher {
      * Optional
      */
     constructor(inputManager, iconManager, errorManager, preselectedIconUrl) {
-        // this.inputManager = inputManager;
-        // this.iconManager = iconManager;
-        // this.errorManager = errorManager;
+        this.inputManager = inputManager;
+        this.iconManager = iconManager;
+        this.errorManager = errorManager;
 
         this.inputManager.setSvgLoadedCallback(function(svgData) {
             this.showEditor(svgData);
@@ -40,7 +40,6 @@ class Dispatcher {
             }.bind(this));
         }
 
-        /*
         // setup error handling
         this.iconManager.setErrorCallback(function(error) {
             ga('send', 'event', gaConstants.CATEGORY_INPUT, gaConstants.ACTION_ERROR, error.title);
@@ -49,9 +48,7 @@ class Dispatcher {
         this.errorManager.setDismissCallback(function() {
             window.history.back();
         });
-        */
 
-        /*
         // handle browser back button
         window.history.pushState({ currentPage: PAGE_INPUT }, '', '');
         window.onpopstate = function(event) {
@@ -69,12 +66,11 @@ class Dispatcher {
                 console.warn('unable to navigate to page ' + event.page);
             }
         }.bind(this);
-        */
     }
 
 
     showEditor(svgData) {
-        this.inputManager.hide();
+        this.iconManager.show();
         setTimeout(function() {
             this.iconManager.onSvgLoaded(svgData);
         }.bind(this), TRANSITION_TIME);
@@ -84,10 +80,7 @@ class Dispatcher {
 
 
     showInput() {
-        this.inputManager.show();
-        setTimeout(function() {
-            this.iconManager.hide();
-        }.bind(this), TRANSITION_TIME);
+        this.iconManager.hide();
     }
 
 }

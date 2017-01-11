@@ -50,20 +50,18 @@ class Dispatcher {
         });
 
         // handle browser back button
-        window.history.pushState({ currentPage: PAGE_INPUT }, '', '');
+        window.history.pushState({currentPage: PAGE_INPUT}, '', '');
         window.onpopstate = function(event) {
-            if (!event.state) {
-                window.history.back();
-                return;
-            }
-
-            let page = event.state.currentPage;
+            let page = event && event.state && event.state.currentPage;
             if (page === PAGE_INPUT) {
                 ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_BACK);
                 if (errorManager.isVisible()) errorManager.hide();
                 this.showInput();
-            } else {
-                console.warn('unable to navigate to page ' + event.page);
+                return;
+            }
+
+            if (location.href.indexOf('#') >= 0) {
+                window.history.replaceState({currentPage: PAGE_INPUT}, '', '');
             }
         }.bind(this);
     }
@@ -75,7 +73,7 @@ class Dispatcher {
             this.iconManager.onSvgLoaded(svgData);
         }.bind(this), TRANSITION_TIME);
 
-        window.history.pushState({ currentPage: PAGE_EDITOR }, '', '');
+        window.history.pushState({ currentPage: PAGE_EDITOR }, '', '/editor');
     }
 
 

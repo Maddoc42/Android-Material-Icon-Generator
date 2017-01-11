@@ -77,14 +77,10 @@ class InputManager {
         });
 
         // setup smooth scrolling
-        let containerInput = this.containerInput;
-        $('a').click(function () {
-            ga('send', 'event', gaConstants.CATEGORY_INPUT, gaConstants.ACTION_PICK_ICON, 'scroll-down');
-            let scrollContent = containerInput.find('.simplebar-scroll-content');
-            scrollContent.animate({
-                scrollTop: $($.attr(this, 'href')).offset().top
-            }, 700, 'swing');
-            return false;
+        $('.smooth-scroll').click(function () {
+            $('html, body').animate({
+                scrollTop: $($(this).attr('href')).offset().top,
+            });
         });
     }
 

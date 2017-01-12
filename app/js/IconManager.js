@@ -394,14 +394,14 @@ class IconManager {
     show() {
         this.containerEdit.css('opacity', 1);
         this.containerEdit.css('visibility', 'visible');
-        $('body').css({
+        $('html').css({
             height: '100%',
             overflow: 'hidden',
         });
     }
 
     hide() {
-        $('body').css({
+        $('html').css({
             height: 'auto',
             overflow: 'auto',
         });

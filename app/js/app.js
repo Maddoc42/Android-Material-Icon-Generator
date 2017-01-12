@@ -3,7 +3,8 @@
 let IconManager = require('js/IconManager'),
     InputManager = require('js/InputManager'),
     ErrorManager = require('js/ErrorManager'),
-    Dispatcher = require('js/Dispatcher');
+    Dispatcher = require('js/Dispatcher'),
+    gaUtils = require('js/gaUtils');
 
 var App = {
 
@@ -38,6 +39,8 @@ var App = {
         $('[data-toggle="offcanvas"]').click(() => {
             $('.row-offcanvas').toggleClass('active');
         });
+
+        gaUtils.setup();
     },
 
     getParameterByName: function(name) {

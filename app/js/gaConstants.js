@@ -3,6 +3,8 @@
 module.exports = {
     CATEGORY_INPUT: 'input',
     CATEGORY_EDITOR: 'editor',
+    CATEGORY_LINK_OUTBOUND: 'link-outbound',
+    CATEGORY_LINK_INTERNAL: 'link-inbound',
     ACTION_PICK_FILE: 'pick-file',
     ACTION_PICK_ICON: 'pick-icon',
     ACTION_ERROR: 'error',
@@ -18,5 +20,6 @@ module.exports = {
     ACTION_CHANGE_BANNER_VALUE: 'change-banner-value',
     ACTION_CHANGE_BANNER_BACKGROUND_COLOR: 'change-banner-background-color',
     ACTION_CHANGE_BANNER_TEXT_COLOR: 'change-banner-text-color',
-    ACTION_DOWNLOAD: 'download'
+    ACTION_DOWNLOAD: 'download',
+    ACTION_CLICK: 'click',
 };

@@ -306,7 +306,7 @@ $canvas-transition-time: 0.5s;
       left: 0;
     }
     .row-offcanvas-right .sidebar-offcanvas {
-      left: -80%;
+      left: -82%; // otherwise scrollbar becomes slightly visible
     }
     .row-offcanvas-right.active .sidebar-offcanvas {
       left: 0;

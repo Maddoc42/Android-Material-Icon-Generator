@@ -87,7 +87,8 @@ $canvas-transition-time: 0.5s;
   }
   #container-controls-parent {
     height: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     padding: 0;
     background-color: $color-primary;
 

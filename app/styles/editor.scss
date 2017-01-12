@@ -301,8 +301,6 @@ $canvas-transition-time: 0.5s;
   @media screen and (max-width: 767px) {
     .row-offcanvas {
       position: relative;
-      transition: all 300ms ease-out;
-      -webkit-transition: all 300ms ease-out;
     }
     .row-offcanvas-right {
       left: 0;

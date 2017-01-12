@@ -88,7 +88,8 @@ $canvas-transition-time: 0.5s;
   #container-controls-parent {
     height: 100%;
     overflow: hidden;
-    padding: 0 !important;
+    padding: 0;
+    background-color: $color-primary;
 
     #container-controls {
       overflow: hidden;
@@ -292,5 +293,40 @@ $canvas-transition-time: 0.5s;
   @keyframes spin {
     from { transform: scale(1) rotate(0deg);}
     to { transform: scale(1) rotate(360deg);}
+  }
+
+
+  // sidebar
+  @media screen and (max-width: 767px) {
+    .row-offcanvas {
+      position: relative;
+      transition: all 300ms ease-out;
+      -webkit-transition: all 300ms ease-out;
+    }
+    .row-offcanvas-right {
+      left: 0;
+    }
+    .row-offcanvas-right .sidebar-offcanvas {
+      left: -80%;
+    }
+    .row-offcanvas-right.active .sidebar-offcanvas {
+      left: 0;
+    }
+    .sidebar-offcanvas {
+      position: absolute;
+      top: 0;
+      width: 80%;
+      padding-top: 60px !important;
+    }
+  }
+  .sidebar-menu {
+    top: 5px;
+    left: 10px;
+    right: auto !important;
+    cursor: pointer;
+    z-index: 100;
+    i {
+      color: white;
+    }
   }
 }

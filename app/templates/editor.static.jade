@@ -1,10 +1,28 @@
 #container-edit.container-fluid.full-height
-    .row.full-height
+    .row.full-height.row-offcanvas.row-offcanvas-right
+        // canvas
+        #container-canvas-draw-parent.col-xs-12.col-sm-8.col-sm-push-4.col-md-9.col-md-push-3.full-height
+            #container-canvas-draw.full-height.full-width
+                .about.sidebar-menu.visible-xs(data-toggle='offcanvas')
+                    i.material-icons menu
+                #container-canvas-draw-wrapper
+                    canvas#canvas-draw
+
+            #canvas-loading
+                span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate
+
+            a(href='https://github.com/Maddoc42/Android-Material-Icon-Generator').about#about-github
+                strong
+                    i.fa.fa-github
+                | &nbsp; Star
+
+            a(href='http://bitdroid.de/me').about#about-homepage
+                strong Android Material Icon Generator
+                |  by Philipp. I'm for hire!
+
         // controls
-        #container-controls-parent.col-sm-4.col-md-3(data-simplebar-direction='vertical')
-
+        #container-controls-parent.col-xs-6.col-sm-4.col-sm-pull-8.col-md-3.col-md-pull-9.sidebar-offcanvas
             #container-controls
-
                 .controls-entry
                     .row
                         h3 Background color
@@ -113,23 +131,6 @@
                     button#btn-download-svg.btn.btn-lg.full-width(type='submit') Download
 
 
-        // canvas
-        #container-canvas-draw-parent.col-sm-8.col-md-9.full-height
-            #container-canvas-draw.full-height.full-width
-                #container-canvas-draw-wrapper
-                    canvas#canvas-draw
-
-            #canvas-loading
-                span.glyphicon.glyphicon-refresh.glyphicon-refresh-animate
-
-            a(href='https://github.com/Maddoc42/Android-Material-Icon-Generator').about#about-github
-                strong
-                    i.fa.fa-github
-                | &nbsp; Star
-
-            a(href='http://bitdroid.de/me').about#about-homepage
-                strong Android Material Icon Generator
-                |  by Philipp. I'm for hire!
 
     // hidden canvas for exporting
     canvas#canvas-export-mdpi

@@ -33,6 +33,11 @@ var App = {
             errorManager,
             this.getParameterByName('icon')
         );
+
+        // enable sidebar toggling
+        $('[data-toggle="offcanvas"]').click(() => {
+            $('.row-offcanvas').toggleClass('active');
+        });
     },
 
     getParameterByName: function(name) {

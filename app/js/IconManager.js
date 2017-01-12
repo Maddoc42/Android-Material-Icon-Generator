@@ -365,12 +365,17 @@ class IconManager {
             for (let i = 0; i < filledPaths.length; ++i) {
                 result = result.unite(filledPaths[i]);
             }
-            result.fillColor = result.children[0].fillColor;
+            result.fillColor = filledPaths[0].fillColor;
             return result;
-        }
 
-        if (importedItem instanceof paper.PathItem) {
+        } else if (importedItem instanceof paper.PathItem) {
             return importedItem;
+
+        } else if (importedItem instanceof paper.Shape) {
+            let convertedPath = importedItem.toPath(true);
+            convertedPath.fillColor = importedItem.fillColor;
+            importedItem.remove();
+            return this.getPathFromImport(convertedPath);
         }
 
         return null;

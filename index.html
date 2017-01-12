@@ -8,12 +8,10 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="/js/vendor.js"></script>
 		<script type="text/javascript" src="/js/index.js"></script>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/bootstrap-slider.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/css/bootstrap-slider.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700" rel="stylesheet" type="text/css">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 		<link rel="stylesheet" href="/css/index.css">
 		<link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png">
@@ -37,9 +35,19 @@
 	</head>
 	<body>
 		<div id="container-edit" class="container-fluid full-height">
-			<div class="row full-height">
+			<div class="row full-height row-offcanvas row-offcanvas-right">
+				<!-- canvas-->
+				<div id="container-canvas-draw-parent" class="col-xs-12 col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 full-height">
+					<div id="container-canvas-draw" class="full-height full-width">
+						<div data-toggle="offcanvas" class="about sidebar-menu visible-xs"><i class="material-icons">menu</i></div>
+						<div id="container-canvas-draw-wrapper">
+							<canvas id="canvas-draw"></canvas>
+						</div>
+					</div>
+					<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="about"><strong><img src="img/github.svg" height="14px"></strong>&nbsp; Star</a><a href="http://bitdroid.de/me" id="about-homepage" class="about"><strong>Android Material Icon Generator</strong> by Philipp. I'm for hire!</a>
+				</div>
 				<!-- controls-->
-				<div id="container-controls-parent" data-simplebar-direction="vertical" class="col-sm-4 col-md-3">
+				<div id="container-controls-parent" class="col-xs-6 col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 sidebar-offcanvas">
 					<div id="container-controls">
 						<div class="controls-entry">
 							<div class="row">
@@ -166,15 +174,6 @@
 						</div>
 					</div>
 				</div>
-				<!-- canvas-->
-				<div id="container-canvas-draw-parent" class="col-sm-8 col-md-9 full-height">
-					<div id="container-canvas-draw" class="full-height full-width">
-						<div id="container-canvas-draw-wrapper">
-							<canvas id="canvas-draw"></canvas>
-						</div>
-					</div>
-					<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="about"><strong><i class="fa fa-github"></i></strong>&nbsp; Star</a><a href="http://bitdroid.de/me" id="about-homepage" class="about"><strong>Android Material Icon Generator</strong> by Philipp. I'm for hire!</a>
-				</div>
 			</div>
 			<!-- hidden canvas for exporting-->
 			<canvas id="canvas-export-mdpi"></canvas>
@@ -222,7 +221,7 @@
 						</div>
 						<div class="col-xs-12">
 							<div class="hero-card shadow-depth-1">
-								<div class="hero hero-top"><img src="/img/hero/icon-1.svg" class="img-center"><img src="/img/hero/icon-2.svg" class="img-left"><img src="/img/hero/icon-3.svg" class="img-right"></div>
+								<div class="hero hero-top"><img src="/img/hero/icon-1.min.svg" class="img-center"><img src="/img/hero/icon-2.min.svg" class="img-left"><img src="/img/hero/icon-3.min.svg" class="img-right"></div>
 								<div class="hero hero-bottom">
 									<input type="file" class="input-file-picker">
 									<div class="container-icon-input">
@@ -250,21 +249,21 @@
 					<div class="row">
 						<div class="col-xs-12 col-sm-4">
 							<div class="text-center">
-								<div class="feature-img"><img src="/img/feature_svg.svg"></div>
+								<div class="feature-img"><img src="/img/feature_svg.min.svg"></div>
 								<h3>Everything as SVG</h3>
 								<p>The icon, the material shadow and all effects are created in SVG!</p>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-4">
 							<div class="text-center">
-								<div class="feature-img"><img src="/img/feature_icons.svg"></div>
+								<div class="feature-img"><img src="/img/feature_icons.min.svg"></div>
 								<h3>Many icons</h3>
 								<p>Use the standard Google Material icons or upload your own!</p>
 							</div>
 						</div>
 						<div class="col-xs-12 col-sm-4">
 							<div class="text-center">
-								<div class="feature-img"><img src="/img/feature_customizable.svg"></div>
+								<div class="feature-img"><img src="/img/feature_customizable.min.svg"></div>
 								<h3>Fully customizable</h3>
 								<p>You can change colors, the material shadow, apply beta / dev banners and much more!</p>
 							</div>

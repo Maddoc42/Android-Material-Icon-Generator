@@ -73,7 +73,7 @@ class Dispatcher {
             this.iconManager.onSvgLoaded(svgData);
         }.bind(this), TRANSITION_TIME);
 
-        window.history.pushState({ currentPage: PAGE_EDITOR }, '', '/editor');
+        window.history.pushState({ currentPage: PAGE_EDITOR }, '', '');
     }
 
 

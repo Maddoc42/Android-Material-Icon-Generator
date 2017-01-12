@@ -1,8 +1,18 @@
 
-<section id="container-edit" class="container-fluid full-height">
-	<div class="row full-height">
+<div id="container-edit" class="container-fluid full-height">
+	<div class="row full-height row-offcanvas row-offcanvas-right">
+		<!-- canvas-->
+		<div id="container-canvas-draw-parent" class="col-xs-12 col-sm-8 col-sm-push-4 col-md-9 col-md-push-3 full-height">
+			<div id="container-canvas-draw" class="full-height full-width">
+				<div data-toggle="offcanvas" class="about sidebar-menu visible-xs"><i class="material-icons">menu</i></div>
+				<div id="container-canvas-draw-wrapper">
+					<canvas id="canvas-draw"></canvas>
+				</div>
+			</div>
+			<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="about"><strong><img src="img/github.svg" height="14px"/></strong>&nbsp; Star</a><a href="http://bitdroid.de/me" id="about-homepage" class="about"><strong>Android Material Icon Generator</strong> by Philipp. I'm for hire!</a>
+		</div>
 		<!-- controls-->
-		<div id="container-controls-parent" data-simplebar-direction="vertical" class="col-sm-4 col-md-3">
+		<div id="container-controls-parent" class="col-xs-6 col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 sidebar-offcanvas">
 			<div id="container-controls">
 				<div class="controls-entry">
 					<div class="row">
@@ -129,15 +139,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- canvas-->
-		<div id="container-canvas-draw-parent" class="col-sm-8 col-md-9 full-height">
-			<div id="container-canvas-draw" class="full-height full-width">
-				<div id="container-canvas-draw-wrapper">
-					<canvas id="canvas-draw"></canvas>
-				</div>
-			</div>
-			<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="about"><strong><i class="fa fa-github"></i></strong>&nbsp; Star</a><a href="http://bitdroid.de/me" id="about-homepage" class="about"><strong>Android Material Icon Generator</strong> by Philipp. I'm for hire!</a>
-		</div>
 	</div>
 	<!-- hidden canvas for exporting-->
 	<canvas id="canvas-export-mdpi"></canvas>
@@ -146,4 +147,16 @@
 	<canvas id="canvas-export-xxhdpi"></canvas>
 	<canvas id="canvas-export-xxxhdpi"></canvas>
 	<canvas id="canvas-export-playstore-icon"></canvas>
-</section>
+	<section id="container-error" class="full-height full-width">
+		<div id="container-error-content">
+			<div id="container-error-content-inner">
+				<div id="error-icon"><i class="material-icons">warning</i></div>
+				<div id="error-text">
+					<p id="error-title">No path found</p>
+					<p id="error-msg-1" class="error-msg">Make sure that your SVG file looks something like this:</p>
+					<p id="error-msg-2" class="error-msg">&lt;svg&gt;&lt;path ... /&gt;&lt;/svg&gt;</p>
+				</div>
+			</div><span id="error-close" aria-hidden="true" class="glyphicon glyphicon-remove"></span>
+		</div>
+	</section>
+</div>

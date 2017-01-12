@@ -42,7 +42,7 @@ casper.test.begin('Simple shadow create + download', 14, function (test) {
 
     // wait for js setup
     casper.wait(2000, function() {
-        var iconBtnId = '#container-icon-selector';
+        var iconBtnId = '.icon-input-select a';
         test.assertExists(iconBtnId);
         this.click(iconBtnId);
     });

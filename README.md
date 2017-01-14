@@ -8,7 +8,11 @@
 
 ## FAQ
 
-### Custom SVG file contains only a single path, but no output is generated
+### Invalid custom SVG file
+
+Here are some common causes which cause problems.
+
+#### Paths are not closed
 
 Make sure that your SVG file contains closed paths instead of open ones. For example
 
@@ -19,6 +23,10 @@ node does not connect to the last node). The icon on the right has closed paths,
 are that of the stroke width of the original icon.
 
 For Inkscape users there is a nice tool that does the above conversion: "Path" -> "Stroke to Path".
+
+#### Paths do not have a fill color
+
+Only paths which have a fill color are imported. Any other paths are considered "invisble".
 
 
 ## Build

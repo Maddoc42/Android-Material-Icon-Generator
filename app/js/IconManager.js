@@ -276,7 +276,7 @@ class IconManager {
                 // check svg paths
                 let importedPath = this.getPathFromImport(importedItem);
                 if (!importedPath) {
-                    this.errorCallback(errors.ERROR_INVALID_SVG_STRUCTURE);
+                    this.errorCallback(errors.ERROR_NO_PATH_FOUND);
                     return;
                 }
                 if (!this.isClosedPath(importedPath)) {
@@ -360,6 +360,8 @@ class IconManager {
                 if (path.fillColor) filledPaths.push(possiblePaths[i]);
                 path.remove();
             }
+
+            if (filledPaths.length === 0) return null;
 
             let result = filledPaths[0];
             for (let i = 0; i < filledPaths.length; ++i) {

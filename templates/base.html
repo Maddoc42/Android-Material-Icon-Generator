@@ -8,39 +8,44 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="/js/vendor.js"></script>
 		<script type="text/javascript" src="/js/index.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/bootstrap-slider.min.js"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/css/bootstrap-slider.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/css/bootstrap-slider.min.css">
 		<link rel="stylesheet" href="/css/index.css">
-		<link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png">
-		<link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon-60x60.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
-		<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
-		<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
-		<link rel="icon" type="image/png" href="android-chrome-192x192.png" sizes="192x192">
-		<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
-		<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
-		<link rel="manifest" href="manifest.json">
-		<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
-		<meta name="msapplication-TileColor" content="#da532c">
-		<meta name="msapplication-TileImage" content="mstile-144x144.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="/manifest.json">
+		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 		<meta name="theme-color" content="#ffffff">
+		<script async>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-74966922-1', 'auto');
+			ga('send', 'pageview');
+			
+		</script>
 	</head>
 	<body>
 	</body>
 	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		ga('create', 'UA-74966922-1', 'auto');
-		ga('send', 'pageview');
+		window.cookieconsent_options = {
+		    "message": "This website uses cookies to ensure you get the best experience on our website",
+		    "dismiss": "Got it!",
+		    "learnMore": "More info",
+		    "link": null,
+		    "theme": "light-bottom"
+		};
+	</script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>
+	<script type="text/javascript">
+		window.smartlook||(function(d) {
+		var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+		var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+		c.charset='utf-8';c.src='//rec.smartlook.com/recorder.js';h.appendChild(c);
+		})(document);
+		smartlook('init', '9299b324a45f9bbac5f0d78a2f6129a90a0ce77e');
 	</script>
 </html>

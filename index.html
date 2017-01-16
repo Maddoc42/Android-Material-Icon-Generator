@@ -8,30 +8,25 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 		<script type="text/javascript" src="/js/vendor.js"></script>
 		<script type="text/javascript" src="/js/index.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/bootstrap-slider.min.js"></script>
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/css/bootstrap-slider.min.css">
 		<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet">
 		<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/6.0.16/css/bootstrap-slider.min.css">
 		<link rel="stylesheet" href="/css/index.css">
-		<link rel="apple-touch-icon" sizes="57x57" href="apple-touch-icon-57x57.png">
-		<link rel="apple-touch-icon" sizes="60x60" href="apple-touch-icon-60x60.png">
-		<link rel="apple-touch-icon" sizes="72x72" href="apple-touch-icon-72x72.png">
-		<link rel="apple-touch-icon" sizes="76x76" href="apple-touch-icon-76x76.png">
-		<link rel="apple-touch-icon" sizes="114x114" href="apple-touch-icon-114x114.png">
-		<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120x120.png">
-		<link rel="apple-touch-icon" sizes="144x144" href="apple-touch-icon-144x144.png">
-		<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152x152.png">
-		<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon-180x180.png">
-		<link rel="icon" type="image/png" href="favicon-32x32.png" sizes="32x32">
-		<link rel="icon" type="image/png" href="android-chrome-192x192.png" sizes="192x192">
-		<link rel="icon" type="image/png" href="favicon-96x96.png" sizes="96x96">
-		<link rel="icon" type="image/png" href="favicon-16x16.png" sizes="16x16">
-		<link rel="manifest" href="manifest.json">
-		<link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
-		<meta name="msapplication-TileColor" content="#da532c">
-		<meta name="msapplication-TileImage" content="mstile-144x144.png">
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+		<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
+		<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+		<link rel="manifest" href="/manifest.json">
+		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
 		<meta name="theme-color" content="#ffffff">
+		<script async>
+			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+			        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+			    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+			ga('create', 'UA-74966922-1', 'auto');
+			ga('send', 'pageview');
+			
+		</script>
 	</head>
 	<body>
 		<div id="container-edit" class="container-fluid full-height">
@@ -44,7 +39,7 @@
 							<canvas id="canvas-draw"></canvas>
 						</div>
 					</div>
-					<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="about"><strong><img src="img/github.svg" height="14px"></strong>&nbsp; Star</a><a href="http://bitdroid.de/me" id="about-homepage" class="about"><strong>Android Material Icon Generator</strong> by Philipp. I'm for hire!</a>
+					<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="track about"><strong><img src="img/github.svg" height="16px"></strong>&nbsp; Star</a><a target="_blank" href="https://mdwp.io/material-design-for-wordpress/?utm_source=7b64e0&amp;utm_id=7b64e0" id="about-homepage" class="track about"><strong>Bootstrap Material Design</strong><span class="hidden-xs"> &ndash; awesome!</span></a>
 				</div>
 				<!-- controls-->
 				<div id="container-controls-parent" class="col-xs-6 col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 sidebar-offcanvas">
@@ -204,8 +199,8 @@
 					</div>
 					<div id="collapsible-navbar" class="collapse navbar-collapse">
 						<ul class="nav navbar-nav navbar-right">
-							<li><a href="#section-license" class="smooth-scroll">License</a></li>
-							<li><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator">GitHub</a></li>
+							<li><a href="#section-license" class="track smooth-scroll">License</a></li>
+							<li><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator" class="track">GitHub</a></li>
 						</ul>
 					</div>
 				</div>
@@ -233,11 +228,11 @@
 										<div class="icon-input-or">or</div>
 									</div>
 									<div class="container-icon-input">
-										<div class="icon-input icon-input-select"><a href="#section-material-icons" class="btn btn-primary smooth-scroll">Select Material Icon</a></div>
+										<div class="icon-input icon-input-select"><a href="#section-material-icons" class="btn btn-primary smooth-scroll track">Select Material Icon</a></div>
 									</div>
 								</div>
 								<div class="hero hero-msg">
-									<p>For a product icon, the top light from above casts a soft shadow surrounding an element lightly on the top and left.<a target="_blank" href="https://material.io/guidelines/style/icons.html#">&ndash; Material Design</a></p>
+									<p>For a product icon, the top light from above casts a soft shadow surrounding an element lightly on the top and left.<a target="_blank" href="https://material.io/guidelines/style/icons.html#" class="track">&ndash; Material Design</a></p>
 								</div>
 							</div>
 						</div>
@@ -286,7 +281,7 @@
 										<h3>Personal</h3>
 										<div class="price">Free<span class="price-msg">&nbsp;forever!</span></div>
 										<p>If you need icons for your<strong> personal or non-profit project</strong>, the material icons are completely free!</p>
-										<p>The generated icons are licensed under the&nbsp;<a href="https://creativecommons.org/licenses/by-nc/3.0/">Creative Commons Attribution-Non-Commercial 3.0 License.</a></p>
+										<p>The generated icons are licensed under the&nbsp;<a href="https://creativecommons.org/licenses/by-nc/3.0/" class="track">Creative Commons Attribution-Non-Commercial 3.0 License.</a></p>
 									</div>
 								</div>
 							</div>
@@ -300,7 +295,7 @@
 										<p>If you would like to use the icons in a<strong> commercial project</strong>, you
 											need to purchase a commercial license first.
 										</p>
-										<p>One license is for one icon. Bulk discounts are available.</p><a target="_blank" href="https://goo.gl/forms/zX8GZ3Jz89SRyHdJ2" class="btn btn-primary">Request license</a>
+										<p>One license is for one icon. Bulk discounts are available.</p><a target="_blank" href="https://goo.gl/forms/zX8GZ3Jz89SRyHdJ2" class="btn btn-primary track">Request license</a>
 									</div>
 								</div>
 							</div>
@@ -309,7 +304,7 @@
 				</div>
 			</section>
 			<section id="section-material-icons" class="section-4">
-				<div class="attribution text-center">Icons are copied from the&nbsp;<a href="https://design.google.com/icons/">Google Material icons collection</a>, which are available under the&nbsp;<a href="https://creativecommons.org/licenses/by/4.0/">CC-BY license</a>.</div>
+				<div class="attribution text-center">Icons are copied from the&nbsp;<a href="https://design.google.com/icons/" class="track">Google Material icons collection</a>, which are available under the&nbsp;<a href="https://creativecommons.org/licenses/by/4.0/" class="track">CC-BY license</a>.</div>
 				<div class="icons">
 					<div class="col-xs-12">
 						<div class="category-title text-center">
@@ -5004,18 +4999,18 @@
 								<div class="row">
 									<div class="col-xs-12 col-sm-4">
 										<h4>Developers</h4>
-										<p><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator/">GitHub</a></p>
-										<p><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator#faq">FAQs</a></p>
+										<p><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator/" class="track">GitHub</a></p>
+										<p><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator#faq" class="track">FAQs</a></p>
 									</div>
 									<div class="col-xs-12 col-sm-4">
 										<h4>Legal</h4>
-										<p><a target="_blank" href="https://www.bitdroid.de/legal-notice.html#impressum">Imprint</a></p>
-										<p><a target="_blank" href="https://www.bitdroid.de/legal-notice.html#datenschutz">Data protection</a></p>
-										<p><a target="_blank" href="https://www.bitdroid.de/material-icons-tos.html">ToS</a></p>
+										<p><a target="_blank" href="https://www.bitdroid.de/legal-notice.html#impressum" class="track">Imprint</a></p>
+										<p><a target="_blank" href="https://www.bitdroid.de/legal-notice.html#datenschutz" class="track">Data protection</a></p>
+										<p><a target="_blank" href="https://www.bitdroid.de/material-icons-tos.html" class="track">ToS</a></p>
 									</div>
 									<div class="col-xs-12 col-sm-4">
 										<h4>Company</h4>
-										<p><a href="mailto:material-icons@bitdroid.de">Contact</a></p>
+										<p><a href="mailto:material-icons@bitdroid.de" class="track">Contact</a></p>
 									</div>
 								</div>
 							</div>
@@ -5030,11 +5025,21 @@
 	</body>
 	<script>require('js/app').init()</script>
 	<script>
-		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-		        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-		    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-		ga('create', 'UA-74966922-1', 'auto');
-		ga('send', 'pageview');
+		window.cookieconsent_options = {
+		    "message": "This website uses cookies to ensure you get the best experience on our website",
+		    "dismiss": "Got it!",
+		    "learnMore": "More info",
+		    "link": null,
+		    "theme": "light-bottom"
+		};
+	</script>
+	<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js"></script>
+	<script type="text/javascript">
+		window.smartlook||(function(d) {
+		var o=smartlook=function(){ o.api.push(arguments)},h=d.getElementsByTagName('head')[0];
+		var c=d.createElement('script');o.api=new Array();c.async=true;c.type='text/javascript';
+		c.charset='utf-8';c.src='//rec.smartlook.com/recorder.js';h.appendChild(c);
+		})(document);
+		smartlook('init', '9299b324a45f9bbac5f0d78a2f6129a90a0ce77e');
 	</script>
 </html>

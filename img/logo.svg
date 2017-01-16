@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   fill="#000000"
+   height="24"
+   viewBox="0 0 24 24"
+   width="24"
+   version="1.1"
+   id="svg6"
+   sodipodi:docname="logo.svg"
+   inkscape:version="0.92.0 unknown"
+   inkscape:export-filename="/home/maddoc/android/MaterialAndroidIcons/app/assets/img/logo.png"
+   inkscape:export-xdpi="4000"
+   inkscape:export-ydpi="4000">
+  <metadata
+     id="metadata12">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs10" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1916"
+     inkscape:window-height="1143"
+     id="namedview8"
+     showgrid="false"
+     inkscape:zoom="9.8333333"
+     inkscape:cx="-47.18644"
+     inkscape:cy="12"
+     inkscape:window-x="0"
+     inkscape:window-y="36"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="svg6" />
+  <rect
+     style="opacity:1;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1"
+     id="rect3602"
+     width="16.067797"
+     height="5.4915257"
+     x="3.7627118"
+     y="12.101695" />
+  <path
+     d="M0 0h24v24H0z"
+     fill="none"
+     id="path2" />
+  <path
+     d="M 18.484262,9.0883775 21.789346,5.7832929 20.498789,4.4769975 16.878935,8.1125905 C 15.399516,7.3728815 13.762712,6.9322033 12,6.9322033 c -1.762712,0 -3.3995161,0.4406782 -4.8631962,1.1803872 L 3.5012107,4.4769975 2.2106538,5.7832929 5.5157385,9.0883775 C 2.7772398,11.087168 0.98305085,14.297821 0.98305085,17.949152 v 1.57385 H 23.016949 v -1.57385 c 0,-3.651331 -1.794189,-6.861984 -4.532687,-8.8607745 z M 7.2784508,16.375302 c -0.865618,0 -1.5738504,-0.708231 -1.5738504,-1.573849 0,-0.865617 0.7082324,-1.57385 1.5738504,-1.57385 0.865617,0 1.573849,0.708233 1.573849,1.57385 0,0.865618 -0.708232,1.573849 -1.573849,1.573849 z m 9.4430992,0 c -0.865618,0 -1.57385,-0.708231 -1.57385,-1.573849 0,-0.865617 0.708232,-1.57385 1.57385,-1.57385 0.865617,0 1.57385,0.708233 1.57385,1.57385 0,0.865618 -0.708233,1.573849 -1.57385,1.573849 z"
+     id="path4"
+     inkscape:connector-curvature="0"
+     sodipodi:nodetypes="ccccsccccsccscssssssssss"
+     style="fill:#2196f3;fill-opacity:1;stroke-width:1.57384992" />
+</svg>

@@ -77,7 +77,7 @@ http://localhost:3333/?icon=/img/material-icons/action/ic_android_48px.svg
 
 ## License
 
-Please see [LICENSE](LIENSE.md) for licensing details.
+Please see [LICENSE](LICENSE.md) for licensing details.
 
 ## Support or contact
 

@@ -84,8 +84,22 @@
 								<h3>Icon color</h3>
 							</div>
 							<div class="row">
-								<div id="color-icon" class="input-group color-input-group">
-									<input type="text" class="form-control"><span class="input-group-addon"><i></i></span>
+								<from role="form" id="color-type-icon">
+									<div class="radio-inline">
+										<input type="radio" name="radio-color-type-icon" checked="checked" id="color-type-icon-original">
+										<label for="color-type-icon-original"><span></span><span>Original</span></label>
+									</div>
+									<div class="radio-inline">
+										<input type="radio" name="radio-color-type-icon" id="color-type-icon-monochrome">
+										<label for="color-type-icon-monochrome"><span></span><span>Monochrome</span></label>
+									</div>
+								</from>
+							</div>
+							<div class="row">
+								<div id="color-icon-collapsible-container">
+									<div id="color-icon" class="input-group color-input-group">
+										<input type="text" class="form-control"><span class="input-group-addon"><i></i></span>
+									</div>
 								</div>
 							</div>
 						</div>

@@ -9,7 +9,7 @@
 					<canvas id="canvas-draw"></canvas>
 				</div>
 			</div>
-			<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="track about"><strong><img src="img/github.svg" height="16px"/></strong>&nbsp; Star</a><a target="_blank" href="https://mdwp.io/material-design-for-wordpress/?utm_source=7b64e0&amp;utm_id=7b64e0" id="about-homepage" class="track about"><strong>Bootstrap Material Design</strong><span class="hidden-xs"> &ndash; awesome!</span></a>
+			<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="track about"><strong><img src="img/github.svg" height="14px"/></strong>&nbsp; Star</a><a target="_blank" href="https://mdwp.io/material-design-for-wordpress/?utm_source=7b64e0&amp;utm_id=7b64e0" id="about-homepage" class="track about"><strong>Bootstrap Material Design</strong><span class="hidden-xs"> &ndash; awesome!</span></a><a href="mailto:material-icons@bitdroid.de?Subject=Feedback" id="about-feedback" class="track about"><i class="material-icons">mail_outline</i><strong>Feedback</strong></a>
 		</div>
 		<!-- controls-->
 		<div id="container-controls-parent" class="col-xs-6 col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 sidebar-offcanvas">
@@ -43,6 +43,23 @@
 				</div>
 				<div class="controls-entry">
 					<div class="row">
+						<h3>Background effect</h3>
+					</div>
+					<div class="row">
+						<from role="form" id="base-effect">
+							<div class="radio-inline">
+								<input type="radio" name="radio-base-effect" checked="checked" id="base-effect-none"/>
+								<label for="base-effect-none"><span></span><span>None</span></label>
+							</div>
+							<div class="radio-inline">
+								<input type="radio" name="radio-base-effect" id="base-effect-score"/>
+								<label for="base-effect-score"><span></span><span>Score</span></label>
+							</div>
+						</from>
+					</div>
+				</div>
+				<div class="controls-entry">
+					<div class="row">
 						<h3>Icon color</h3>
 					</div>
 					<div class="row">
@@ -63,14 +80,6 @@
 								<input type="text" class="form-control"/><span class="input-group-addon"><i></i></span>
 							</div>
 						</div>
-					</div>
-				</div>
-				<div class="controls-entry">
-					<div class="row">
-						<h3>Center icon</h3>
-					</div>
-					<div class="row">
-						<input id="checkbox-center-icon" checked="checked" type="checkbox" data-toggle="toggle" data-width="100"/>
 					</div>
 				</div>
 				<div class="controls-entry">
@@ -169,6 +178,9 @@
 					<p id="error-title">No path found</p>
 					<p id="error-msg-1" class="error-msg">Make sure that your SVG file looks something like this:</p>
 					<p id="error-msg-2" class="error-msg">&lt;svg&gt;&lt;path ... /&gt;&lt;/svg&gt;</p>
+				</div>
+				<div id="error-help">
+					<p class="error-msg"><strong>Not working?</strong><span> Send us an email to<a href="mailto:material-icons@bitdroid.de"> material-icons@bitdroid.de</a>, we are happy to help! :)</span></p>
 				</div>
 			</div><span id="error-close" aria-hidden="true" class="glyphicon glyphicon-remove"></span>
 		</div>

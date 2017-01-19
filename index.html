@@ -33,8 +33,8 @@
 			})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 			ga('create', 'UA-74966922-1', 'auto');
 			ga('send', 'pageview');
-			
 		</script>
+		<script id="fsc-api" src="https://d1f8f9xcsvx3ha.cloudfront.net/sbl/0.7.3/fastspring-builder.min.js" type="text/javascript" data-storefront="materialicons.onfastspring.com/popup-default-template"></script>
 	</head>
 	<body>
 		<div id="container-edit" class="container-fluid full-height">
@@ -47,7 +47,7 @@
 							<canvas id="canvas-draw"></canvas>
 						</div>
 					</div>
-					<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="track about"><strong><img src="img/github.svg" height="16px"></strong>&nbsp; Star</a><a target="_blank" href="https://mdwp.io/material-design-for-wordpress/?utm_source=7b64e0&amp;utm_id=7b64e0" id="about-homepage" class="track about"><strong>Bootstrap Material Design</strong><span class="hidden-xs"> &ndash; awesome!</span></a>
+					<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="track about"><strong><img src="img/github.svg" height="14px"></strong>&nbsp; Star</a><a target="_blank" href="https://mdwp.io/material-design-for-wordpress/?utm_source=7b64e0&amp;utm_id=7b64e0" id="about-homepage" class="track about"><strong>Bootstrap Material Design</strong><span class="hidden-xs"> &ndash; awesome!</span></a><a href="mailto:material-icons@bitdroid.de?Subject=Feedback" id="about-feedback" class="track about"><i class="material-icons">mail_outline</i><strong>Feedback</strong></a>
 				</div>
 				<!-- controls-->
 				<div id="container-controls-parent" class="col-xs-6 col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 sidebar-offcanvas">
@@ -81,6 +81,23 @@
 						</div>
 						<div class="controls-entry">
 							<div class="row">
+								<h3>Background effect</h3>
+							</div>
+							<div class="row">
+								<from role="form" id="base-effect">
+									<div class="radio-inline">
+										<input type="radio" name="radio-base-effect" checked="checked" id="base-effect-none">
+										<label for="base-effect-none"><span></span><span>None</span></label>
+									</div>
+									<div class="radio-inline">
+										<input type="radio" name="radio-base-effect" id="base-effect-score">
+										<label for="base-effect-score"><span></span><span>Score</span></label>
+									</div>
+								</from>
+							</div>
+						</div>
+						<div class="controls-entry">
+							<div class="row">
 								<h3>Icon color</h3>
 							</div>
 							<div class="row">
@@ -101,14 +118,6 @@
 										<input type="text" class="form-control"><span class="input-group-addon"><i></i></span>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div class="controls-entry">
-							<div class="row">
-								<h3>Center icon</h3>
-							</div>
-							<div class="row">
-								<input id="checkbox-center-icon" checked type="checkbox" data-toggle="toggle" data-width="100">
 							</div>
 						</div>
 						<div class="controls-entry">
@@ -208,6 +217,9 @@
 							<p id="error-msg-1" class="error-msg">Make sure that your SVG file looks something like this:</p>
 							<p id="error-msg-2" class="error-msg">&lt;svg&gt;&lt;path ... /&gt;&lt;/svg&gt;</p>
 						</div>
+						<div id="error-help">
+							<p class="error-msg"><strong>Not working?</strong><span> Send us an email to<a href="mailto:material-icons@bitdroid.de"> material-icons@bitdroid.de</a>, we are happy to help! :)</span></p>
+						</div>
 					</div><span id="error-close" aria-hidden="true" class="glyphicon glyphicon-remove"></span>
 				</div>
 			</section>
@@ -240,7 +252,7 @@
 							<div class="hero-card shadow-depth-1">
 								<div class="hero hero-top"><img src="/img/hero/icon-1.min.svg" class="img-center"><img src="/img/hero/icon-2.min.svg" class="img-left"><img src="/img/hero/icon-3.min.svg" class="img-right"></div>
 								<div class="hero hero-bottom">
-									<input type="file" class="input-file-picker">
+									<input type="file" accept=".svg, image/svg+xml" class="input-file-picker">
 									<div class="container-icon-input">
 										<div class="icon-input icon-input-file">
 											<div class="btn btn-primary">Drop SVG icon here</div>
@@ -312,12 +324,11 @@
 							<div class="container-card">
 								<div class="card shadow-depth-1">
 									<div class="text-center">
-										<h3>Commercial</h3>
-										<div class="price">$4.99</div>
+										<h3>Commercial</h3><span data-fsc-item-path="material-icon-commercial-license" data-fsc-item-unitPrice class="price"></span>
 										<p>If you would like to use the icons in a<strong> commercial project</strong>, you
 											need to purchase a commercial license first.
 										</p>
-										<p>One license is for one icon. Bulk discounts are available.</p><a target="_blank" href="https://goo.gl/forms/zX8GZ3Jz89SRyHdJ2" class="btn btn-primary track">Request license</a>
+										<p>One license is for one icon. Bulk discounts are available.</p><a href="#" data-fsc-action="Reset,Add,Checkout" data-fsc-item-path-value="material-icon-commercial-license" class="btn btn-primary track">Get license</a>
 									</div>
 								</div>
 							</div>

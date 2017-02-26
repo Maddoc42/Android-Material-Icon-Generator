@@ -101,7 +101,30 @@
 										<input type="radio" name="radio-base-effect" id="base-effect-score">
 										<label for="base-effect-score"><span></span><span>Score</span></label>
 									</div>
+									<div id="base-effect-flap-container" class="radio-inline">
+										<input type="radio" name="radio-base-effect" id="base-effect-flap">
+										<label for="base-effect-flap"><span></span><span>Flap</span></label>
+									</div>
 								</from>
+							</div>
+						</div>
+						<div id="flap-effect-collapsible-container">
+							<div class="controls-entry">
+								<div class="row">
+									<h3>Flap position</h3>
+								</div>
+								<div class="row">
+									<from role="form" id="flap-position">
+										<div class="radio-inline">
+											<input type="radio" name="radio-flap-position" checked="checked" id="flap-position-top">
+											<label for="flap-position-top"><span></span><span>Top</span></label>
+										</div>
+										<div class="radio-inline">
+											<input type="radio" name="radio-flap-position" id="flap-position-bottom">
+											<label for="flap-position-bottom"><span></span><span>Bottom</span></label>
+										</div>
+									</from>
+								</div>
 							</div>
 						</div>
 						<div class="controls-entry">
@@ -133,7 +156,7 @@
 								<h3>Shadow length</h3>
 							</div>
 							<div class="row">
-								<input id="slider-shadow-length" type="text" data-slider-id="slider-shadow-length-id" data-slider-min="0.5" data-slider-max="60" data-slider-step="0.5" data-slider-value="30">
+								<input id="slider-shadow-length" type="text" data-slider-id="slider-shadow-length-id" data-slider-min="0" data-slider-max="60" data-slider-step="0.5" data-slider-value="30">
 							</div>
 						</div>
 						<div class="controls-entry">

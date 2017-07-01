@@ -9,7 +9,7 @@
 					<canvas id="canvas-draw"></canvas>
 				</div>
 			</div>
-			<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="track about"><strong><img src="img/github.svg" height="14px"/></strong>&nbsp; Star</a><a target="_blank" href="https://mdwp.io/material-design-for-wordpress/?utm_source=7b64e0&amp;utm_id=7b64e0" id="about-homepage" class="track about"><strong>Bootstrap Material Design</strong><span class="hidden-xs"> &ndash; awesome!</span></a><a href="mailto:material-icons@bitdroid.de?Subject=Feedback" id="about-feedback" class="track about"><i class="material-icons">mail_outline</i><strong>Feedback</strong></a>
+			<div id="canvas-loading"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span></div><a target="_blank" href="https://github.com/Maddoc42/Android-Material-Icon-Generator" id="about-github" class="track about"><strong><img src="img/github.svg" height="14px"/></strong>&nbsp; Star</a><a href="mailto:material-icons@bitdroid.de?Subject=Feedback" id="about-feedback" class="track about"><i class="material-icons">mail_outline</i><strong>Feedback</strong></a>
 		</div>
 		<!-- controls-->
 		<div id="container-controls-parent" class="col-xs-6 col-sm-4 col-sm-pull-8 col-md-3 col-md-pull-9 sidebar-offcanvas">
@@ -38,6 +38,14 @@
 								<input type="radio" name="radio-base-shape" id="base-shape-square"/>
 								<label for="base-shape-square"><span></span><span>Square</span></label>
 							</div>
+							<div class="radio-inline">
+								<input type="radio" name="radio-base-shape" id="base-shape-rect-tall"/>
+								<label for="base-shape-rect-tall"><span></span><span>Rect tall</span></label>
+							</div>
+							<div class="radio-inline">
+								<input type="radio" name="radio-base-shape" id="base-shape-rect-wide"/>
+								<label for="base-shape-rect-wide"><span></span><span>Rect wide</span></label>
+							</div>
 						</from>
 					</div>
 				</div>
@@ -55,7 +63,30 @@
 								<input type="radio" name="radio-base-effect" id="base-effect-score"/>
 								<label for="base-effect-score"><span></span><span>Score</span></label>
 							</div>
+							<div id="base-effect-flap-container" class="radio-inline">
+								<input type="radio" name="radio-base-effect" id="base-effect-flap"/>
+								<label for="base-effect-flap"><span></span><span>Flap</span></label>
+							</div>
 						</from>
+					</div>
+				</div>
+				<div id="flap-effect-collapsible-container">
+					<div class="controls-entry">
+						<div class="row">
+							<h3>Flap position</h3>
+						</div>
+						<div class="row">
+							<from role="form" id="flap-position">
+								<div class="radio-inline">
+									<input type="radio" name="radio-flap-position" checked="checked" id="flap-position-top"/>
+									<label for="flap-position-top"><span></span><span>Top</span></label>
+								</div>
+								<div class="radio-inline">
+									<input type="radio" name="radio-flap-position" id="flap-position-bottom"/>
+									<label for="flap-position-bottom"><span></span><span>Bottom</span></label>
+								</div>
+							</from>
+						</div>
 					</div>
 				</div>
 				<div class="controls-entry">
@@ -87,7 +118,7 @@
 						<h3>Shadow length</h3>
 					</div>
 					<div class="row">
-						<input id="slider-shadow-length" type="text" data-slider-id="slider-shadow-length-id" data-slider-min="0.5" data-slider-max="60" data-slider-step="0.5" data-slider-value="30"/>
+						<input id="slider-shadow-length" type="text" data-slider-id="slider-shadow-length-id" data-slider-min="0" data-slider-max="60" data-slider-step="0.5" data-slider-value="30"/>
 					</div>
 				</div>
 				<div class="controls-entry">
@@ -95,7 +126,7 @@
 						<h3>Shadow intensity</h3>
 					</div>
 					<div class="row">
-						<input id="slider-shadow-intensity" type="text" data-slider-id="slider-shadow-intensity-id" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="0.7"/>
+						<input id="slider-shadow-intensity" type="text" data-slider-id="slider-shadow-intensity-id" data-slider-min="0" data-slider-max="1" data-slider-step="0.01" data-slider-value="0.3"/>
 					</div>
 				</div>
 				<div class="controls-entry">
@@ -123,6 +154,14 @@
 							<div class="radio-inline">
 								<input type="radio" name="radio-banner" checked="checked" id="banner-none"/>
 								<label for="banner-none"><span></span><span>None</span></label>
+							</div>
+							<div class="radio-inline">
+								<input type="radio" name="radio-banner" id="banner-free"/>
+								<label for="banner-free"><span></span><span>Free</span></label>
+							</div>
+							<div class="radio-inline">
+								<input type="radio" name="radio-banner" id="banner-pro"/>
+								<label for="banner-pro"><span></span><span>Pro</span></label>
 							</div>
 							<div class="radio-inline">
 								<input type="radio" name="radio-banner" id="banner-beta"/>
@@ -158,7 +197,7 @@
 					</div>
 				</div>
 				<div id="download-container" class="controls-entry">
-					<button id="btn-download-svg" type="submit" class="btn btn-lg full-width">Download</button>
+					<button id="btn-download-svg" type="submit" class="btn btn-lg full-width">Download</button><a href="#" data-fsc-action="Reset,Add,Checkout" data-fsc-item-path-value="material-icon-commercial-license" class="get-license"><strong>Going commercial?</strong><span>&nbsp; Get the license!</span></a>
 				</div>
 			</div>
 		</div>

@@ -167,13 +167,16 @@ class IconManager {
         let baseShapePicker = this.containerEdit.find('#base-shape input[name="radio-base-shape"]');
         this.setIconBaseShapeFunction = function(event, disableDraw) {
             let setCircularShape = this.containerEdit.find('#base-shape-circle')[0].checked === true;
+            let setSquareShape = this.containerEdit.find('#base-shape-square')[0].checked === true;
             if (setCircularShape) {
                 this.iconBase.setCircularShape();
-            } else {
+            } else if (setSquareShape) {
                 this.iconBase.setSquareShape();
+            } else {
+                this.iconBase.setSquareNoRadiusShape();
             }
             if (this.icon) {
-                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BASE_SHAPE, setCircularShape ? 'circular' : 'square');
+                ga('send', 'event', gaConstants.CATEGORY_EDITOR, gaConstants.ACTION_CHANGE_BASE_SHAPE, setCircularShape ? 'circular' : (setSquareShape ? 'square' : 'square-no-radius'));
                 this.icon.applyIcon();
                 this.icon.getIconShadow().applyShadow();
             }
